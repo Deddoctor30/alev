@@ -1,0 +1,38 @@
+.header {
+   margin-top: 20px;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+}
+.wrapper {
+   width: var(--max-width);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.logo {
+   display: flex;
+   align-items: center;
+}
+.image {
+   height: 50px;
+   position: relative;
+   top: 5px;
+}
+
+.items {
+   display: flex;
+   align-items: center;
+   &>*:not(:last-child) {
+      margin-right: 10px;
+   }
+}
+.item {
+   max-height: 100px;
+   padding: 20px 30px;
+   display: flex;
+   align-items: center;
+   &:hover {
+      background-color: rgba(128, 128, 128, 0.110);
+   }
+}

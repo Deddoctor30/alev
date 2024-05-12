@@ -1,0 +1,44 @@
+.houses {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  margin-top: 100px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: var(--max-width);
+}
+.title {
+  font-size: 2rem;
+  margin-bottom: 80px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.item {
+  margin-bottom: 100px;
+  a {
+    display: flex;
+    gap: 40px;
+  }
+  &__img {
+    flex: 1 1 60%;
+    img {
+      object-position: center;
+      object-fit: fill;
+      width: 100%;
+      max-height: 300px;
+    }
+  }
+  &__description {
+    flex: 1 1 40%;
+  }
+}

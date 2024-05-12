@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import type { LinkProps } from 'next/link'
 import { AnchorHTMLAttributes } from 'react'
@@ -9,7 +10,7 @@ const CustomLink = ({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnch
   const pathname = usePathname();
 
   if (isInternalLink) {
-    return <Link className={pathname === href ? 'link_active' : null} href={href} {...rest} />
+    return <Link id={pathname === href ? 'active_link' : ''} href={href} {...rest} />
   }
 
   if (isAnchorLink) {

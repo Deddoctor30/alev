@@ -1,89 +1,58 @@
-import Image from "next/image";
 import styles from "./page.module.scss";
-import { metaData } from "@/data/metaData";
+import Image from 'next/image'
+import one from '@/public/images/1.jpg';
+import two from '@/public/images/2.jpg';
+import three from '@/public/images/3.jpg';
+import four from '@/public/images/4.jpg';
+import Link from "next/link";
+
+import Button from "./UI/Button/Button";
+// import create from "./actions/createUser";
+import { createPosts } from "./actions/createPosts";
 
 export default function Home() {
+  // createPosts()
+
+ 
   return (
     <main className={styles.main}>
-      {/* <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div className={styles.wrapper}>
+        <div className={styles.center}>
+          <div className={styles.center__left}>
+            <h1>Алев Групп</h1>
+            <p>архитектурно-проектное бюро</p>
+          </div>
+          <div className={styles.center__right}>
+            <p>С момента основания в 2019 году наша команда реализовала 49 крупных проектов на территории Москвы, Московской области и в других городах России. Наша работа начинается с детальной проработки концепции, разработки АГО, АХО и других разрешаюших документов. После чего начинается стадия проектирования, которая включает в себя разработку проектной и рабочей документации. Кроме того мы предоставляем услуги технадзора и сопровождаем объект вплоть до его ввода в эксплуатацию.</p>
+            <Link className={styles.center__link} href='/about'>Связаться с нами</Link>
+          </div>
+          {/* <Button title={'Добавить пользователя'} action={create}/> */}
         </div>
-      </div> */}
-
-      <div className={styles.center}>
-        <Image className={styles.logo} src={metaData.siteLogo.path} alt={metaData.siteLogo.alt} width={metaData.siteLogo.width} height={metaData.siteLogo.height} priority/>
+        <div className={styles.promo}>
+            <div className={styles.promo__item}>
+              <Image src={one} alt="first" />
+            </div>
+            <div className={styles.promo__item}>
+              <Image src={two} alt="first" />
+            </div>
+            <div className={styles.promo__item}>
+              <Image src={three} alt="first" />
+            </div>
+            <div className={styles.promo__item}>
+              <Image src={four} alt="first" />
+            </div>
+        </div>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        <div className={styles.clients}>
+          <h2 className={styles.clients__partners}>Наши партнеры</h2>
+          <ul className={styles.clients__items}>
+            <li className={styles.clients__item}><img src='images/mosinj.jpg' alt="mosinj" /></li>
+            <li className={styles.clients__item}><img src='images/mosinj.jpg' alt="mosinj" /></li>
+            <li className={styles.clients__item}><img src='images/mosinj.jpg' alt="mosinj" /></li>
+            <li className={styles.clients__item}><img src='images/3213.jpg' alt="mosinj" /></li>
+            <li className={styles.clients__item}><img src='images/minss.png' alt="mosinj" /></li>
+          </ul>
+        </div>
     </main>
   );
 }

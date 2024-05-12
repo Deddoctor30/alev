@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import { metaData } from "@/data/metaData";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+
+
 
 const inter = Inter({ subsets: ["cyrillic"] });
 
@@ -43,7 +47,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       // Фикс гидрации
       // suppressHydrationWarning
     >
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Header/>
+        {children}
+        <Footer/>
+      </body>
     </html>
   );
 }
