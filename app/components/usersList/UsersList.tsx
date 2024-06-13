@@ -1,6 +1,6 @@
 'use Client'
 import React, { useEffect, useState } from 'react'
-import { getUsers } from '@/app/actions/getUsers'
+import { getUsers } from '@/app/actions/usersActions'
 import User from '@/types/user'
 
 import { Divider, List, Typography } from 'antd';

@@ -1,41 +1,49 @@
 import Image from 'next/image'
 import one from '@/public/images/default-avatar.jpg';
 import style from './page.module.scss'
+import { getContacts } from '../actions/contactsActions';
+import { getUsers } from '../actions/userActions';
 
-const page = () => {
+const page = async () => {
+  const contacts  = await getContacts()
+  const users  = await getUsers()
+  
+  // const deal = await prisma.deal.findMany({
+  //   orderBy: {
+  //     createdAt: 'desc'
+  //   }
+  // })
+
   return (
     <div className={style.about}>
       <div className={style.wrapper}>
         <div className={style.contacts}>
           <h2 className={style.contacts__title}>Связаться с нами</h2>
           <ul className={style.contacts__items}>
-            <li className={style.contacts__item}>
-              <h3>По вопросам ххх</h3>
-              <p>Alevgroup@mail.com</p>
-              <p>8 (999) 457-11-25</p>
-            </li>
-            <li className={style.contacts__item}>
-              <h3>По вопросам ххх</h3>
-              <p>Alevgroup@mail.com</p>
-              <p>8 (999) 457-11-25</p>
-            </li>
-            <li className={style.contacts__item}>
-              <h3>По вопросам ххх</h3>
-              <p>Alevgroup@mail.com</p>
-              <p>8 (999) 457-11-25</p>
-            </li>
-            <li className={style.contacts__item}>
-              <h3>По вопросам ххх</h3>
-              <p>Alevgroup@mail.com</p>
-              <p>8 (999) 457-11-25</p>
-            </li>
+            {contacts.map(item => 
+              <li key={item.id} className={style.contacts__item}>
+                <h3>{item.point}</h3>
+                <p>{item.email}</p>
+                <p>{item.phone}</p>
+              </li>
+            )}
 
           </ul>
         </div>
           <div className={style.management}>
             <h2 className={style.management__title}>Наше руководство</h2>
             <ul className={style.management__items}>
-              <li className={style.management__item}>
+              {users.map(item => 
+                <li key={item.id} className={style.management__item}>
+                  <img className={style.management__img} src={`/images/user/${item.avatar}`} alt={item.avatar}/>
+                  <div className={style.management__inner}>
+                    <h3>{item.position}</h3>
+                    <p>{item.name}</p>
+                  </div>
+                </li>
+
+              )}
+              {/* <li className={style.management__item}>
                 <Image className={style.management__img} src={one} alt='123'/>
                 <div className={style.management__inner}>
                   <h3>Директор</h3>
@@ -62,7 +70,7 @@ const page = () => {
                   <h3>Директор</h3>
                   <p>Иванов И.И.</p>
                 </div>
-              </li>
+              </li> */}
 
             </ul>
           </div>

@@ -7,14 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Разобраться с 3 рядом !!!!!!!!!!!!!!!!!!
+
+
+model Main {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String?   @db.VarChar(255)
+  content   String?
+  gallery   String[]
+}
 
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+  name      String
+  email     String?   @unique
+  tel       String?   @unique
+  position  String?
   role      Role     @default(USER)
   posts     Post[]
+  avatar    String[]
 }
 
 model Post {
@@ -22,12 +36,53 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
-  content   String?
+  content   String
+  thumbnail String[]
+  gallery   String[]
   author    User?    @relation(fields: [authorId], references: [id])
+  gip       String?
+  gap       String?
+  type      Type?
   authorId  Int?
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String
+  thumbnail String[]
+}
+
+model Contacts {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  point     String
+  email     String   @db.VarChar(255)
+  phone     String?   @db.VarChar(255)
+  // published Boolean? @default(false)
+}
+
+model About {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  address   String   @db.VarChar(255)
+  phone     String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  yandex    String
+  // published Boolean? @default(false)
 }
 
 enum Role {
   USER
   ADMIN
+}
+enum Type {
+  HOUSE
+  OFFICE
+  MARKET
+  PUBLIC
 }

@@ -1,6 +1,6 @@
 'use Client'
 import React, { useEffect, useState } from 'react'
-import { getPosts } from '@/app/actions/getPosts';
+import { getPosts } from '@/app/actions/postsActions';
 import Post from '@/types/post';
 
 import { Divider, List, Typography } from 'antd';
