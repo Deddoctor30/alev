@@ -3,9 +3,8 @@ import prisma from "@/lib/db"
 import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
-import { revalidatePath } from "next/cache";
 import { userSchema } from "@/lib/userTypes";
-const fs = require('fs');
+import fs from 'fs';
  
 export  const getUsers  = async () => {
   try {
@@ -18,7 +17,7 @@ export  const getUsers  = async () => {
        }
        });
   } catch (e) {
-     throw e
+     console.error('Ошибка чтения БД', e);
   } 
 }
 
@@ -29,12 +28,11 @@ export  const getUniqueUser  = async (id: number) => {
      where: { id }
     });
   } catch (e) {
-     throw e
+   console.error('Ошибка чтения БД', e);
   } 
 }
 
 export async function createUser(prevState: any, values: FormData) {
-   
   // Валидация формы
   const result = userSchema.safeParse({
     name: values.get('name'),
@@ -53,7 +51,7 @@ export async function createUser(prevState: any, values: FormData) {
      });
      return {message: {
         status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+        text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
      }}
   }
 
@@ -80,20 +78,20 @@ export async function createUser(prevState: any, values: FormData) {
             "Ошибка при попытке создать каталог при загрузке файла\n",
             e
           );
-          throw new Error('Что-то пошло не так.')
         }
       }
 
      // загружаем картинку в public
-     for (const item of fileArr) {
-        const fileName = uuidv4() + '.jpg'
-        const bytes =  await item.arrayBuffer()
-        const bufffer = Buffer.from(bytes)
-        await writeFile(`${uploadDir}/${fileName}`, bufffer)
-        console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
-        arrNames.push(fileName)
+     if (fileArr.length > 0) {
+        for (const item of fileArr) {
+           const fileName = uuidv4() + '.jpg'
+           const bytes =  await item.arrayBuffer()
+           const bufffer = Buffer.from(bytes)
+           await writeFile(`${uploadDir}/${fileName}`, bufffer)
+           console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
+           arrNames.push(fileName)
+        }
      }
-     console.log(arrNames);
      
      // Загружаем данные в БД
      await prisma.user.create({
@@ -113,7 +111,7 @@ export async function createUser(prevState: any, values: FormData) {
   } catch (e) {
      let errorMessage = '';
      if (!result.success) {
-        result.error.issues.forEach(issue => {
+        result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
         });
      }
@@ -125,16 +123,12 @@ export async function createUser(prevState: any, values: FormData) {
 }
 
 export  const deleteUser  = async (id: number) => {
-
   // Пути для картинок
   const relativeUploadDir = `/images/user`;
   const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
   try {
      const data = await getUniqueUser(id)
      const imgArr = data?.avatar
-
-     console.log(imgArr);
-     
 
      // Проходимся по полученному массиву и удаляем картинки с сервера
      imgArr?.forEach(item => {
@@ -150,9 +144,8 @@ export  const deleteUser  = async (id: number) => {
      await prisma.user.delete({
         where: { id }
      });
-    //  revalidatePath('/admin')
   } catch (e) {
-     throw e
+     console.error('Не удалось удалить запись')
   }
 }
 
@@ -176,7 +169,7 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
      });
      return {message: {
         status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+        text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
      }}
   }
 
@@ -191,9 +184,6 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
            fileArr.push(pair[1])
         }
       }
-   //   if (fileArr.length === 0) {
-   //      throw new Error('No file to uploaded')
-   //   }
 
      // Удаляем старую картинку, если есть новая
      if (fileArr.length !== 0) {
@@ -211,13 +201,15 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
      }
 
      // загружаем картинку в public
-     for (const item of fileArr) {
-        const fileName = uuidv4() + '.jpg'
-        const bytes =  await item.arrayBuffer()
-        const bufffer = Buffer.from(bytes)
-        await writeFile(`${uploadDir}/${fileName}`, bufffer)
-        console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
-        arrNames.push(fileName)
+     if (fileArr.length > 0) {
+        for (const item of fileArr) {
+           const fileName = uuidv4() + '.jpg'
+           const bytes =  await item.arrayBuffer()
+           const bufffer = Buffer.from(bytes)
+           await writeFile(`${uploadDir}/${fileName}`, bufffer)
+           console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
+           arrNames.push(fileName)
+        }
      }
 
      // Загружаем данные в БД
@@ -239,7 +231,7 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
   } catch (e) {
      let errorMessage = '';
      if (!result.success) {
-        result.error.issues.forEach(issue => {
+        result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
         });
         }

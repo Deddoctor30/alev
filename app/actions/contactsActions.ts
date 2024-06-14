@@ -11,14 +11,12 @@ export  const getContacts  = async () => {
       }
      });
    } catch (e) {
-      throw e
+      console.error('Ошибка чтения БД', e);
    } 
 }
 
 export async function createContacts(values: Contacts) {
-   // Валидация формы
-   console.log(values);
-   
+   // Валидация формы  
    const result = contactsSchema.safeParse({
       point: values.point,
       email: values.email,
@@ -33,7 +31,7 @@ export async function createContacts(values: Contacts) {
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
    
@@ -53,7 +51,7 @@ export async function createContacts(values: Contacts) {
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
       }
@@ -70,10 +68,9 @@ export  const deleteContacts  = async (id: number) => {
          where: { id }
       });
    } catch (e) {
-      throw e
+      console.error('Не удалось удалить запись')
    }
 }
-
 
 export  const updateContacts  = async ( updateId: number, values: Contacts)  => {
    // Парсим через схему Zoda в result
@@ -91,7 +88,7 @@ export  const updateContacts  = async ( updateId: number, values: Contacts)  => 
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
 
@@ -113,7 +110,7 @@ export  const updateContacts  = async ( updateId: number, values: Contacts)  => 
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
          }

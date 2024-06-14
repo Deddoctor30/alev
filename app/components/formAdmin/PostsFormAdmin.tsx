@@ -1,51 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { Form, Input, Button, Select, Upload, Divider, message  } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import type { FormProps } from 'antd';
-import { createPosts, updatePosts } from '@/app/actions/postActions';
-import { Post } from '@/types/post';
-import { createMain } from '@/app/actions/mainActions';
 import { useFormState, useFormStatus } from 'react-dom';
-const { TextArea } = Input;
+import { createPosts, updatePosts } from '@/app/actions/postActions';
+import { message  } from 'antd';
 
 import styles from './form.module.scss'
 
- const PostsFormAdmin = ({ updateId }: { updateId: any }) => {
-
-   // const normFile = (e: any) => {
-   //    console.log('Upload event:', e);
-   //    if (Array.isArray(e)) {
-   //      return e;
-   //    }
-   //    return e?.fileList;
-   //  };
-
-
-   // const [form] = Form.useForm()
-   // const onFinish: FormProps['onFinish'] = (values) => {
-   //    console.log('Success:', values.gallery[0].originFileObj);
-   //    const formData = new FormData()
-   //    formData.append('title', values.title)
-   //    formData.append('content', values.content)
-   //    formData.append('gallery', values.gallery[0].originFileObj)
-   //    // createMain(formData)
-   //    // Загрузка в БД
-   //    // createPosts(values)
-   //    form.resetFields()
-
-   //    for (const pair of formData.entries()) {        
-   //          console.log(pair[0]);
-   //          console.log(pair[1]);
-            
-   //          // fileArr.push(pair[1])
-   //       }
-   // };
-   // const onFinishFailed: FormProps<Post>['onFinishFailed'] = (errorInfo) => {
-   //    console.log('Failed:', errorInfo);
-   // };
-
-
-   
+ const PostsFormAdmin = ({ updateId }: { updateId: any }) => {  
    const initialState = {
       message: {
          status: '',
@@ -57,8 +17,7 @@ import styles from './form.module.scss'
    const [state, formAction] = useFormState(createPosts, initialState)
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
-   const formRef = useRef();
-
+   const formRef = useRef<HTMLFormElement>(null);
  
    useEffect(() => {
       switch (state.message.status) {
@@ -108,84 +67,6 @@ import styles from './form.module.scss'
 
   return (
    <>
-      {/* <Form 
-         form={form}
-         name="basic"
-         labelCol={{ span: 8 }}
-         wrapperCol={{ span: 16 }}
-         style={{ maxWidth: 1000 }}
-         initialValues={{ remember: true }}
-         onFinish={onFinish}
-         onFinishFailed={onFinishFailed}
-         autoComplete="off">
-
-         <Divider />
-         <Form.Item<Post> label="Название" name="title" rules={[{ required: true, message: 'Заполните название' }]}>
-            <Input size='large'/>
-         </Form.Item>
-
-         <Form.Item<Post> label="Содержание" name="content" rules={[{ required: true, message: 'Заполните содержание' }]}>
-            <TextArea rows={6} size='large'/>
-         </Form.Item>
-
-         <Form.Item<Post> label="ГИП" name="gip" rules={[{ required: true, message: 'Заполните ГИПа' }]}>
-            <Input size='large'/>
-         </Form.Item>
-
-         <Form.Item<Post> label="ГАП" name="gap" rules={[{ required: true, message: 'Заполните ГАПа' }]}>
-            <Input size='large'/>
-         </Form.Item>
-
-         <Form.Item label="Тип" name="type" rules={[{ required: true, message: 'Выберите тип' }]}>
-            <Select
-               size='large'
-               style={{ width: 160, zIndex: 20, position: 'relative', marginBottom: 24 }}
-               // Для отцентровки dropdown меню относительно select'ора
-               dropdownStyle={{width: 160, zIndex: 2000, position: 'absolute', top: '45px', left: '0px'}}
-               getPopupContainer={(triggerNode: any) => triggerNode.parentNode}
-               // --
-               options={[
-                  { value: 'HOUSE', label: <span>Жилые</span> },
-                  { value: 'MARKET', label: <span>Торговые</span> },
-                  { value: 'OFFICE', label: <span>Офисные</span> },
-                  { value: 'PUBLIC', label: <span>Общественные</span> },
-               ]}
-               />
-         </Form.Item>
-
-         <h2 style={{ marginBottom: 24, fontWeight: 500}}>Изображения</h2>
-         <Divider />
-
-         <Form.Item
-            name="thumbnail"
-            label="Превью"
-            valuePropName="thumbnail"
-            getValueFromEvent={normFile}
-            >
-            <Upload name="logo" listType="picture">
-               <Button size='large' icon={<UploadOutlined />}>Загрузить</Button>
-            </Upload>
-         </Form.Item>
-
-         <Form.Item
-            name="gallery"
-            label="Галерея"
-            valuePropName="gallery"
-            getValueFromEvent={normFile}
-            >
-            <Upload name="logo" listType="picture">
-               <Button size='large' icon={<UploadOutlined />}>Загрузить</Button>
-            </Upload>
-         </Form.Item>
-         <Divider />
-
-         <Form.Item style={{ display: 'flex', justifyContent: 'center'}} >
-            <Button size='large' type="primary" htmlType="submit">
-               Отправить
-            </Button>
-         </Form.Item>
-      </Form> */}
-
       {contextHolder}
       <form action={updateId ? formActionUpdate : formAction} ref={formRef} className={styles.form}>
          <div className={styles.form__wrapper}>
@@ -216,24 +97,22 @@ import styles from './form.module.scss'
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
                   <label htmlFor="type" className={styles.form__label}>Выберите тип:<span style={{color: 'red'}}>*</span></label>
-                  <select name="type" id="type">
+                  <select className={styles.form__select} name="type" id="type">
                      <option value="HOUSE">Жилые</option>
                      <option value="MARKET">Торговые</option>
                      <option value="OFFICE">Офисные</option>
-                     <option value="gap">Общественные</option>
+                     <option value="PUBLIC">Общественные</option>
                   </select>
                </div>
             </div>
-
-            <h2 style={{ marginBottom: 10, fontWeight: 500}}>Провью</h2>
+            <h2 className={styles.form__title}>Провью</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input type="file" id='uploadThumb' name='thumbnail' hidden className={styles.form__upload}/>
                <label htmlFor="uploadThumb" className={styles.form__btn}>Загрузить</label>
             </div>
             <div className={styles.form__divider}></div>
-
-            <h2 style={{ marginBottom: 10, fontWeight: 500}}>Изображения</h2>
+            <h2 className={styles.form__title}>Изображения</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input type="file" multiple id='uploadGal' name='gallery' hidden className={styles.form__upload}/>

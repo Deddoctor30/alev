@@ -3,13 +3,12 @@ import { Button, ConfigProvider, Space } from 'antd';
 
 const colors1 = ['#6253E1', '#04BEFE'];
 const colors2 = ['#fc6076', '#ff9a44', '#ef9d43', '#e75516'];
-const colors3 = ['#40e495', '#30dd8a', '#2bb673'];
 const getHoverColors = (colors: string[]) =>
   colors.map((color) => new TinyColor(color).lighten(5).toString());
 const getActiveColors = (colors: string[]) =>
   colors.map((color) => new TinyColor(color).darken(5).toString());
 
-const ListControlls = ({ id, methodDelete, openModal, setUpdateId }: { id: number, methodDelete: any, openModal: any, setUpdateId: any }) => {
+const ListControlls = ({ id, methodDelete, openModal, setUpdateId }: { id: number, methodDelete: Function, openModal: Function, setUpdateId: Function }) => {
    const update = (id: number) => {
       openModal(true)
       setUpdateId(id)
@@ -28,8 +27,7 @@ const ListControlls = ({ id, methodDelete, openModal, setUpdateId }: { id: numbe
                   lineWidth: 0,
                },
             },
-            }}
-         >
+            }}>
             <Button type="primary" size="large" onClick={() => methodDelete(id)}>
                Удалить
             </Button>
@@ -50,22 +48,6 @@ const ListControlls = ({ id, methodDelete, openModal, setUpdateId }: { id: numbe
                Обновить
             </Button>
          </ConfigProvider>
-         {/* <ConfigProvider
-            theme={{
-            components: {
-               Button: {
-                  colorPrimary: `linear-gradient(116deg,  ${colors3.join(', ')})`,
-                  colorPrimaryHover: `linear-gradient(116deg, ${getHoverColors(colors3).join(', ')})`,
-                  colorPrimaryActive: `linear-gradient(116deg, ${getActiveColors(colors3).join(', ')})`,
-                  lineWidth: 0,
-               },
-            },
-            }}
-         >
-            <Button type="primary" size="large">
-               В разработке
-            </Button>
-         </ConfigProvider> */}
       </Space>
     </>
   )

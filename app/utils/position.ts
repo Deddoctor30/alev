@@ -1,4 +1,5 @@
-export const positionFnc = (position: string) => {
+export const positionFnc = (position: string | null) => {
+   if (position === undefined || position === null) return 'Ошибка парсинга'
    switch (position) {
       case 'director':
          return 'Директор'

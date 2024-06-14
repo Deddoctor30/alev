@@ -10,7 +10,7 @@ import Footer from "./components/footer/Footer";
 const inter = Inter({ subsets: ["cyrillic"] });
 
 export const metadata: Metadata = {
-  // metadataBase: new URL(metaData.siteUrl),
+  metadataBase: new URL(metaData.siteURL),
   title: metaData.title,
   description: metaData.description,
   openGraph: {

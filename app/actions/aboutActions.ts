@@ -11,8 +11,8 @@ export  const getAbout  = async () => {
       }
      });
    } catch (e) {
-      throw e
-   } 
+      console.error('Ошибка чтения БД', e);
+   }
 }
 
 export async function createAbout(values: About) {
@@ -23,7 +23,6 @@ export async function createAbout(values: About) {
       yandex: values.yandex
    })
 
-
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';
    if (!result.success) {
@@ -32,11 +31,9 @@ export async function createAbout(values: About) {
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
-   
-      
 
    try {
       await prisma.about.create({
@@ -55,7 +52,7 @@ export async function createAbout(values: About) {
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
       }
@@ -72,10 +69,9 @@ export  const deleteAbout  = async (id: number) => {
          where: { id }
       });
    } catch (e) {
-      throw e
+      console.error('Не удалось удалить запись')
    }
 }
-
 
 export  const updateAbout  = async ( updateId: number, values: About)  => {
    // Парсим через схему Zoda в result
@@ -94,7 +90,7 @@ export  const updateAbout  = async ( updateId: number, values: About)  => {
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
 
@@ -117,7 +113,7 @@ export  const updateAbout  = async ( updateId: number, values: About)  => {
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
          }

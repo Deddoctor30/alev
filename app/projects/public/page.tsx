@@ -1,8 +1,12 @@
-import ProjectList from '@/app/components/project/ProjectList';
+import Loading from '@/app/components/loading/Loading';
+import PostsList from '@/app/components/postsList/PostsList';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
-    <ProjectList type='PUBLIC'/>
+    <Suspense fallback={<Loading/>}>
+      <PostsList type='PUBLIC'/>
+    </Suspense>
   )
 }
 

@@ -1,11 +1,10 @@
 'use client'
-import { useEffect, useState, useRef, MutableRefObject } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createMain, updateMain } from '@/app/actions/mainActions';
 import { message  } from 'antd';
 
-import styles from './form.module.scss'
-
+import styles from './form.module.scss';
 
 const MainFormAdmin = ({ updateId }: { updateId: any }) => {
    const initialState = {
@@ -19,7 +18,7 @@ const MainFormAdmin = ({ updateId }: { updateId: any }) => {
    const [state, formAction] = useFormState(createMain, initialState)
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
-   const formRef = useRef();
+   const formRef = useRef<HTMLFormElement>(null);
  
    useEffect(() => {
       switch (state.message.status) {
@@ -84,7 +83,7 @@ const MainFormAdmin = ({ updateId }: { updateId: any }) => {
                   <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>
-            <h2 style={{ marginBottom: 10, fontWeight: 500}}>Изображения</h2>
+            <h2 className={styles.form__title}>Изображения</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input multiple={true} type="file" id='upload' name='gallery' hidden className={styles.form__upload}/>

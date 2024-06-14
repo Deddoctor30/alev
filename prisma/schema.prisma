@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Разобраться с 3 рядом !!!!!!!!!!!!!!!!!!
 
 
 model Main {
@@ -15,7 +14,7 @@ model Main {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String?   @db.VarChar(255)
-  content   String?
+  content   String
   gallery   String[]
 }
 
@@ -37,12 +36,12 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   content   String
+  gip       String?
+  gap       String?
   thumbnail String[]
   gallery   String[]
   author    User?    @relation(fields: [authorId], references: [id])
-  gip       String?
-  gap       String?
-  type      Type?
+  type      Type
   authorId  Int?
 }
 

@@ -1,12 +1,10 @@
 "use server"
-import { Post } from "@prisma/client"
 import prisma from "@/lib/db"
 import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
-import { revalidatePath } from "next/cache";
 import { postsSchema } from "@/lib/postsTypes";
-const fs = require('fs');
+import fs from 'fs';
  
 export  const getPosts  = async () => {
   try {
@@ -19,7 +17,7 @@ export  const getPosts  = async () => {
        }
        });
   } catch (e) {
-     throw e
+     console.error('Ошибка чтения БД', e);
   } 
 }
 
@@ -30,68 +28,11 @@ export  const getUniquePosts  = async (id: number) => {
      where: { id }
     });
   } catch (e) {
-     throw e
+     console.error('Ошибка чтения БД', e);
   } 
 }
 
-// export async function createPosts(values: Post) {
-//   try {
-//     await prisma.post.create({
-//       data: {
-//         title: values.title,
-//         content: values.content,
-//         gip: values.gip,
-//         gap: values.gap,
-//         thumbnail: values.thumbnail,
-//         gallery: values.gallery,
-//         type: values.type
-//       },
-//     })
-//     revalidatePath('/admin')
-//   } catch (e) {
-//     throw(e)
-//   } 
-//   // finally {
-//   //   await prisma.$disconnect()
-//   // }
-// }
- 
-// export async function updatePosts(values: Post) {
-//   try {
-//     await prisma.post.update({
-//       where: { id: values.id },
-//       data: {
-//         title: values.title,
-//         content: values.content,
-//         thumbnail: values.thumbnail,
-//         gallery: values.gallery,
-//         type: values.type
-//       },
-//     })
-//   } catch (e) {
-//     throw(e)
-//   } 
-//   // finally {
-//   //   await prisma.$disconnect()
-//   // }
-// }
- 
-// export async function deletePosts(values: Post) {
-//   try {
-//     await prisma.post.delete({ where: { id: values.id } })
-//   } catch (e) {
-//     throw(e)
-//   } 
-//   // finally {
-//   //   await prisma.$disconnect()
-//   // }
-// }
-
-
-
 export async function createPosts(prevState: any, values: FormData) {
-   
-  
   // Валидация формы
   const result = postsSchema.safeParse({
     title: values.get('title'),
@@ -113,7 +54,7 @@ export async function createPosts(prevState: any, values: FormData) {
      });
      return {message: {
         status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+        text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
      }}
   }
 
@@ -124,17 +65,12 @@ export async function createPosts(prevState: any, values: FormData) {
            fileArrThumb.push(pair[1])
         }
       }
+
      for (const pair of values.entries()) {  
-      console.log(pair[0]);
-      console.log(pair[1]);      
         if (pair[0] === 'gallery' && pair[1].size) {
            fileArrGallery.push(pair[1])
-           
         }
       }
-
-      console.log(fileArrGallery);
-      
 
      // Путь для папки
      const relativeUploadDir = `/images/posts`;
@@ -151,7 +87,6 @@ export async function createPosts(prevState: any, values: FormData) {
             "Ошибка при попытке создать каталог при загрузке файла\n",
             e
           );
-          throw new Error('Что-то пошло не так.')
         }
       }
 
@@ -166,6 +101,7 @@ export async function createPosts(prevState: any, values: FormData) {
           arrNamesThumb.push(fileName)
        }
      }
+
      if (fileArrGallery.length > 0) {
       for (const item of fileArrGallery) {
         const fileName = uuidv4() + '.jpg'
@@ -177,9 +113,6 @@ export async function createPosts(prevState: any, values: FormData) {
      }
       }
 
-      // console.log(arrNamesGallery);
-      
-     
      // Загружаем данные в БД
      await prisma.post.create({
         data: {
@@ -200,7 +133,7 @@ export async function createPosts(prevState: any, values: FormData) {
   } catch (e) {
      let errorMessage = '';
      if (!result.success) {
-        result.error.issues.forEach(issue => {
+        result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
         });
      }
@@ -212,7 +145,6 @@ export async function createPosts(prevState: any, values: FormData) {
 }
 
 export  const deletePosts  = async (id: number) => {
-
   // Пути для картинок
   const relativeUploadDir = `/images/posts`;
   const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
@@ -220,7 +152,6 @@ export  const deletePosts  = async (id: number) => {
      const data = await getUniquePosts(id)
      const imgArrThumb = data?.thumbnail
      const imgArrGallery = data?.gallery
-
 
      // Проходимся по полученному массиву и удаляем картинки с сервера
      imgArrThumb?.forEach(item => {
@@ -232,6 +163,7 @@ export  const deletePosts  = async (id: number) => {
            }
         })
      })
+
      imgArrGallery?.forEach(item => {
         fs.unlink(`${uploadDir}/${item}`, err => {
            if (err) {
@@ -246,7 +178,7 @@ export  const deletePosts  = async (id: number) => {
         where: { id }
      });
   } catch (e) {
-     throw e
+      console.error('Не удалось удалить запись')
   }
 }
 
@@ -273,7 +205,7 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
      });
      return {message: {
         status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+        text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
      }}
   }
 
@@ -293,11 +225,8 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
          fileArrGallery.push(pair[1])
       }
     }
-    //  if (fileArr.length === 0) {
-    //     throw new Error('No file to uploaded')
-    //  }
 
-     // Удаляем старую картинку, если есть новая
+    // Удаляем старую картинку, если есть новая
      if (fileArrThumb.length !== 0) {
         const data = await getUniquePosts(updateId)
         const imgArr = data?.thumbnail
@@ -325,9 +254,8 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
         })
      }
 
-     //  ОБНОВИТЬ IF ВЕЗДЕ
      // загружаем картинку в public
-     if(fileArrThumb.length > 0) {
+     if (fileArrThumb.length > 0) {
        for (const item of fileArrThumb) {
           const fileName = uuidv4() + '.jpg'
           const bytes =  await item.arrayBuffer()
@@ -337,7 +265,7 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
           arrNamesThumb.push(fileName)
        }
      }
-     if(fileArrGallery.length > 0) {
+     if (fileArrGallery.length > 0) {
        for (const item of fileArrGallery) {
           const fileName = uuidv4() + '.jpg'
           const bytes =  await item.arrayBuffer()

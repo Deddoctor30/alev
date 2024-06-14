@@ -1,5 +1,5 @@
 'use client'
-import { Button, Modal, Select } from 'antd';
+import { Button, Modal } from 'antd';
 import UserFormAdmin from '../formAdmin/UserFormAdmin';
 import PostsFormAdmin from '../formAdmin/PostsFormAdmin';
 import MainFormAdmin from '../formAdmin/MainFormAdmin';
@@ -8,7 +8,6 @@ import AboutFormAdmin from '../formAdmin/AboutFormAdmin';
 import ContactsFormAdmin from '../formAdmin/ContactsFormAdmin';
 
 const ModalAdmin = ({activeSlide, isModalOpen, setIsModalOpen, updateId, setUpdateId}: {activeSlide: string, isModalOpen: any, setIsModalOpen: any, updateId: any, setUpdateId: any}) => {
-
    const showModal = () => {
       setIsModalOpen(true);
     };

@@ -1,48 +1,16 @@
-// "use server"
-// import { News } from "@/types/news";
- 
-// export  const getNews  = async () => {
-//    try {
-//      return await prisma.news.findMany();
-//    } catch (e) {
-//       throw e
-//    } 
-//    // finally {
-//    //    await prisma.$disconnect()
-//    // }
-// }
-
-// export async function createNews(values: News) {
-//    try {
-//       await prisma.news.create({
-//          data: {
-//             title: values.title,
-//             content: values.content,
-//             thumbnail: '123123'
-//          }
-//       })
-//    } catch (e) {
-//       throw(e)
-//    }
-// }
-
-
-// ---------------------------------------------------------
-
 "use server"
 import prisma from "@/lib/db"
 import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
-// import { revalidatePath, revalidateTag } from "next/cache";
-import { mainSchema } from "@/lib/mainTypes";
-const fs = require('fs');
+import { newsSchema } from "@/lib/newsTypes";
+import fs from 'fs';
  
 export  const getNews  = async () => {
    try {
      return await prisma.news.findFirst();
    } catch (e) {
-      throw e
+      console.error('Ошибка чтения БД', e);
    } 
 }
  
@@ -53,7 +21,7 @@ export  const getUnique  = async (id: number) => {
       where: { id }
      });
    } catch (e) {
-      throw e
+      console.error('Ошибка чтения БД', e);
    } 
 }
  
@@ -65,21 +33,18 @@ export  const getNewsAll  = async () => {
       }
      });
    } catch (e) {
-      throw e
+      console.error('Ошибка чтения БД', e);
    } 
 }
 
 export async function createNews(prevState: any, values: FormData) {
    // Валидация формы
-   const result = mainSchema.safeParse({
+   const result = newsSchema.safeParse({
       title: values.get('title'),
       content: values.get('content')
    })
    let fileArr: any[] = []
-   let arrNames: string[] = []
-
-   // console.log(result);
-   
+   let arrNames: string[] = []   
 
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';
@@ -89,7 +54,7 @@ export async function createNews(prevState: any, values: FormData) {
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
 
@@ -100,10 +65,6 @@ export async function createNews(prevState: any, values: FormData) {
             fileArr.push(pair[1])
          }
        }
-
-      // if (fileArr.length === 0) {
-      //    throw new Error('No file to uploaded')
-      // }
 
       // Путь для папки
       const relativeUploadDir = `/images/news`;
@@ -120,22 +81,20 @@ export async function createNews(prevState: any, values: FormData) {
              "Ошибка при попытке создать каталог при загрузке файла\n",
              e
            );
-           throw new Error('Что-то пошло не так.')
          }
        }
 
       // загружаем картинку в public
-      for (const item of fileArr) {
-         const fileName = uuidv4() + '.jpg'
-         const bytes =  await item.arrayBuffer()
-         const bufffer = Buffer.from(bytes)
-         await writeFile(`${uploadDir}/${fileName}`, bufffer)
-         console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
-         arrNames.push(fileName)
+      if (fileArr.length > 0) {
+         for (const item of fileArr) {
+            const fileName = uuidv4() + '.jpg'
+            const bytes =  await item.arrayBuffer()
+            const bufffer = Buffer.from(bytes)
+            await writeFile(`${uploadDir}/${fileName}`, bufffer)
+            console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
+            arrNames.push(fileName)
+         }
       }
-
-      // console.log(result.data.title);
-      // console.log(result.data.content);
 
       // Загружаем данные в БД
       await prisma.news.create({
@@ -153,7 +112,7 @@ export async function createNews(prevState: any, values: FormData) {
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
       }
@@ -165,7 +124,6 @@ export async function createNews(prevState: any, values: FormData) {
 }
 
 export  const deleteNews  = async (id: number) => {
-
    // Пути для картинок
    const relativeUploadDir = `/images/news`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
@@ -187,15 +145,14 @@ export  const deleteNews  = async (id: number) => {
       await prisma.news.delete({
          where: { id }
       });
-      // revalidatePath('/admin')
    } catch (e) {
-      throw e
+      console.error('Не удалось удалить запись')
    }
 }
 
 export  const updateNews  = async ( updateId: number, prevState: any, values: FormData)  => {
    // Парсим через схему Zoda в result
-   const result = mainSchema.safeParse({
+   const result = newsSchema.safeParse({
       title: values.get('title'),
       content: values.get('content')
    })
@@ -211,7 +168,7 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
       });
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
 
@@ -226,9 +183,6 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
             fileArr.push(pair[1])
          }
        }
-      if (fileArr.length === 0) {
-         throw new Error('No file to uploaded')
-      }
 
       // Удаляем старую картинку, если есть новая
       if (fileArr.length !== 0) {
@@ -245,29 +199,16 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
          })
       }
 
-      // Создаем папку
-      // try {
-      //    await stat(uploadDir);
-      //  } catch (e: any) {
-      //    if (e.code === "ENOENT") {
-      //      await mkdir(uploadDir, { recursive: true });
-      //    } else {
-      //      console.error(
-      //        "Ошибка при попытке создать каталог при загрузке файла\n",
-      //        e
-      //      );
-      //      throw new Error('Что-то пошло не так.')
-      //    }
-      //  }
-
       // загружаем картинку в public
-      for (const item of fileArr) {
-         const fileName = uuidv4() + '.jpg'
-         const bytes =  await item.arrayBuffer()
-         const bufffer = Buffer.from(bytes)
-         await writeFile(`${uploadDir}/${fileName}`, bufffer)
-         console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
-         arrNames.push(fileName)
+      if (fileArr.length > 0) {
+         for (const item of fileArr) {
+            const fileName = uuidv4() + '.jpg'
+            const bytes =  await item.arrayBuffer()
+            const bufffer = Buffer.from(bytes)
+            await writeFile(`${uploadDir}/${fileName}`, bufffer)
+            console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
+            arrNames.push(fileName)
+         }
       }
 
       // Загружаем данные в БД
@@ -287,7 +228,7 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
    } catch (e) {
       let errorMessage = '';
       if (!result.success) {
-         result.error.issues.forEach(issue => {
+         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
             errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
          });
          }

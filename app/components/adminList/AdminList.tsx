@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import User from '@/types/user'
 import {Post} from '@/types/post'
-import { Divider, List, Typography } from 'antd';
+import { Divider, List } from 'antd';
 import { News } from '@/types/news';
 import { Main } from '@/types/main';
 import { Deal } from '@/types/deal';
@@ -14,7 +14,6 @@ import ListControlls from '../listControlls/ListControlls';
 type Union = User & Post & News & Main & Deal & Contacts & About
 
 const AdminList   = ({ method, methodDelete, openModal, setUpdateId }: { method: Function, methodDelete: any, openModal: any, setUpdateId: any }) => {
-   // const data = await method()
    const [data, setData] = useState<Union[] | Union | null>(null)
    useEffect(() => {
       const fetchData = async () => {
@@ -27,7 +26,6 @@ const AdminList   = ({ method, methodDelete, openModal, setUpdateId }: { method:
    const createDataArr = (obj: Union): string[] => {
       return Object.values(obj).filter(item => item !== null).map(item => String(item))
    }
-   // console.log(data);
 
   return (
    <ul>

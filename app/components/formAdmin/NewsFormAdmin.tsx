@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { message  } from 'antd';
+import { useFormState, useFormStatus } from 'react-dom';
 import { createNews, updateNews } from '@/app/actions/newsActions';
+import { message  } from 'antd';
 
 import styles from './form.module.scss'
-import { useFormState, useFormStatus } from 'react-dom';
 
- 
  const NewsFormAdmin = ({ updateId }: { updateId: any }) => {
    const initialState = {
       message: {
@@ -18,7 +17,7 @@ import { useFormState, useFormStatus } from 'react-dom';
    const [state, formAction] = useFormState(createNews, initialState)
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
-   const formRef = useRef();
+   const formRef = useRef<HTMLFormElement>(null);
 
    useEffect(() => {
       switch (state.message.status) {
@@ -68,7 +67,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 
   return (
    <>
-   {contextHolder}
+      {contextHolder}
       <form action={updateId ? formActionUpdate : formAction} className={styles.form}>
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
@@ -83,7 +82,7 @@ import { useFormState, useFormStatus } from 'react-dom';
                   <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>
-            <h2 style={{ marginBottom: 10, fontWeight: 500}}>Изображения</h2>
+            <h2 className={styles.form__title}>Изображения</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input multiple={true} type="file" id='upload' name='thumbnail' hidden className={styles.form__upload}/>

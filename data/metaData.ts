@@ -1,7 +1,7 @@
 export const metaData = {
    title: 'Alev Group',
    author: 'Novikov Vadim',
-   siteURL: '',
+   siteURL: 'http://localhost:3000',
    headerTitle: 'Design',
    description: 'Bureau of Architecture, Design',
    language: 'ru',
