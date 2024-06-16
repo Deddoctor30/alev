@@ -16,6 +16,12 @@
 # production
 /build
 
+# public
+/public/images/main
+/public/images/news
+/public/images/posts
+/public/images/user
+
 # misc
 .DS_Store
 *.pem

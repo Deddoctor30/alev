@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createNews, updateNews } from '@/app/actions/newsActions';
 import { message  } from 'antd';
 
 import styles from './form.module.scss'
 
- const NewsFormAdmin = ({ updateId }: { updateId: any }) => {
+ const NewsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
    const initialState = {
       message: {
          status: '',
@@ -44,11 +44,16 @@ import styles from './form.module.scss'
    function SubmitButton() {
       const { pending } = useFormStatus()
       return (
-        <button type="submit" disabled={pending} className={styles.form__submit}>
+        <button type="submit" onClick={refreshHandler} disabled={pending} className={styles.form__submit}>
           Загрузить
         </button>
       )
     }
+
+    const refreshHandler = () => {
+      setRefresh(value => !value)     
+      document.forms[0].requestSubmit()
+   }
 
    function success() {
       formRef.current?.reset()

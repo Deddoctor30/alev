@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createMain, updateMain } from '@/app/actions/mainActions';
 import { message  } from 'antd';
 
 import styles from './form.module.scss';
 
-const MainFormAdmin = ({ updateId }: { updateId: any }) => {
+const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
    const initialState = {
       message: {
          status: '',
@@ -45,11 +45,16 @@ const MainFormAdmin = ({ updateId }: { updateId: any }) => {
    function SubmitButton() {
       const { pending } = useFormStatus()
       return (
-        <button type="submit" disabled={pending} className={styles.form__submit}>
+        <button type="submit" onClick={refreshHandler} disabled={pending} className={styles.form__submit}>
           Загрузить
         </button>
       )
     }
+
+    const refreshHandler = () => {
+      setRefresh(value => !value)     
+      document.forms[0].requestSubmit()
+   }
 
    function success() {
       formRef.current?.reset()

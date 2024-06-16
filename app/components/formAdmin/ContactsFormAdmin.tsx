@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Form, Input, Button, Divider  } from 'antd';
 import type { FormProps } from 'antd';
 import { Contacts } from '@/types/contacts';
 import { createContacts, updateContacts } from '@/app/actions/contactsActions';
 import styles from './form.module.scss';
 
- const ContactsFormAdmin = ({ updateId }: { updateId: any }) => {
+ const ContactsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>>  }) => {
     const [form] = Form.useForm()
     const onFinish: FormProps<Contacts>['onFinish'] = (values) => {
        console.log('Успешно:', values);
        // Загрузка в БД
        updateId ? updateContacts(updateId, values) : createContacts(values)
        form.resetFields()
+       setRefresh(value => !value)
     };
     const onFinishFailed: FormProps<Contacts>['onFinishFailed'] = (errorInfo) => {
        console.log('Ошибка:', errorInfo);

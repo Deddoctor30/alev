@@ -2,14 +2,16 @@ import { Form, Input, Button, Divider  } from 'antd';
 import type { FormProps } from 'antd';
 import { About } from '@/types/about';
 import { createAbout, updateAbout } from '@/app/actions/aboutActions';
+import { Dispatch, SetStateAction } from 'react';
 
-const AboutFormAdmin = ({ updateId }: { updateId: any }) => {
+const AboutFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>>  }) => {
   const [form] = Form.useForm()
   const onFinish: FormProps<About>['onFinish'] = (values) => {
       console.log('Успешно:', values);
      // Загрузка в БД
      updateId ? updateAbout(updateId, values) : createAbout(values)
      form.resetFields()
+     setRefresh(value => !value) 
   };
   const onFinishFailed: FormProps<About>['onFinishFailed'] = (errorInfo) => {
      console.log('Ошибка:', errorInfo);

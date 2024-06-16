@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react'
+'use client'
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import { createUser, updateUser } from '@/app/actions/userActions';
 import { message } from 'antd';
 
 import styles from './form.module.scss'
 
- const UserFormAdmin = ({ updateId }: { updateId: any }) => {
+ const UserFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
    const initialState = {
       message: {
          status: '',
@@ -41,14 +42,20 @@ import styles from './form.module.scss'
       }
    }, [stateUpdate])
 
+   
    function SubmitButton() {
       const { pending } = useFormStatus()
       return (
-        <button type="submit" disabled={pending} className={styles.form__submit}>
+         <button type="submit" onClick={refreshHandler} disabled={pending} className={styles.form__submit}>
           Загрузить
         </button>
       )
-    }
+   }
+   
+   const refreshHandler = () => {
+      setRefresh(value => !value)     
+      document.forms[0].requestSubmit()
+   }
 
    function success() {
       formRef.current?.reset()
@@ -69,7 +76,7 @@ import styles from './form.module.scss'
   return (
    <>
       {contextHolder}
-      <form action={updateId ? formActionUpdate : formAction} ref={formRef} className={styles.form}>
+      <form action={updateId ? formActionUpdate : formAction} ref={formRef} id='form' className={styles.form}>
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>

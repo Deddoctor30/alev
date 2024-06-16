@@ -5,6 +5,7 @@ import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
 import { userSchema } from "@/lib/userTypes";
 import fs from 'fs';
+import { revalidatePath } from "next/cache";
  
 export  const getUsers  = async () => {
   try {
@@ -103,7 +104,7 @@ export async function createUser(prevState: any, values: FormData) {
           avatar: arrNames
         }
      })
-
+     revalidatePath('/admin')
      return {message: {
         status: 'success',
         text: 'Данные успешно загружены'
@@ -144,6 +145,7 @@ export  const deleteUser  = async (id: number) => {
      await prisma.user.delete({
         where: { id }
      });
+     revalidatePath('/admin')
   } catch (e) {
      console.error('Не удалось удалить запись')
   }

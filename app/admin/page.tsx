@@ -1,21 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client'
 import React, { useState, Suspense } from 'react';
-import AdminList from '../components/adminList/AdminList';
 import { adminSlider } from '@/data/adminSlider';
 import ModalAdmin from '../components/modalAdmin/ModalAdmin';
-import { deletePosts, getPosts } from '../actions/postActions';
-import { deleteUser, getUsers } from '../actions/userActions';
-import { deleteNews, getNewsAll } from '../actions/newsActions';
-import { deleteMain, getMainAll } from '../actions/mainActions';
-import { deleteAbout, getAbout } from '../actions/aboutActions';
-import { deleteContacts, getContacts } from '../actions/contactsActions';
 import { Layout, Menu, theme } from 'antd';
 import { UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import styles from './page.module.scss'
 import Loading from '../components/loading/Loading';
+import AdminContent from '../components/adminContent/AdminContent';
 
 const { Content, Footer, Sider, Header } = Layout;
+
+import { useRouter } from 'next/navigation';
 
 const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined ].map(
   (icon, index) => ({
@@ -25,12 +21,17 @@ const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, 
   }),
 );
 const page = () => {
+  const [refresh, setRefresh] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
    const [activeSlide, setActiveSlide] = useState('Пользователи')
    const {
       token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     const [updateId, setUpdateId] = useState<number | null>(null)
+    
+
+    console.log(refresh);
+    
 
   return (
     <Suspense fallback={<Loading/>}>
@@ -54,11 +55,12 @@ const page = () => {
 
           {/* Модалка */}
           <Header style={{ paddingLeft: '30px', background: colorBgContainer }}>
-            <ModalAdmin activeSlide ={activeSlide} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} updateId={updateId} setUpdateId={setUpdateId}/>
+            <ModalAdmin activeSlide ={activeSlide} setRefresh={setRefresh} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} updateId={updateId} setUpdateId={setUpdateId}/>
           </Header>
 
           {/* Часть контента */}
-          <Content style={{ margin: '24px 16px 0' }}>
+          <AdminContent activeSlide={activeSlide} isRefresh={refresh} setRefresh={setRefresh} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setUpdateId={setUpdateId}/>
+          {/* <Content style={{ margin: '24px 16px 0' }}>
             <div style={{padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG}}>
               {activeSlide === 'Пользователи' &&
                 <AdminList method={getUsers} methodDelete={deleteUser} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
@@ -79,7 +81,7 @@ const page = () => {
                 <AdminList method={getContacts} methodDelete={deleteContacts} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
               }
             </div>
-          </Content>
+          </Content> */}
           {/* <Footer style={{ textAlign: 'center' }}>{new Date().getFullYear()} Created by Novikov Vadim</Footer> */}
         </Layout>
         </Layout>

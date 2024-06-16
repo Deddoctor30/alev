@@ -16,7 +16,7 @@ const page = () => {
           <div className={styles.items}>
             <div className={styles.items__item}>
               <div className={styles.items__inner}>
-                <Link href={'./projects/houses'}>
+                <Link href={'./projects/house'}>
                   <p>Жилые</p>
                   <Image src={one} alt="first" />
                 </Link>

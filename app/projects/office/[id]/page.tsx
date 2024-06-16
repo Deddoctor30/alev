@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import prisma from '@/lib/db';
+import Link from 'next/link'
+
 
 import styles from './page.module.scss'
 import { Suspense } from 'react';
@@ -15,6 +17,27 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <Suspense fallback={<Loading/>}>
+      <div className="wrapper">
+         <div className="navigation">
+            <ul className="navigation__list">
+               <li className="navigation__item">
+                  <Link href="/projects">Проекты</Link>
+               </li>
+               <li>
+                  <span>&nbsp;/&nbsp;</span>
+               </li>
+               <li className="navigation__item">
+                  <Link href="/projects/office">Проекты офисных зданий</Link>
+               </li>
+               <li>
+                  <span>&nbsp;/&nbsp;</span>
+               </li>
+               <li>
+                  <span className='navigation__item_active'>{posts?.title}</span>
+               </li>
+            </ul>
+         </div>
+      </div>
       <div className={styles.project}>
         <div className={styles.wrapper}>
           <h1 className={styles.title}>{posts?.title}</h1>

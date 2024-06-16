@@ -32,26 +32,44 @@ const page = async ({ type }: { type: Type })  => {
    }
   }
 
+
   return (
-    <div className={styles.houses}>
-      <div className={styles.wrapper}>
-        <h1 className={styles.title}>
-            {titleFnc()}
-         </h1>
-        <ul className={styles.list}>
-          {houses?.map (item => 
-            <li key={item.id} className={styles.item}>
-              <Link href={`/projects/${item.id}`}>
-                <div className={styles.item__img}>
-                  <Image src={`/images/posts/${item.thumbnail}`} alt={item.thumbnail[0]} width={500} height={500} />
-                </div>
-                <p className={styles.item__description}>{item.content}</p>
-              </Link>
-            </li>
-          )}
-        </ul>
+    <>
+      <div className="wrapper">
+        <div className="navigation">
+            <ul className="navigation__list">
+               <li className="navigation__item">
+                  <Link href="/projects">Проекты</Link>
+               </li>
+               <li>
+                  <span>&nbsp;/&nbsp;</span>
+               </li>
+               <li className="navigation__item">
+                <span className='navigation__item_active'>{titleFnc()}</span>
+               </li>
+            </ul>
+         </div>
       </div>
-    </div>
+      <div className={styles.houses}>
+        <div className={styles.wrapper}>
+          <h1 className={styles.title}>
+              {titleFnc()}
+          </h1>
+          <ul className={styles.list}>
+            {houses?.map (item => 
+              <li key={item.id} className={styles.item}>
+                <Link href={`/projects/${type.toLowerCase()}/${item.id}`}>
+                  <div className={styles.item__img}>
+                    <Image src={`/images/posts/${item.thumbnail}`} alt={item.thumbnail[0]} width={500} height={500} />
+                  </div>
+                  <p className={styles.item__description}>{item.content}</p>
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </>
   )
 }
 

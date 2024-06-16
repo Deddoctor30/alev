@@ -14,11 +14,11 @@ const Footer = async () => {
               <li className={styles.item}><a href="#">Положение об обработке личных данных</a></li>
             </ul>
             <ul className={styles.items}>
-              <li className={styles.item}><a href={about.at(0)?.yandex} target='_blank'>{about.at(0)?.address}</a></li>
+              <li className={styles.item}><a href={about?.at(0)?.yandex} target='_blank'>{about?.at(0)?.address}</a></li>
               <li> • </li>
-              <li className={styles.item}><a href={`tel:${about.at(0)?.phone}`}>{about.at(0)?.phone}</a></li>
+              <li className={styles.item}><a href={`tel:${about?.at(0)?.phone}`}>{about?.at(0)?.phone}</a></li>
               <li> • </li>
-              <li className={styles.item}><a href={`mailto:${about.at(0)?.email}`}>{about.at(0)?.email}</a></li>
+              <li className={styles.item}><a href={`mailto:${about?.at(0)?.email}`}>{about?.at(0)?.email}</a></li>
           </ul>
           <div className={styles.date}>{`© ${new Date().getFullYear()}`}</div>
         </div>

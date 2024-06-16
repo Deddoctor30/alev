@@ -156,3 +156,44 @@ a {
     width: 80%;
   }
 }
+
+.error {
+  height: 80vh;
+  // margin-top: 30vh;
+  // margin-bottom: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.navigation {
+  margin-top: 30px;
+  &__list {
+    display: flex;
+    margin-top: 20px;
+    font-style: italic;
+    width: var(--max-width);
+  }
+  &__item {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+    &_active {
+      text-decoration: underline;
+      cursor: default;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 'use Client'
 // 'use server'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, Suspense, useEffect, useState } from 'react'
 import User from '@/types/user'
 import {Post} from '@/types/post'
 import { Divider, List } from 'antd';
@@ -13,15 +13,16 @@ import ListControlls from '../listControlls/ListControlls';
 
 type Union = User & Post & News & Main & Deal & Contacts & About
 
-const AdminList   = ({ method, methodDelete, openModal, setUpdateId }: { method: Function, methodDelete: any, openModal: any, setUpdateId: any }) => {
+const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId, isRefresh, setRefresh }: { method: Function, isModalOpen: boolean, methodDelete: (id: number) => Promise<void>, openModal: Dispatch<SetStateAction<boolean>>, setUpdateId: Dispatch<SetStateAction<number | null>>, isRefresh: boolean, setRefresh: Dispatch<SetStateAction<boolean>>}) => {
    const [data, setData] = useState<Union[] | Union | null>(null)
+   // const [refresh, setRefresh] = useState(false)
    useEffect(() => {
       const fetchData = async () => {
          const fetchedData = await method()
          setData(fetchedData)
       }
       fetchData()
-   }, [])
+   }, [isModalOpen, method, isRefresh])
 
    const createDataArr = (obj: Union): string[] => {
       return Object.values(obj).filter(item => item !== null).map(item => String(item))
@@ -37,7 +38,7 @@ const AdminList   = ({ method, methodDelete, openModal, setUpdateId }: { method:
                      item.name ? item.name : item.title
                   }</Divider>
                   <List
-                     header={<ListControlls id={item.id} methodDelete={methodDelete} openModal={openModal} setUpdateId={setUpdateId}/>}
+                     header={<ListControlls id={item.id} methodDelete={methodDelete} setRefresh={setRefresh} openModal={openModal} setUpdateId={setUpdateId}/>}
                      // footer={<div>Footer</div>}
                      bordered
                      dataSource={createDataArr(item)}
