@@ -9,9 +9,9 @@ const Footer = async () => {
       <div className={styles.wrapper}>
         <div className={styles.inner}>
           <ul className={styles.items}>
-              <li className={styles.item}><a href="#">Политика конфиденциальности</a></li>
+              <li className={styles.item}><a href="/police">Политика конфиденциальности</a></li>
               <li> • </li>
-              <li className={styles.item}><a href="#">Положение об обработке личных данных</a></li>
+              <li className={styles.item}><a href="/personal">Положение об обработке личных данных</a></li>
             </ul>
             <ul className={styles.items}>
               <li className={styles.item}><a href={about?.at(0)?.yandex} target='_blank'>{about?.at(0)?.address}</a></li>

@@ -4,16 +4,16 @@ import React, { useState, Suspense } from 'react';
 import { adminSlider } from '@/data/adminSlider';
 import ModalAdmin from '../components/modalAdmin/ModalAdmin';
 import { Layout, Menu, theme } from 'antd';
-import { UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined } from '@ant-design/icons';
 import styles from './page.module.scss'
 import Loading from '../components/loading/Loading';
 import AdminContent from '../components/adminContent/AdminContent';
 
+
+
 const { Content, Footer, Sider, Header } = Layout;
 
-import { useRouter } from 'next/navigation';
-
-const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined ].map(
+const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined ].map(
   (icon, index) => ({
     key: String(adminSlider.at(index)),
     icon: React.createElement(icon),
@@ -30,9 +30,6 @@ const page = () => {
     const [updateId, setUpdateId] = useState<number | null>(null)
     
 
-    console.log(refresh);
-    
-
   return (
     <Suspense fallback={<Loading/>}>
       <div className={styles.admin}>
@@ -40,7 +37,7 @@ const page = () => {
         
         {/* Левый бар */}
         <Layout>
-          <Sider breakpoint="xxl" collapsedWidth="0" 
+          <Sider style={{ borderRadius: 10 }} breakpoint="xxl" collapsedWidth="0" 
           //    onBreakpoint={(broken) => {
           //     console.log(broken);
           //   }}
@@ -49,7 +46,7 @@ const page = () => {
           //   }}
           >
           <div className={styles.logo}>Панель Администратора</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['Пользователи']} items={items} onClick={(info) => setActiveSlide(info?.key)}/>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['Пользователи']} items={items} onClick={(info) => setActiveSlide(info?.key)}/>
           </Sider>
         <Layout>
 
