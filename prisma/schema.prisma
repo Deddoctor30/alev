@@ -7,8 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model Main {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -54,6 +52,16 @@ model News {
   thumbnail String[]
 }
 
+model Download {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String
+  name      String
+  path      String
+}
+
 model Contacts {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -61,7 +69,6 @@ model Contacts {
   point     String
   email     String   @db.VarChar(255)
   phone     String?   @db.VarChar(255)
-  // published Boolean? @default(false)
 }
 
 model About {

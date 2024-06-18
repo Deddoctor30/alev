@@ -57,28 +57,6 @@ const page = () => {
 
           {/* Часть контента */}
           <AdminContent activeSlide={activeSlide} isRefresh={refresh} setRefresh={setRefresh} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setUpdateId={setUpdateId}/>
-          {/* <Content style={{ margin: '24px 16px 0' }}>
-            <div style={{padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG}}>
-              {activeSlide === 'Пользователи' &&
-                <AdminList method={getUsers} methodDelete={deleteUser} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-              {activeSlide === 'Посты' &&
-                <AdminList method={getPosts} methodDelete={deletePosts} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-              {activeSlide === 'Главная' &&
-                <AdminList method={getMainAll} methodDelete={deleteMain} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-              {activeSlide === 'Новости' &&
-                <AdminList method={getNewsAll} methodDelete={deleteNews} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-              {activeSlide === 'О нас' &&
-                <AdminList method={getAbout} methodDelete={deleteAbout} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-              {activeSlide === 'Контакты' &&
-                <AdminList method={getContacts} methodDelete={deleteContacts} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
-              }
-            </div>
-          </Content> */}
           {/* <Footer style={{ textAlign: 'center' }}>{new Date().getFullYear()} Created by Novikov Vadim</Footer> */}
         </Layout>
         </Layout>

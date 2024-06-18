@@ -1,0 +1,1 @@
+export type downloadFiles = { status: string, message: string } | null
