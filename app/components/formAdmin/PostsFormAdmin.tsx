@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createPosts, updatePosts } from '@/app/actions/postActions';
-import { message  } from 'antd';
+import { message } from 'antd';
 
 import styles from './form.module.scss'
 

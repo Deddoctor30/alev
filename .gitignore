@@ -21,6 +21,8 @@
 /public/images/news
 /public/images/posts
 /public/images/user
+/public/images/files
+/public/files
 
 # misc
 .DS_Store

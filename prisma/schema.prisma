@@ -60,6 +60,7 @@ model Download {
   content   String
   name      String
   path      String
+  thumbnail String[]
 }
 
 model Contacts {

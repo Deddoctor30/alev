@@ -9,6 +9,7 @@ import { deleteMain, getMainAll } from '../../actions/mainActions';
 import { deleteAbout, getAbout } from '../../actions/aboutActions';
 import { deleteContacts, getContacts } from '../../actions/contactsActions';
 import { Dispatch, SetStateAction } from 'react';
+import { deleteDownload, getDownloadAll } from '@/app/actions/downloadActions';
 
 const AdminContent = ({activeSlide, isModalOpen, setIsModalOpen, setUpdateId, isRefresh, setRefresh}: {activeSlide: string, isModalOpen: boolean, setIsModalOpen: Dispatch<SetStateAction<boolean>>, setUpdateId: Dispatch<SetStateAction<number | null>>, isRefresh: boolean, setRefresh: Dispatch<SetStateAction<boolean>>}) => {
   return (
@@ -31,6 +32,9 @@ const AdminContent = ({activeSlide, isModalOpen, setIsModalOpen, setUpdateId, is
      }
      {activeSlide === 'Контакты' &&
        <AdminList method={getContacts} isRefresh={isRefresh} setRefresh={setRefresh} isModalOpen={isModalOpen} methodDelete={deleteContacts} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
+     }
+     {activeSlide === 'Документы' &&
+       <AdminList method={getDownloadAll} isRefresh={isRefresh} setRefresh={setRefresh} isModalOpen={isModalOpen} methodDelete={deleteDownload} openModal={setIsModalOpen} setUpdateId={setUpdateId}/>
      }
    </div>
  </Content>

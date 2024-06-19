@@ -40,12 +40,19 @@ export  const getDownloadAll  = async () => {
 export async function createDownload(prevState: any, values: FormData) {
    // Валидация формы
    const result = downloadSchema.safeParse({
-      file: values.get('file'),
+      title: values.get('title'),
+      content: values.get('content'),
+      // name: values.get('name'),
+      // path: values.get('path'),
    })
+   let rawName = ''
    let fileName = ''
    let shortFileName = ''
+   let extension = ''
    let fileArr: any[] = []
-   let arrNames: string[] = []   
+   let arrNames: string[] = [] 
+   let fileArrThumb: any[] = []  
+   let arrNamesThumb: string[] = []
 
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';
@@ -59,20 +66,36 @@ export async function createDownload(prevState: any, values: FormData) {
       }}
    }
 
+   // Путь для папки файлов
+   const relativeUploadDir = `/files`;
+   const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
+   // Путь для папки картинок
+   const relativeUploadDirThumb = `/images/files`;
+   const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
+
    try {
       // Получаем файл в массив
       for (const pair of values.entries()) {
          if (pair[0] === 'file' && pair[1].size) {
             fileArr.push(pair[1])
-            fileName = pair[1].name
+            // Исходное наименование файла
+            rawName = pair[1].name
+            // Расширение файла
+            extension = rawName.slice(pair[1].name.indexOf('.')).toLowerCase()
+            // Короткое наименование файла без расширения
+            shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
+            // Итоговое сгенерированное название файла
+            fileName = `${shortFileName}_${uuidv4()}${extension}`
+         }
+       }
+      // Получаем картинку в массив
+      for (const pair of values.entries()) {      
+         if (pair[0] === 'thumbnail' && pair[1].size) {
+            fileArrThumb.push(pair[1])
          }
        }
 
-      // Путь для папки
-      const relativeUploadDir = `/files`;
-      const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
-
-      // Создаем папку
+      // Создаем папку для файлов
       try {
          await stat(uploadDir);
        } catch (e: any) {
@@ -86,7 +109,21 @@ export async function createDownload(prevState: any, values: FormData) {
          }
        }
 
-      // загружаем картинку в public
+      // Создаем папку для картинок
+      try {
+         await stat(uploadDirThumb);
+       } catch (e: any) {
+         if (e.code === "ENOENT") {
+           await mkdir(uploadDirThumb, { recursive: true });
+         } else {
+           console.error(
+             "Ошибка при попытке создать каталог при загрузке файла\n",
+             e
+           );
+         }
+       }
+
+      // Загружаем файл в public
       if (fileArr.length > 0) {
          for (const item of fileArr) {
             // const fileName = uuidv4() + '.jpg'
@@ -98,16 +135,30 @@ export async function createDownload(prevState: any, values: FormData) {
          }
       }
 
-      // Убираем расширение файла, для создания пути для брейкпоинта Api
-      shortFileName = fileName.slice(fileName.lastIndexOf('=') + 1).toLowerCase()
+      // загружаем картинку в public
+      if (fileArrThumb.length > 0) {
+         for (const item of fileArrThumb) {
+            const fileName = uuidv4() + '.jpg'
+            const bytes =  await item.arrayBuffer()
+            const bufffer = Buffer.from(bytes)
+            await writeFile(`${uploadDirThumb}/${fileName}`, bufffer)
+            console.log(`откройте ${uploadDirThumb} чтобы увидеть загруженные файлы`);
+            arrNamesThumb.push(fileName)
+         }
+      }
+
+      console.log('fileArrThumb фвцвфцв', fileArrThumb);
+      console.log('arrNamesThumb фвцвфцв', arrNamesThumb);
+      
 
       // Загружаем данные в БД
       await prisma.download.create({
          data: {
             title: result.data.title as string,
             content: result.data.content as string,
-            name: result.data.name as string,
-            path: `/api/download/${shortFileName}`
+            name: fileName as string,
+            path: `/api/download/`,
+            thumbnail: arrNamesThumb,
          }
       })
 
@@ -129,24 +180,46 @@ export async function createDownload(prevState: any, values: FormData) {
    }
 }
 
+
 export  const deleteDownload  = async (id: number) => {
-   // Пути для картинок
-   const relativeUploadDir = `/images/news`;
+   // Пути для файлов
+   const relativeUploadDir = `/files`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
+      // Пути для картинок
+   const relativeUploadDirThumb = `/images/files`;
+   const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
+
    try {
       const data = await getUnique(id)
-      const imgArr = data?.thumbnail
+      const file = data?.name
+      const thumbnail = data?.thumbnail
 
-      // Проходимся по полученному массиву и удаляем картинки с сервера
-      imgArr?.forEach(item => {
-         fs.unlink(`${uploadDir}/${item}`, err => {
-            if (err) {
-               console.log(err);
-            } else {
-               console.log(`Файл ${item} удален`)
-            }
-         })
+      // Проходимся по полученному массиву и удаляем файлы с сервера
+      fs.unlink(`${uploadDir}/${file}`, err => {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(`Файл ${file} удален`)
+         }
       })
+      // Проходимся по полученному массиву и удаляем картинки с сервера
+      fs.unlink(`${uploadDirThumb}/${thumbnail}`, err => {
+         if (err) {
+            console.log(err);
+         } else {
+            console.log(`Файл ${thumbnail} удален`)
+         }
+      })
+      // Для массива
+      // imgArr?.forEach(item => {
+      //    fs.unlink(`${uploadDir}/${item}`, err => {
+      //       if (err) {
+      //          console.log(err);
+      //       } else {
+      //          console.log(`Файл ${item} удален`)
+      //       }
+      //    })
+      // })
 
       await prisma.download.delete({
          where: { id }
@@ -163,8 +236,14 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
       content: values.get('content')
    })
    
+   let rawName = ''
+   let fileName = ''
+   let shortFileName = ''
+   let extension = ''
+   let fileArrThumb: any[] = []
    let fileArr: any[] = []
    let arrNames: string[] = []
+   let arrNamesThumb: string[] = []
 
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';
@@ -181,21 +260,56 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
    // Путь для папки
    const relativeUploadDir = `/images/news`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
+         // Пути для картинок
+   const relativeUploadDirThumb = `/images/files`;
+   const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
+
 
    try {
-      // Получаем массив картинок
+      // Получаем массив файлов
       for (const pair of values.entries()) {
-         if (pair[0] === 'thumbnail') {
+         if (pair[0] === 'file' && pair[1].size) {
             fileArr.push(pair[1])
+         // Исходное наименование файла
+         rawName = pair[1].name
+         // Расширение файла
+         extension = rawName.slice(pair[1].name.indexOf('.')).toLowerCase()
+         // Короткое наименование файла без расширения
+         shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
+         // Итоговое сгенерированное название файла
+         fileName = `${shortFileName}_${uuidv4()}${extension}`
+         }
+       }
+       for (const pair of values.entries()) {        
+         if (pair[0] === 'thumbnail' && pair[1].size) {
+            fileArrThumb.push(pair[1])
          }
        }
 
-      // Удаляем старую картинку, если есть новая
+      // Удаляем старый файл, если есть новый
       if (fileArr.length !== 0) {
          const data = await getUnique(updateId)
-         const imgArr = data?.thumbnail
-         imgArr?.forEach(item => {
-            fs.unlink(`${uploadDir}/${item}`, err => {
+         const pdfArr = data?.name
+         fs.unlink(`${uploadDir}/${pdfArr}`, err => {
+            if (err) {
+               console.log(err);
+            } else {
+               console.log(`Файл ${pdfArr} удален`)
+            }
+         })
+         // Для массива
+         // pdfArr?.forEach(item => {
+         //    fs.unlink(`${uploadDir}/${item}`, err => {
+         //       if (err) {
+         //          console.log(err);
+         //       } else {
+         //          console.log(`Файл ${item} удален`)
+         //       }
+         //    })
+         // })
+         // Проходимся по полученному массиву и удаляем картинки с сервера
+         fileArrThumb.forEach(item => {
+            fs.unlink(`${uploadDirThumb}/${item}`, err => {
                if (err) {
                   console.log(err);
                } else {
@@ -205,10 +319,10 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
          })
       }
 
-      // загружаем картинку в public
+      // загружаем файл в public
       if (fileArr.length > 0) {
          for (const item of fileArr) {
-            const fileName = uuidv4() + '.jpg'
+            // const fileName = uuidv4() + '.jpg'
             const bytes =  await item.arrayBuffer()
             const bufffer = Buffer.from(bytes)
             await writeFile(`${uploadDir}/${fileName}`, bufffer)
@@ -217,13 +331,28 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
          }
       }
 
+      
+      // загружаем картинку в public
+      if (fileArrThumb.length > 0) {
+         for (const item of fileArrThumb) {
+            const fileName = uuidv4() + '.jpg'
+            const bytes =  await item.arrayBuffer()
+            const bufffer = Buffer.from(bytes)
+            await writeFile(`${uploadDirThumb}/${fileName}`, bufffer)
+            console.log(`откройте ${uploadDirThumb} чтобы увидеть загруженные файлы`);
+            arrNamesThumb.push(fileName)
+         }
+      }
+
       // Загружаем данные в БД
       await prisma.download.update({
          where: { id: updateId },
          data: {
-            title: result.data?.title as string,
-            content: result.data?.content as string,
-            thumbnail: arrNames,
+            title: result.data.title as string,
+            content: result.data.content as string,
+            name: fileName as string,
+            path: `/api/download/${shortFileName}`,
+            thumbnail: arrNamesThumb,
          }
       })
 

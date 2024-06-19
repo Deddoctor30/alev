@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction } from "react";
 
 
 
-export const download = async (path: string, setDownloadStatus: Dispatch<SetStateAction<downloadFiles>>) => {
+export const download = async (path: string, setDownloadStatus: Dispatch<SetStateAction<downloadFiles>>, id: number) => {
    try {
-       const response = await axios.get(path, {
+       const response = await axios.get(`${path}/${id}`, {
            responseType: "blob", // Для бинарных данных
        });
        // Извлекаем имя фала из хедоров

@@ -6,12 +6,12 @@ import {Post} from '@/types/post'
 import { Divider, List } from 'antd';
 import { News } from '@/types/news';
 import { Main } from '@/types/main';
-import { Deal } from '@/types/deal';
+// import { Deal } from '@/types/deal';
 import { Contacts } from '@/types/contacts';
 import { About } from '@prisma/client';
 import ListControlls from '../listControlls/ListControlls';
 
-type Union = User & Post & News & Main & Deal & Contacts & About
+type Union = User & Post & News & Main & Post & Contacts & About
 
 const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId, isRefresh, setRefresh }: { method: Function, isModalOpen: boolean, methodDelete: (id: number) => Promise<void>, openModal: Dispatch<SetStateAction<boolean>>, setUpdateId: Dispatch<SetStateAction<number | null>>, isRefresh: boolean, setRefresh: Dispatch<SetStateAction<boolean>>}) => {
    const [data, setData] = useState<Union[] | Union | null>(null)

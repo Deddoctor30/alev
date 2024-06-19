@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 // import { createNews, updateNews } from '@/app/actions/newsActions';
-import { message  } from 'antd';
+import { message, Tooltip } from 'antd';
 
 import styles from './form.module.scss'
 import { createDownload, updateDownload } from '@/app/actions/downloadActions';
@@ -71,10 +71,15 @@ import { createDownload, updateDownload } from '@/app/actions/downloadActions';
       });
    };   
 
+   let shortFileName = 'adawfawf'
+
+   shortFileName.split('.').slice(0, -1).join('.')
+   console.log(shortFileName);
+   
   return (
    <>
       {contextHolder}
-      <form action={updateId ? formActionUpdate : formAction} className={styles.form}>
+      <form action={updateId ? formActionUpdate : formAction} ref={formRef} className={styles.form}>
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
@@ -84,21 +89,24 @@ import { createDownload, updateDownload } from '@/app/actions/downloadActions';
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="content" className={styles.form__label}>Описание:</label>
-                  <input type="text" name='content' className={styles.form__input}/>
-               </div>
-            </div>
-            <div className={styles.form__inner}>
-               <div className={styles.form__item}>
-                  <label htmlFor="name" className={styles.form__label}>Название файла:<span style={{color: 'red'}}>*</span></label>
-                  <textarea rows={6} name='name' className={styles.form__textarea}/>
+                  <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
+                  <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>
             <h2 className={styles.form__title}>Файл</h2>
+            <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{position: 'absolute', top: '414px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottom' title="Текст на английском языке, без пробелов, в нижнем регистре">
+               <span className={styles.form__subtext}>Пример названия файла: «brandbook.pdf»</span>
+            </Tooltip>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input type="file" id='upload' name='file' hidden className={styles.form__upload}/>
                <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+            </div>
+            <div className={styles.form__divider}></div>
+            <h2 className={styles.form__title}>Превью</h2>
+            <div className={styles.form__item}>
+               <input type="file" id='thumbnail' name='thumbnail' hidden className={styles.form__upload}/>
+               <label htmlFor="thumbnail" className={styles.form__btn}>Загрузить</label>
             </div>
             <div className={styles.form__divider}></div>
          </div>
