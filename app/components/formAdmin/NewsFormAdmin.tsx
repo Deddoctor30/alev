@@ -73,7 +73,7 @@ import styles from './form.module.scss'
   return (
    <>
       {contextHolder}
-      <form action={updateId ? formActionUpdate : formAction} className={styles.form}>
+      <form action={updateId ? formActionUpdate : formAction} ref={formRef} className={styles.form}>
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>

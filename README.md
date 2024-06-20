@@ -1,5 +1,8 @@
 ## Todos
 
+Работа с файлами
+<!-- https://developer.mozilla.org/ru/docs/Web/API/File_API/Using_files_from_web_applications -->
+
 Схема:
    Главная страница:
       - Заголовок

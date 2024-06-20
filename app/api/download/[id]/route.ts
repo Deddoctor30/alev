@@ -1,6 +1,6 @@
 import { join } from "path";
 import fs from 'fs';
-import { getDownload, getUnique } from "@/app/actions/downloadActions";
+import { getUnique } from "@/app/actions/downloadActions";
 import { NextRequest } from "next/server";
 
 type Params = {

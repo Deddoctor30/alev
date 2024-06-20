@@ -5,9 +5,9 @@ import { metaData } from "@/data/metaData";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
-
-
 const inter = Inter({ subsets: ["cyrillic"] });
+
+import { WebVitals } from './_components/web-vitals'
 
 export const metadata: Metadata = {
   metadataBase: new URL(metaData.siteURL),
@@ -49,6 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body className={inter.className}>
         <Header/>
+        <WebVitals/>
         {children}
         <Footer/>
       </body>

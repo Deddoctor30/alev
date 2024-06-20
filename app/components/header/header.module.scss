@@ -1,40 +1,171 @@
-.header {
-   margin-top: 20px;
-   width: 100%;
-   display: flex;
-   justify-content: center;
-}
+$delay: all .3s;
+
 .wrapper {
    width: var(--max-width);
    display: flex;
    justify-content: space-between;
    align-items: center;
-}
-.logo {
-   display: flex;
-   align-items: center;
-}
-.image {
-   height: 50px;
-   position: relative;
-   top: 5px;
-   width: 188px;
-   height: 50px;
-}
 
-.items {
-   display: flex;
-   align-items: center;
-   &>*:not(:last-child) {
-      margin-right: 10px;
+   @media (max-width: 800px) {
+      justify-content: flex-end;
+      padding: 20px;
    }
 }
-.item {
-   max-height: 100px;
-   padding: 20px 30px;
+.header {
+   margin-top: 20px;
+   width: 100%;
    display: flex;
-   align-items: center;
-   &:hover {
-      background-color: rgba(128, 128, 128, 0.110);
+   justify-content: center;
+   overflow: hidden;
+   &__logo {
+      display: flex;
+      align-items: center;
+   }
+   &__image {
+      height: 50px;
+      position: relative;
+      top: 5px;
+      width: 188px;
+      height: 50px;
+      @media (max-width: '1180px') {
+         display: none;
+      }
+      @media (max-width: '800px') {
+         display: block;
+      }
+   }
+   &__items {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+
+      // @media (max-width: '1180px') {
+      //    margin: 0px 20px;
+      //    width: 100%;
+      // }
+      @media (max-width: '800px') {
+         position: fixed;
+         top: -400px;
+         left: 0;
+         display: block;
+         background-color: white;
+         width: 100%;
+         z-index: 5000;
+         padding: 0px 0px 20px 0;
+      }
+   }
+   &__coscader {
+      width: 100%;
+      position: fixed;
+      top: 0px;
+      left: 0;
+      display: block;
+      background-color: white;
+      transition: $delay;
+      z-index: 5000;
+      padding: 0px 0px 20px 0;
+   }
+   &__item {
+      max-height: 100px;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      &:hover {
+         background-color: rgba(128, 128, 128, 0.110);
+      }
+      @media (max-width: '800px') {
+         padding: 20px 20px;
+         justify-content: center;
+         font-size: 1.125em;
+      }
+   }
+   &__rightBar {
+      display: none;
+      @media (max-width: 800px) {
+         flex: 0 1 33.33%;
+         display: flex;
+         justify-content: flex-end;
+         z-index: 10000;
+      }
+   }
+   &__inner {
+      width: 212px;
+      height: 50px;
+      @media (max-width: 800px) {
+         display: none;
+      }
+   }
+
+   &__navBtn {
+      width: 30px;
+      height: 20px;
+      position: fixed;
+      &::before {
+         content: "";
+         transition: $delay;
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 30px;
+         height: 2px;
+         background-color: black;
+      }
+      &::after {
+         content: "";
+         transition: $delay;
+         position: absolute;
+         top: 20px;
+         left: 0;
+         width: 30px;
+         height: 2px;
+         background-color: black;
+      }
+      span {
+         position: absolute;
+         top: 10px;
+         left: 0;
+         width: 30px;
+         height: 2px;
+         background-color: black;
+         visibility: 1;
+      }
+      @media (min-width: 800px) {
+         display: none;
+      }
+   }
+
+   &__navBtnOpened {
+      width: 30px;
+      height: 20px;
+      position: fixed;
+
+      &::before {
+         content: "";
+         transition: $delay;
+         transform: rotate(40deg);
+         position: absolute;
+         top: 10px;
+         left: 0;
+         width: 30px;
+         height: 2px;
+         background-color: black;
+      }
+      &::after {
+         content: "";
+         transition: $delay;
+         transform: rotate(-40deg);
+         position: absolute;
+         top: 10px;
+         left: 0;
+         width: 30px;
+         height: 2px;
+         background-color: black;
+      }
+      span {
+         visibility: 0;
+      }
+      @media (min-width: 800px) {
+         display: none;
+      }
    }
 }
