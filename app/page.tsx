@@ -28,7 +28,7 @@ export default async function Home() {
           <div className={styles.promo}>
               {main?.gallery.map(item => 
                   <div key={item} className={styles.promo__item}>
-                    <Image src={`/images/main/${item}`} width={500} height={600} alt={`${item}`} />
+                    <Image src={`/images/main/${item}`} width={1600} height={800} alt={`${item}`} />
                   </div>
               )}
           </div>

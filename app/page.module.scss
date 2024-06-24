@@ -1,11 +1,11 @@
 .main {
-  margin-top: calc(50vh - 230px);
+  // margin-top: calc(50vh - 230px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 .wrapper {
   display: flex;
@@ -14,13 +14,11 @@
   align-items: center;
 }
 .center {
-  margin-bottom: 400px;
+  margin-top: 280px;
+  margin-bottom: 300px;
   width: var(--max-width);
   display: flex;
   gap: 10px;
-
-
-
   &__left {
     flex: 0 1 40%;
 
@@ -71,7 +69,7 @@
 
 .clients {
   margin-top: 100px;
-  margin-bottom: 100px;
+  // margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
