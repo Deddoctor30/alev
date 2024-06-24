@@ -1,56 +1,41 @@
-import Image from 'next/image'
-import Link from 'next/link';
-import one from '@/public/images/21.jpg';
-import two from '@/public/images/22.jpg';
-import three from '@/public/images/23.jpg';
-import four from '@/public/images/24.jpg';
-import styles from './page.module.scss'
-import { Suspense } from 'react';
-import Loading from '../components/loading/Loading';
+import Image from "next/image";
+import Link from "next/link";
+import styles from "./page.module.scss";
+import { Suspense } from "react";
+import prisma from "@/lib/db";
+import Loading from "../components/loading/Loading";
+import PageNavigation from "../components/pageNavigation/PageNavigation";
 
-const page = () => {
+const page = async () => {
+  const projects = await prisma.post.findMany();
+
   return (
-    <Suspense fallback={<Loading/>}>
+    <Suspense fallback={<Loading />}>
       <div className={styles.projects}>
         <div className={styles.wrapper}>
+          <PageNavigation />
+
           <div className={styles.items}>
-            <div className={styles.items__item}>
-              <div className={styles.items__inner}>
-                <Link href={'./projects/house'}>
-                  <p>Жилые</p>
-                  <Image src={one} alt="first" />
+            {projects.map((item) => (
+              <div key={item.id} className={styles.items__item}>
+                <Link className={styles.items__link} href={`/projects/${item.type.toLowerCase()}/${item.id}`}>
+                  <div className={styles.items__inner}>
+                    <p className={styles.items__subtitle}>{item.title}</p>
+                  </div>
+                  <Image
+                    src={`/images/posts/${item?.thumbnail[0]}`}
+                    width={500}
+                    height={400}
+                    alt={item.title}
+                  />
                 </Link>
               </div>
-            </div>
-            <div className={styles.items__item}>
-              <div className={styles.items__inner}>
-              <Link href={'./projects/office'}>
-                <p>Офисные</p>
-                <Image src={two} alt="first" />
-              </Link>
-              </div>
-            </div>
-            <div className={styles.items__item}>
-              <div className={styles.items__inner}>
-              <Link href={'./projects/markets'}>
-                <p>Торговые</p>
-                <Image src={three} alt="first" />
-              </Link>
-              </div>
-            </div>
-            <div className={styles.items__item}>
-              <div className={styles.items__inner}>
-              <Link href={'./projects/public'}>
-                <p>Общественные</p>
-                <Image src={four} alt="first" />
-              </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </Suspense>
-  )
-}
+  );
+};
 
-export default page
+export default page;

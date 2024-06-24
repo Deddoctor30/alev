@@ -1,0 +1,23 @@
+.navigation {
+   margin-bottom: 30px;
+   &__list {
+     display: flex;
+     margin-top: 20px;
+     // font-style: italic;
+     width: var(--max-width);
+     &>*:not(:last-child) {
+       margin-right: 30px;
+     }
+   }
+   &__item {
+     p {
+       font-size: 0.875rem;
+     }
+     cursor: pointer;
+     &_active {
+       text-decoration: underline;
+       cursor: default;
+     }
+   }
+ }
+ 

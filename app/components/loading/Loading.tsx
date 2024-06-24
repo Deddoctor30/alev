@@ -1,8 +1,10 @@
-import { Skeleton } from 'antd';
+import { Spin } from 'antd';
 
 const Loading = () => {
   return (
-   <Skeleton avatar paragraph={{ rows: 4 }}/>
+    <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <Spin style={{width: '1100px'}} size="large"/>
+  </div>
   )
 }
 
