@@ -19,7 +19,6 @@ const CurrentProject = async ({ id }: {id: string}) => {
          <h1 className={styles.title}>{posts?.title}</h1>
          <div className={styles.content}>
          <div className={styles.content__img}>
-            {/* <img src={`/images/posts/${posts?.thumbnail}`} alt={posts?.thumbnail}/> */}
             <Image
                src={`/images/posts/${posts?.thumbnail}`}
                width={500}

@@ -14,20 +14,13 @@ const PageLink = ({
   const isAnchorLink = href && href.startsWith("#");
   const pathname = usePathname();
 
-  // console.log(pathname.slice(1).includes(href.slice(9)));
-
-  console.log('pathname', pathname.slice(1));
-  console.log('href', href.slice(9));
-
-  // const dada = "/awdwadawd";
-  // const nene = "";
-
-  // console.log(dada.includes(nene));
+  const pathnameValue = pathname.replace(/[0-9]/g, '').at(-1) === '/' ? pathname.replace(/[0-9]/g, '').slice(0, -1) : pathname.replace(/[0-9]/g, '')
+  const hrefValue = href.replace(/[0-9]/g, '')
 
   if (isInternalLink) {
     return (
       <Link
-        id={pathname.slice(1).includes(href.slice(9).length === 0 ? '!' : href.slice(9)) ? styles.active_link : ""}
+        id={pathnameValue === hrefValue ? styles.active_link : ""}
         href={href}
         {...rest}
       />

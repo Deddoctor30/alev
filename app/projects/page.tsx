@@ -17,14 +17,15 @@ const page = async () => {
 
           <div className={styles.items}>
             {projects.map((item) => (
-              <div key={item.id} className={styles.items__item}>
-                <Link className={styles.items__link} href={`/projects/${item.type.toLowerCase()}/${item.id}`}>
-                  <div className={styles.items__inner}>
-                    <p className={styles.items__subtitle}>{item.title}</p>
+              <div key={item.id} className={`${styles.items__item} ${styles.item}`}>
+                <Link className={styles.item__link} href={`/projects/${item.type.toLowerCase()}/${item.id}`}>
+                  <div className={styles.item__inner}>
+                    <p className={styles.item__subtitle}>{item.title}</p>
                   </div>
                   <Image
+                    className={styles.item__img}
                     src={`/images/posts/${item?.thumbnail[0]}`}
-                    width={500}
+                    width={600}
                     height={400}
                     alt={item.title}
                   />

@@ -43,17 +43,18 @@ const page = async ({ type }: { type: Type }) => {
 
             <div className={styles.items}>
               {houses.map((item) => (
-                <div key={item.id} className={styles.items__item}>
+                <div key={item.id} className={`${styles.items__item} ${styles.item}`}>
                   <Link
-                    className={styles.items__link}
+                    className={styles.item__link}
                     href={`/projects/${type.toLowerCase()}/${item.id}`}
                   >
-                    <div className={styles.items__inner}>
-                      <p className={styles.items__subtitle}>{item.title}</p>
+                    <div className={styles.item__inner}>
+                      <p className={styles.item__subtitle}>{item.title}</p>
                     </div>
                     <Image
+                      className={styles.item__img}
                       src={`/images/posts/${item?.thumbnail[0]}`}
-                      width={500}
+                      width={600}
                       height={400}
                       alt={item.title}
                     />

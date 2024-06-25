@@ -9,8 +9,11 @@ const CustomLink = ({ setBurgerActive, href, ...rest }: Dispatch<SetStateAction<
   const isAnchorLink = href && href.startsWith('#')
   const pathname = usePathname();
 
+  const pathnameValue = pathname.slice(0, 2)
+  const hrefValue = href.slice(0, 2)
+
   if (isInternalLink) {
-    return <Link id={pathname === href ? 'active_link' : ''} onClick={() => setBurgerActive(false)} href={href} {...rest} />
+    return <Link id={hrefValue === pathnameValue ? 'active_link' : '' } onClick={() => setBurgerActive(false)} href={href} {...rest} />
   }
 
   if (isAnchorLink) {
