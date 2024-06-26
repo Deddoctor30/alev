@@ -11,7 +11,7 @@ model Main {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String?   @db.VarChar(255)
+  title     String?  @db.VarChar(255)
   content   String
   gallery   String[]
 }
@@ -20,8 +20,8 @@ model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   name      String
-  email     String?   @unique
-  tel       String?   @unique
+  email     String?  @unique
+  tel       String?  @unique
   position  String?
   role      Role     @default(USER)
   posts     Post[]
@@ -41,6 +41,7 @@ model Post {
   author    User?    @relation(fields: [authorId], references: [id])
   type      Type
   authorId  Int?
+  isOnMain  Boolean @default(false)
 }
 
 model News {
@@ -69,7 +70,7 @@ model Contacts {
   updatedAt DateTime @updatedAt
   point     String
   email     String   @db.VarChar(255)
-  phone     String?   @db.VarChar(255)
+  phone     String?  @db.VarChar(255)
 }
 
 model About {
@@ -87,6 +88,7 @@ enum Role {
   USER
   ADMIN
 }
+
 enum Type {
   HOUSE
   OFFICE

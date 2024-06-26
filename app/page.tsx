@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from "next/link";
 import { getMain } from "./actions/mainActions";
-import { getPosts } from './actions/postActions';
+import { getOnMainPosts, getPosts } from './actions/postActions';
 import { Suspense } from 'react';
 import Loading from './components/loading/Loading';
 
@@ -10,7 +10,7 @@ import MainImgLoader from './components/mainImgLoader/MainImgLoader';
 
 export default async function Home() {
   const main  = await getMain()
-  const posts  = await getPosts()
+  const posts  = await getOnMainPosts()
   // const data = posts?.slice(0, 5)
 
 
@@ -34,7 +34,7 @@ export default async function Home() {
                   <div key={item.id} className={styles.promo__item}>
                     <div className={styles.promo__inner}>
                       <p className={styles.promo__subtitle}>{item.title}</p>
-                      <p className={styles.promo__content}>{item.content}</p>
+                      <p className={styles.promo__content}>{item.content.length > 220 ? `${item.content.slice(0, 220)}...` : item.content}</p>
                     </div>
                       <Link className={styles.promo__links} href={`/projects/${item.type.toLowerCase()}/${item.id}`}>
                         <Image src={`/images/posts/${item.thumbnail}`} width={1600} height={800} alt={`${item}`} />
@@ -43,17 +43,9 @@ export default async function Home() {
               )}
           </div>
       </div>
+      {main &&
         <MainImgLoader data={main?.gallery}/>
-        {/* <div className={styles.clients}>
-          <h2 className={styles.clients__partners}>Наши партнеры</h2>
-          <ul className={styles.clients__items}>
-            {main?.gallery.map(item => 
-              <li key={item} className={styles.clients__item}>
-                <Image src={`/images/main/${item}`} width={500} height={600} alt={`${item}`}/>
-              </li>
-            )}
-          </ul>
-        </div> */}
+      }
     </main>
     </Suspense>
   );

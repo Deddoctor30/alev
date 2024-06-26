@@ -40,7 +40,6 @@ const CurrentProject = async ({ id }: {id: string}) => {
          </div>
          </div>
       </div>
-      <h2 className={styles.subtitle}>Галерея</h2>
       <div className={styles.galery}>
          <ImgCarouser data={posts} />
       </div>

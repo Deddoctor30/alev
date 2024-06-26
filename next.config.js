@@ -1,5 +1,5 @@
 module.exports = {
-    compiler: {
-        removeConsole: true,
-      },
+    // compiler: {
+    //     removeConsole: true,
+    //   },
 }

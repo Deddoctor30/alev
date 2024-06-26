@@ -13,9 +13,9 @@ export  const getUsers  = async () => {
         include: {
            posts: true
         },
-        orderBy: {
-          createdAt: "desc"
-       }
+      //   orderBy: {
+      //     createdAt: "desc"
+      //  }
        });
   } catch (e) {
      console.error('Ошибка чтения БД', e);

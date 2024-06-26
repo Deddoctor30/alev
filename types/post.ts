@@ -17,4 +17,5 @@ export type Post = {
    gap?: string
    type?: Types
    authorId?: number
+   isOnMain?: boolean
 }

@@ -5,6 +5,7 @@ import { getUsers } from '../actions/userActions';
 import { positionFnc } from '../utils/position';
 import { Suspense } from 'react';
 import Loading from '../components/loading/Loading';
+import { phoneNumberReplacer } from '../utils/phoneNumberReplacer';
 
 const page = async () => {
   const contacts  = await getContacts()
@@ -21,7 +22,7 @@ const page = async () => {
                 <li key={item.id} className={style.contacts__item}>
                   <h3>{item.point}</h3>
                   <p>{item.email}</p>
-                  <p>{item.phone}</p>
+                  <a href={`tel:${item.phone}`}>{phoneNumberReplacer(item.phone)}</a>
                 </li>
               )}
             </ul>
@@ -31,7 +32,7 @@ const page = async () => {
               <ul className={style.management__items}>
                 {users?.map(item => 
                   <li key={item.id} className={style.management__item}>
-                    <Image className={style.management__img} src={`/images/user/${item.avatar}`} width={500} height={600} alt={item.avatar.at(0) || 'avatar'}/>
+                    <Image className={style.management__img} src={item.avatar.length !== 0 ? `/images/user/${item.avatar}` : '/images/default-avatar.jpg'} width={500} height={600} alt={item.avatar.at(0) || 'avatar'}/>
                     <div className={style.management__inner}>
                       <h3>{positionFnc(item.position)}</h3>
                       <p>{item.name}</p>

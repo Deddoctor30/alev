@@ -20,6 +20,21 @@ export  const getPosts  = async () => {
      console.error('Ошибка чтения БД', e);
   } 
 }
+ 
+export  const getOnMainPosts  = async () => {
+  try {
+    return await prisma.post.findMany({
+        where: {
+         isOnMain: true
+        },
+        orderBy: {
+          createdAt: "desc"
+       }
+       });
+  } catch (e) {
+     console.error('Ошибка чтения БД', e);
+  } 
+}
 
 // Для update
 export  const getUniquePosts  = async (id: number) => {
@@ -39,7 +54,8 @@ export async function createPosts(prevState: any, values: FormData) {
     content: values.get('content'),
     gip: values.get('gip'),
     gap: values.get('gap'),
-    type: values.get('type')
+    type: values.get('type'),
+    isOnMain: values.get('isOnMain')
   })
   let fileArrThumb: any[] = []
   let fileArrGallery: any[] = []
@@ -123,6 +139,7 @@ export async function createPosts(prevState: any, values: FormData) {
           type: result.data?.type,
           thumbnail: arrNamesThumb,
           gallery: arrNamesGallery,
+          isOnMain: result.data.isOnMain
         }
      })
 
@@ -189,7 +206,8 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
     content: values.get('content'),
     gip: values.get('gip'),
     gap: values.get('gap'),
-    type: values.get('type')
+    type: values.get('type'),
+    isOnMain: values.get('isOnMain')
   })
   
   let fileArrThumb: any[] = []
@@ -287,6 +305,7 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
           type: result.data?.type,
           thumbnail: arrNamesThumb,
           gallery: arrNamesGallery,
+          isOnMain: result.data.isOnMain
         }
      })
 

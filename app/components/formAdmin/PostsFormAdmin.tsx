@@ -111,7 +111,13 @@ import styles from './form.module.scss'
                   </select>
                </div>
             </div>
-            <h2 className={styles.form__title}>Провью</h2>
+            <div className={styles.form__inner}>
+               <div className={styles.form__item}>
+                  <input type="checkbox" id='isOnMain' name='isOnMain' className={styles.form__checkbox}/>
+                  <label htmlFor="isOnMain" className={styles.form__checkboxLabel}>Показывать превью на главной странице</label>
+               </div>
+            </div>
+            <h2 className={styles.form__title}>Превью</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input type="file" id='uploadThumb' name='thumbnail' hidden className={styles.form__upload}/>
