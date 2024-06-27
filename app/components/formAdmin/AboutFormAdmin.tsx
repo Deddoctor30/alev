@@ -29,16 +29,16 @@ const AboutFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
       onFinishFailed={onFinishFailed}
       autoComplete="off">
     <Divider />
-    <Form.Item<About> label="Адрес" name="address" rules={[{ message: 'Заполните название' }]}>
+    <Form.Item<About> label="Адрес" name="address">
        <Input size='large'/>
     </Form.Item>
-    <Form.Item<About> label="Телефон" name="phone" rules={[{ message: 'Заполните телефон' }]}>
+    <Form.Item<About> label="Телефон" name="phone">
       <Input size='large'/>
     </Form.Item>
     <Form.Item<About> label="Почта" name="email" rules={[{ type: 'email', message: 'Заполните E-mail' }]}>
        <Input size='large'/>
     </Form.Item>
-    <Form.Item<About> label="Ссылка на Yandex Maps" name="yandex" rules={[{ message: 'Заполните содержание' }]}>
+    <Form.Item<About> label="Ссылка на Yandex Maps" name="yandex">
        <Input size='large'/>
     </Form.Item>
     <Divider />

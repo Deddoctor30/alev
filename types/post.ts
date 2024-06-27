@@ -10,12 +10,12 @@ export type Post = {
    createdAt: Date
    updatedAt: Date
    title: string
-   content: string
-   thumbnail?: File | string
-   gallery: File[] | string[]
+   content?: string
    gip?: string
    gap?: string
-   type?: Types
+   thumbnail?: File | string[]
+   gallery: File[] | string[]
+   type: Types
    authorId?: number
-   isOnMain?: boolean
+   isOnMain: boolean
 }

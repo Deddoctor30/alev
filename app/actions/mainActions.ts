@@ -179,7 +179,7 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
    try {
       // Получаем массив картинок
       for (const pair of values.entries()) {
-         if (pair[0] === 'gallery') {
+         if (pair[0] === 'gallery' && pair[1].size) {
             fileArr.push(pair[1])
          }
        }
@@ -211,13 +211,16 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
          }
       }
 
+
+      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+      if (arrNames.length > 0) {
+         finallyData.gallery = arrNames
+      }
       // Загружаем данные в БД
       await prisma.main.update({
          where: { id: updateId },
          data: {
-            title: result.data?.title as string,
-            content: result.data?.content as string,
-            gallery: arrNames,
+            ...finallyData
          }
       })
 

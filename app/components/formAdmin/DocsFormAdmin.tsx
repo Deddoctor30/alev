@@ -83,13 +83,13 @@ import { createDownload, updateDownload } from '@/app/actions/downloadActions';
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="title" className={styles.form__label}>Заголовок:</label>
+                  <label htmlFor="title" className={styles.form__label}>Заголовок:<span style={{color: 'red'}}>*</span></label>
                   <input type="text" name='title' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
+                  <label htmlFor="content" className={styles.form__label}>Описание:</label>
                   <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>

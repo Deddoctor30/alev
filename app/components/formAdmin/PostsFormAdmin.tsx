@@ -84,20 +84,20 @@ import styles from './form.module.scss'
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
+                  <label htmlFor="content" className={styles.form__label}>Описание:</label>
                   <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
                   <label htmlFor="gip" className={styles.form__label}>ГИП:</label>
-                  <input type="text" required name='gip' className={styles.form__input}/>
+                  <input type="text" name='gip' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
                   <label htmlFor="gap" className={styles.form__label}>ГАП:</label>
-                  <input type="text" required name='gap' className={styles.form__input}/>
+                  <input type="text" name='gap' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>

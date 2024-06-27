@@ -77,7 +77,7 @@ import styles from './form.module.scss'
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="title" className={styles.form__label}>Название:</label>
+                  <label htmlFor="title" className={styles.form__label}>Название:<span style={{color: 'red'}}>*</span></label>
                   <input type="text" name='title' className={styles.form__input}/>
                </div>
             </div>
@@ -90,7 +90,7 @@ import styles from './form.module.scss'
             <h2 className={styles.form__title}>Изображения</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
-               <input multiple={true} type="file" id='upload' name='thumbnail' hidden className={styles.form__upload}/>
+               <input multiple={true} type="file" id='upload' name='gallery' hidden className={styles.form__upload}/>
                <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
             </div>
             <div className={styles.form__divider}></div>

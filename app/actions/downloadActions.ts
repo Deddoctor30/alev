@@ -42,13 +42,12 @@ export async function createDownload(prevState: any, values: FormData) {
    const result = downloadSchema.safeParse({
       title: values.get('title'),
       content: values.get('content'),
-      // name: values.get('name'),
-      // path: values.get('path'),
    })
    let rawName = ''
    let fileName = ''
    let shortFileName = ''
    let extension = ''
+   let filePath = ''
    let fileArr: any[] = []
    let arrNames: string[] = [] 
    let fileArrThumb: any[] = []  
@@ -132,6 +131,7 @@ export async function createDownload(prevState: any, values: FormData) {
             await writeFile(`${uploadDir}/${fileName}`, bufffer)
             console.log(`откройте ${uploadDir} чтобы увидеть загруженные файлы`);
             arrNames.push(fileName)
+            filePath = '/api/download/'
          }
       }
 
@@ -146,18 +146,14 @@ export async function createDownload(prevState: any, values: FormData) {
             arrNamesThumb.push(fileName)
          }
       }
-
-      console.log('fileArrThumb фвцвфцв', fileArrThumb);
-      console.log('arrNamesThumb фвцвфцв', arrNamesThumb);
-      
-
+     
       // Загружаем данные в БД
       await prisma.download.create({
          data: {
             title: result.data.title as string,
             content: result.data.content as string,
             name: fileName as string,
-            path: `/api/download/`,
+            path: filePath,
             thumbnail: arrNamesThumb,
          }
       })
@@ -344,15 +340,26 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
          }
       }
 
+     // Оставляем только не пустые данные в объекте
+      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+      if (arrNamesThumb.length > 0) {
+         finallyData.thumbnail = arrNamesThumb
+        }
+      if (fileArr.length > 0) {
+         finallyData.name = fileName,
+         finallyData.path = `/api/download/${shortFileName}`
+        }
+
       // Загружаем данные в БД
       await prisma.download.update({
          where: { id: updateId },
          data: {
-            title: result.data.title as string,
-            content: result.data.content as string,
-            name: fileName as string,
-            path: `/api/download/${shortFileName}`,
-            thumbnail: arrNamesThumb,
+            ... finallyData,
+            // title: result.data.title as string,
+            // content: result.data.content as string,
+            // name: fileName as string,
+            // path: `/api/download/${shortFileName}`,
+            // thumbnail: arrNamesThumb,
          }
       })
 

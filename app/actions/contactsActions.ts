@@ -17,10 +17,13 @@ export  const getContacts  = async () => {
 
 export async function createContacts(values: Contacts) {
    // Валидация формы  
+
+   console.log(values);
+   
    const result = contactsSchema.safeParse({
       point: values.point,
       email: values.email,
-      phone: values.phone
+      phone: values.phone ? values.phone : ''
    })
 
    // Выкидваем ошибку после валидации Zodа
@@ -36,6 +39,8 @@ export async function createContacts(values: Contacts) {
    }
    
    try {
+      // let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+
       await prisma.contacts.create({
          data: {
             point: result.data.point,
@@ -77,7 +82,7 @@ export  const updateContacts  = async ( updateId: number, values: Contacts)  => 
    const result = contactsSchema.safeParse({
       point: values.point,
       email: values.email,
-      phone: values.phone
+      phone: values.phone ? values.phone : ''
    })
 
    // Выкидваем ошибку после валидации Zodа
@@ -93,13 +98,12 @@ export  const updateContacts  = async ( updateId: number, values: Contacts)  => 
    }
 
    try {
+      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
       // Загружаем данные в БД
       await prisma.contacts.update({
          where: { id: updateId },
          data: {
-            point: result.data?.point as string,
-            email: result.data?.email as string,
-            phone:  result.data?.phone as string
+            ...finallyData
          }
       })
 

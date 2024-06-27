@@ -5,6 +5,13 @@ import { About } from "@/types/about";
  
 export  const getAbout  = async () => {
    try {
+     return await prisma.about.findFirst();
+   } catch (e) {
+      console.error('Ошибка чтения БД', e);
+   }
+}
+export  const getAboutAll  = async () => {
+   try {
      return await prisma.about.findMany({
       orderBy: {
          createdAt: "desc"
@@ -17,10 +24,10 @@ export  const getAbout  = async () => {
 
 export async function createAbout(values: About) {
    const result = aboutSchema.safeParse({
-      address: values.address,
-      phone: values.phone,
-      email: values.email,
-      yandex: values.yandex
+      address: values.address ? values.address : '',
+      phone: values.phone ? values.phone : '',
+      email: values.email ? values.email : '',
+      yandex: values.yandex ? values.yandex : ''
    })
 
    // Выкидваем ошибку после валидации Zodа
@@ -76,10 +83,10 @@ export  const deleteAbout  = async (id: number) => {
 export  const updateAbout  = async ( updateId: number, values: About)  => {
    // Парсим через схему Zoda в result
    const result = aboutSchema.safeParse({
-      address: values.address,
-      email: values.email,
-      phone: values.phone,
-      yandex: values.yandex
+      address: values.address ? values.address : '',
+      phone: values.phone ? values.phone : '',
+      email: values.email ? values.email : '',
+      yandex: values.yandex ? values.yandex : ''
    })
 
    // Выкидваем ошибку после валидации Zodа
@@ -95,14 +102,13 @@ export  const updateAbout  = async ( updateId: number, values: About)  => {
    }
 
    try {
+      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+
       // Загружаем данные в БД
       await prisma.about.update({
          where: { id: updateId },
          data: {
-            address: result.data?.address as string,
-            email: result.data?.email as string,
-            phone:  result.data?.phone as string,
-            yandex:  result.data?.yandex as string
+            ...finallyData
          }
       })
 

@@ -87,13 +87,13 @@ import styles from './form.module.scss'
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
                   <label htmlFor="email" className={styles.form__label}>Заполните E-mail сотрудника:</label>
-                  <input type="text" required name='email' className={styles.form__input}/>
+                  <input type="text" name='email' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
                   <label htmlFor="tel" className={styles.form__label}>Заполните телефон сотрудника:</label>
-                  <input type="number" required name='tel' className={styles.form__input}/>
+                  <input type="number" name='tel' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>

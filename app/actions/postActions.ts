@@ -294,18 +294,19 @@ export  const updatePosts  = async ( updateId: number, prevState: any, values: F
        }
      }
 
+     // Оставляем только не пустые данные в объекте
+     let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+     if (arrNamesThumb.length > 0) {
+      finallyData.thumbnail = arrNamesThumb
+     }
+     if (arrNamesGallery.length > 0) {
+        finallyData.gallery = arrNamesGallery
+     }
      // Загружаем данные в БД
      await prisma.post.update({
         where: { id: updateId },
         data: {
-          title: result.data?.title as string,
-          content: result.data?.content as string,
-          gip: result.data?.gip as string,
-          gap: result.data?.gap as string,
-          type: result.data?.type,
-          thumbnail: arrNamesThumb,
-          gallery: arrNamesGallery,
-          isOnMain: result.data.isOnMain
+         ...finallyData,
         }
      })
 

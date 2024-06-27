@@ -10,6 +10,7 @@ import { Main } from '@/types/main';
 import { Contacts } from '@/types/contacts';
 import { About } from '@prisma/client';
 import ListControlls from '../listControlls/ListControlls';
+import { adminFormatter } from '@/app/utils/adminFormatter';
 
 type Union = User & Post & News & Main & Post & Contacts & About
 
@@ -32,7 +33,7 @@ const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId
    <ul>
       {Array.isArray(data)
          &&
-            data?.map(item => 
+            data?.map((item, i) => 
                <React.Fragment key={String(item?.createdAt)}>
                   <Divider orientation="left">{
                      item.name ? item.name : item.title
@@ -42,8 +43,14 @@ const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId
                      // footer={<div>Footer</div>}
                      bordered
                      dataSource={createDataArr(item)}
-                     renderItem={(item) => (
-                        <List.Item>{item}</List.Item>
+                     renderItem={(element, index) => (
+                        // <List.Item>{item}</List.Item>
+                        <List.Item>
+                        <List.Item.Meta
+                          title={adminFormatter(Object.keys(item).at(index))}
+                        />
+                        {element}
+                      </List.Item>
                   )}/>
                </React.Fragment>
             )

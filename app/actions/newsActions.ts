@@ -61,7 +61,7 @@ export async function createNews(prevState: any, values: FormData) {
    try {
       // Получаем картинки в массив
       for (const pair of values.entries()) {
-         if (pair[0] === 'thumbnail' && pair[1].size) {
+         if (pair[0] === 'gallery' && pair[1].size) {
             fileArr.push(pair[1])
          }
        }
@@ -101,7 +101,7 @@ export async function createNews(prevState: any, values: FormData) {
          data: {
             title: result.data?.title as string,
             content: result.data?.content as string,
-            thumbnail: arrNames,
+            gallery: arrNames,
          }
       })
 
@@ -129,7 +129,7 @@ export  const deleteNews  = async (id: number) => {
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
    try {
       const data = await getUnique(id)
-      const imgArr = data?.thumbnail
+      const imgArr = data?.gallery
 
       // Проходимся по полученному массиву и удаляем картинки с сервера
       imgArr?.forEach(item => {
@@ -179,7 +179,7 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
    try {
       // Получаем массив картинок
       for (const pair of values.entries()) {
-         if (pair[0] === 'thumbnail') {
+         if (pair[0] === 'gallery' && pair[1].size) {
             fileArr.push(pair[1])
          }
        }
@@ -187,7 +187,7 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
       // Удаляем старую картинку, если есть новая
       if (fileArr.length !== 0) {
          const data = await getUnique(updateId)
-         const imgArr = data?.thumbnail
+         const imgArr = data?.gallery
          imgArr?.forEach(item => {
             fs.unlink(`${uploadDir}/${item}`, err => {
                if (err) {
@@ -210,14 +210,16 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
             arrNames.push(fileName)
          }
       }
-
+     // Оставляем только не пустые данные в объекте
+     let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+     if (arrNames.length > 0) {
+      finallyData.gallery = arrNames
+     }
       // Загружаем данные в БД
       await prisma.news.update({
          where: { id: updateId },
          data: {
-            title: result.data?.title as string,
-            content: result.data?.content as string,
-            thumbnail: arrNames,
+            ...finallyData
          }
       })
 

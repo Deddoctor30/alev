@@ -12,7 +12,7 @@ model Main {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String?  @db.VarChar(255)
-  content   String
+  content   String?
   gallery   String[]
 }
 
@@ -33,7 +33,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
-  content   String
+  content   String?
   gip       String?
   gap       String?
   thumbnail String[]
@@ -50,7 +50,7 @@ model News {
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   content   String
-  thumbnail String[]
+  gallery   String[]
 }
 
 model Download {
@@ -58,7 +58,7 @@ model Download {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
-  content   String
+  content   String?
   name      String
   path      String
   thumbnail String[]
@@ -77,11 +77,10 @@ model About {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  address   String   @db.VarChar(255)
-  phone     String   @db.VarChar(255)
-  email     String   @db.VarChar(255)
-  yandex    String
-  // published Boolean? @default(false)
+  address   String?   @db.VarChar(255)
+  phone     String?   @db.VarChar(255)
+  email     String?   @db.VarChar(255)
+  yandex    String?
 }
 
 enum Role {

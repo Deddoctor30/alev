@@ -21,20 +21,20 @@ const Footer = async () => {
           {about && (
             <ul className={styles.items}>
               <li className={styles.item}>
-                <a href={about?.at(0)?.yandex} target="_blank">
-                  {about?.at(0)?.address}
+                <a href={about.yandex} target="_blank">
+                  {about.address}
                 </a>
               </li>
               <li> • </li>
               <li className={styles.item}>
-                <a href={`tel:${about?.at(0)?.phone}`}>
-                  {phoneNumberReplacer(about?.at(0)?.phone)}
+                <a href={`tel:${about.phone}`}>
+                  {phoneNumberReplacer(about.phone)}
                 </a>
               </li>
               <li> • </li>
               <li className={styles.item}>
-                <a href={`mailto:${about?.at(0)?.email}`}>
-                  {about?.at(0)?.email}
+                <a href={`mailto:${about.email}`}>
+                  {about.email}
                 </a>
               </li>
             </ul>

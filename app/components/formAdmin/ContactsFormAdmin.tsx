@@ -37,7 +37,7 @@ import styles from './form.module.scss';
       <Form.Item<Contacts> label="Почта" name="email" rules={[{ required: true, type: 'email', message: 'Заполните содержание' }]}>
          <Input size='large'/>
       </Form.Item>
-      <Form.Item<Contacts> label="Телефон" name="phone" rules={[{ message: 'Заполните содержание' }]}>
+      <Form.Item<Contacts> label="Телефон" name="phone">
          <Input size='large'/>
       </Form.Item>
       <Divider />

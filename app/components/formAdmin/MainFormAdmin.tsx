@@ -84,11 +84,11 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
+                  <label htmlFor="content" className={styles.form__label}>Описание:</label>
                   <textarea rows={6} name='content' className={styles.form__textarea}/>
                </div>
             </div>
-            <h2 className={styles.form__title}>Изображения</h2>
+            <h2 className={styles.form__title}>Изображения партнеров</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
                <input multiple={true} type="file" id='upload' name='gallery' hidden className={styles.form__upload}/>

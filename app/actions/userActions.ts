@@ -13,9 +13,21 @@ export  const getUsers  = async () => {
         include: {
            posts: true
         },
-      //   orderBy: {
-      //     createdAt: "desc"
-      //  }
+       });
+  } catch (e) {
+     console.error('Ошибка чтения БД', e);
+  } 
+}
+ 
+export  const getUsersDesc  = async () => {
+  try {
+    return await prisma.user.findMany({
+        include: {
+           posts: true
+        },
+        orderBy: {
+          createdAt: "desc"
+       }
        });
   } catch (e) {
      console.error('Ошибка чтения БД', e);
@@ -58,7 +70,7 @@ export async function createUser(prevState: any, values: FormData) {
 
   try {
      // Получаем картинки в массив
-     for (const pair of values.entries()) {        
+     for (const pair of values.entries()) {    
         if (pair[0] === 'avatar' && pair[1].size) {
            fileArr.push(pair[1])
         }
@@ -175,17 +187,18 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
      }}
   }
 
-  // Путь для папки
-  const relativeUploadDir = `/images/user`;
-  const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
-
+  
   try {
      // Получаем массив картинок
      for (const pair of values.entries()) {
-        if (pair[0] === 'avatar') {
+        if (pair[0] === 'avatar' && pair[1].size) {
            fileArr.push(pair[1])
         }
       }
+      
+      // Путь для папки
+      const relativeUploadDir = `/images/user`;
+      const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
      // Удаляем старую картинку, если есть новая
      if (fileArr.length !== 0) {
@@ -214,15 +227,17 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
         }
      }
 
+     // Оставляем только не пустые данные в объекте
+     let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+     if (arrNames.length > 0) {
+      finallyData.avatar = arrNames
+     }
+
      // Загружаем данные в БД
      await prisma.user.update({
         where: { id: updateId },
         data: {
-          name: result.data?.name as string,
-          email: result.data?.email as string,
-          tel: result.data?.tel as string,
-          position: result.data?.position as string,
-          avatar: arrNames
+         ...finallyData,
         }
      })
 
