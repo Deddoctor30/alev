@@ -1,12 +1,14 @@
 'use client'
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import React, { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import { createUser, updateUser } from '@/app/actions/userActions';
 import { message } from 'antd';
 
 import styles from './form.module.scss'
+import Image from 'next/image';
 
  const UserFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
+   let previewUrl = ''
    const initialState = {
       message: {
          status: '',
@@ -19,6 +21,7 @@ import styles from './form.module.scss'
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
    const formRef = useRef<HTMLFormElement>(null);
+   const [urlImg, setUrlImg] = useState('')
  
    useEffect(() => {
       switch (state.message.status) {
@@ -55,7 +58,10 @@ import styles from './form.module.scss'
    const refreshHandler = () => {
       setRefresh(value => !value)     
       document.forms[0].requestSubmit()
+      URL.revokeObjectURL(previewUrl)
+      setUrlImg('')
    }
+   
 
    function success() {
       formRef.current?.reset()
@@ -70,9 +76,13 @@ import styles from './form.module.scss'
          type: 'error',
          content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
       });
-   };   
-
-
+   };
+   
+   const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      previewUrl = URL.createObjectURL(e.target.files[0])
+      setUrlImg(previewUrl)
+   }
+   
   return (
    <>
       {contextHolder}
@@ -110,8 +120,13 @@ import styles from './form.module.scss'
             <h2 className={styles.form__title}>Аватар пользователя</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
-               <input type="file" id='upload' name='avatar' hidden className={styles.form__upload}/>
-               <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+               <input type="file" id='upload' name='avatar' onChange={(e) => imgChangeHandler(e)} hidden className={styles.form__upload}/>
+               <div className={styles.form__temp}>
+                  <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+                  {urlImg.length > 0 &&
+                     <Image className={styles.form__img} width={200} height={150} src={urlImg} alt="123" />
+                  }
+               </div>
             </div>
             <div className={styles.form__divider}></div>
          </div>

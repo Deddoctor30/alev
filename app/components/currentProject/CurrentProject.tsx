@@ -15,6 +15,7 @@ const CurrentProject = async ({ id }: {id: string}) => {
   return (
    <div className={styles.project}>
       <div className={styles.wrapper}>
+         <h1 className={styles.project__rank}>Проекты</h1>
          <PageNavigation/>
          <h1 className={styles.title}>{posts?.title}</h1>
          <div className={styles.content}>

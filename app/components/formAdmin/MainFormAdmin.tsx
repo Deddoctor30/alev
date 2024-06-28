@@ -1,12 +1,14 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createMain, updateMain } from '@/app/actions/mainActions';
 import { message  } from 'antd';
 
+import Image from 'next/image';
 import styles from './form.module.scss';
 
 const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
+   let previewUrl: string[] = []
    const initialState = {
       message: {
          status: '',
@@ -19,7 +21,8 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
    const formRef = useRef<HTMLFormElement>(null);
- 
+   const [urlImg, setUrlImg] = useState<string[] | null>(null)
+
    useEffect(() => {
       switch (state.message.status) {
          case ('success'):
@@ -54,6 +57,10 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
     const refreshHandler = () => {
       setRefresh(value => !value)     
       document.forms[0].requestSubmit()
+      previewUrl.forEach(item => {
+         URL.revokeObjectURL(item)
+      })
+      setUrlImg(null)
    }
 
    function success() {
@@ -70,6 +77,13 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
          content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
       });
    };   
+
+   const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      for (let i = 0; i < e.target.files?.length; i++) {
+         previewUrl.push(URL.createObjectURL(e.target.files[i]))
+         setUrlImg(previewUrl)
+      }
+   }
 
   return (
    <>
@@ -91,8 +105,17 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
             <h2 className={styles.form__title}>Изображения партнеров</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
-               <input multiple={true} type="file" id='upload' name='gallery' hidden className={styles.form__upload}/>
+               <input multiple={true} onChange={(e) => imgChangeHandler(e)} type="file" id='upload' name='gallery' hidden className={styles.form__upload}/>
+               <div className={styles.form__temp}>
                <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+               <div className={styles.form__images}>
+                        {urlImg && urlImg.length > 0 &&
+                           urlImg?.map(item =>
+                              <Image key={String(item)} className={styles.form__img} width={200} height={150} src={item} alt="123" />
+                           )
+                        }
+                     </div>
+                  </div>
             </div>
             <div className={styles.form__divider}></div>
          </div>

@@ -39,6 +39,7 @@ const page = async ({ type }: { type: Type }) => {
       <Suspense fallback={<Loading />}>
         <div className={styles.projects}>
           <div className={styles.wrapper}>
+          <h1 className={styles.projects__title}>Проекты</h1>
             <PageNavigation />
 
             <div className={styles.items}>

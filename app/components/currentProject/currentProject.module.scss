@@ -5,6 +5,14 @@
    justify-content: space-between;
    align-items: center;
    padding: 2rem;
+   min-height: 60vh;
+   &__rank {
+    width: var(--max-width);
+    font-size: 2rem;
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
  }
  .wrapper {
    display: flex;

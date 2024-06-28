@@ -8,13 +8,19 @@ $imgDelay: all ease-in-out .5s;
   align-items: center;
   padding: 2rem;
   min-height: 100vh;
+  &__title {
+    font-size: 2rem;
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
 }
 .wrapper {
   width: var(--max-width);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .items {
   display: flex;

@@ -6,14 +6,11 @@ import Loading from './components/loading/Loading';
 
 import styles from "./page.module.scss";
 import MainImgLoader from './components/mainImgLoader/MainImgLoader';
-import MainImgThumbs from './components/mainImgThumbs/mainImgThumbs';
+import MainImgThumbs from './components/mainImgThumbs/MainImgThumbs';
 
 export default async function Home() {
   const main = await getMain()
-  const posts = await getOnMainPosts()
-
-  console.log(posts);
-  
+  const posts = await getOnMainPosts() 
 
   return (
     <Suspense fallback={<Loading />}>

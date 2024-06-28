@@ -105,7 +105,6 @@ export async function createUser(prevState: any, values: FormData) {
            arrNames.push(fileName)
         }
      }
-     
      // Загружаем данные в БД
      await prisma.user.create({
         data: {
@@ -116,7 +115,6 @@ export async function createUser(prevState: any, values: FormData) {
           avatar: arrNames
         }
      })
-     revalidatePath('/admin')
      return {message: {
         status: 'success',
         text: 'Данные успешно загружены'
@@ -157,7 +155,6 @@ export  const deleteUser  = async (id: number) => {
      await prisma.user.delete({
         where: { id }
      });
-     revalidatePath('/admin')
   } catch (e) {
      console.error('Не удалось удалить запись')
   }
