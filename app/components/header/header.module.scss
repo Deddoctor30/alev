@@ -37,12 +37,7 @@ $delay: all .3s;
    &__items {
       display: flex;
       align-items: center;
-      // justify-content: space-between;
-
-      // @media (max-width: '1180px') {
-      //    margin: 0px 20px;
-      //    width: 100%;
-      // }
+      gap: 7px;
       @media (max-width: '800px') {
          position: fixed;
          top: -400px;
