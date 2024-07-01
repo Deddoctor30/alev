@@ -1,11 +1,33 @@
 .footer {
    margin-top: 100px;
-   padding: 40px;
+   padding: 60px;
    width: 100%;
    display: flex;
    justify-content: center;
-   background-color: var(--second-background-color);
+   border-top: 2px solid var(--main-text-decoration-color);
+   // background-color: var(--second-background-color);
    color: var(--second-text-decoration-color);
+   position: relative;
+   top: 0;
+   left: 0;
+   &__mark {
+      color: var(--main-text-color);
+      // font-family: "Bodoni Moda SC", serif;
+      font-family: "Dancing Script", cursive;
+      // font-weight: 700;
+      font-size: 2.5rem;
+      position: absolute;
+      top: -48px;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      z-index: 5000;
+      background-color: white;
+      padding: 20px;
+      &::first-letter {
+         font-weight: 700;
+         color: var(--main-text-decoration-color);
+      }
+   }
 }
 .wrapper {
    width: var(--max-width);

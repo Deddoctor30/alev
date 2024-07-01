@@ -9,9 +9,10 @@ $imgDelay: all ease-in-out .5s;
   padding: 2rem;
   min-height: 60vh;
   &__title {
-    font-size: 2rem;
+    font-size: var(--font-title-size);
     font-weight: normal;
     margin-bottom: 20px;
+    font-family: var(--title-font);
   }
 }
 .wrapper {

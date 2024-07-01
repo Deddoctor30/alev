@@ -4,6 +4,7 @@
      display: flex;
      align-items: center;
      width: var(--max-width);
+     color: var(--second-text-color);
      &>*:not(:last-child) {
        margin-right: 30px;
      }

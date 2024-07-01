@@ -1,3 +1,12 @@
+// Футер
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Dancing+Script:wght@400..700&display=swap');
+// font-family: "Dancing Script", cursive;
+
+// Заголовки
+@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+// font-family: "Arsenal SC", sans-serif;
+
+
 :root {
   --max-width: 1100px;
   --max-width-second: 1540px;
@@ -7,31 +16,29 @@
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
   "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
   "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --title-font: "Arsenal SC", sans-serif;
   
   // Размеры Шрифтов
-  --font-title-size: 2rem;
+  --font-title-size: 2.25rem;
   --font-small-size: 0.8125rem;
   --font-line-height: 150%;
   
   // Цвета шрифта
   --main-text-decoration-color: #fcdd42;
-  --second-text-color: #5d5d5d;               // +++++++++
-  --second-text-decoration-color: #6b7280;      // в Footer
+  --main-text-color: black;
+  --second-text-color: #5d5d5d;
+  --second-text-decoration-color: #6b7280;
 
   // Цвета остальные
-  --foreground-rgb: 0, 0, 0;            // ++++++
+  --foreground-rgb: 0, 0, 0;
 
   // Цвет в Footer
   --second-background-color: #00000011;
-  
+}
 
-
-
-  // Сброс стилей
-  ul, ul li {
-    list-style: none;
-  }
-
+// Сброс стилей
+ul, ul li {
+  list-style: none;
 }
 
 // @media (prefers-color-scheme: dark) {
@@ -48,6 +55,7 @@
   padding: 0;
   margin: 0;
   font-size: 16px;
+  font-style: --font-mono;
 }
 
 html,
@@ -74,19 +82,15 @@ a {
 // Header decoration
 #active_link {
   position: relative;
-  // padding: 10px;
   &::after {
     content: "";
     position: absolute;
     bottom: 5px;
-    // left: 0px;
     width: 80%;
     height: 2px;
     background-color: black;
-
     left: 50%;
     transform: translateX(-50%);
-
     animation: underLine .2s ease-out;
   }
 }

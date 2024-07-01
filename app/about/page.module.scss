@@ -19,7 +19,8 @@
   margin-bottom: 100px;
   &__title {
     font-weight: normal;
-    font-size: 2rem;
+    font-family: var(--title-font);
+    font-size: var(--font-title-size);
     margin-bottom: 40px;
     text-align: center;
   }
@@ -54,7 +55,8 @@
   &__title {
     font-weight: normal;
     margin-bottom: 40px;
-    font-size: 2rem;
+    font-family: var(--title-font);
+    font-size: var(--font-title-size);
     text-align: center;
   }
   &__items {
@@ -91,7 +93,8 @@
 .coordinates {
   font-weight: normal;
   margin-bottom: 40px;
-  font-size: 2rem;
+  font-family: var(--title-font);
+  font-size: var(--font-title-size);
   text-align: center;
 }
 .map {
