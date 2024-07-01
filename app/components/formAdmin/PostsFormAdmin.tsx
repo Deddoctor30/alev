@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createPosts, updatePosts } from '@/app/actions/postActions';
-import { message } from 'antd';
+import { message, Tooltip } from 'antd';
 
 import styles from './form.module.scss'
 import Image from 'next/image';
@@ -21,8 +21,8 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();
    const formRef = useRef<HTMLFormElement>(null);
-   const [urlImgThumb, setUrlImgThumb] = useState('')
-   const [urlImg, setUrlImg] = useState<string[] | null>(null)
+   const [urlImgThumb, setUrlImgThumb] = useState('');
+   const [urlImg, setUrlImg] = useState<string[] | null>(null);
 
    useEffect(() => {
       switch (state.message.status) {
@@ -55,6 +55,9 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
          </button>
       )
    }
+
+   console.log(updateId);
+   
 
    const refreshHandler = () => {
       setRefresh(value => !value)
@@ -93,6 +96,7 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
          setUrlImg(previewUrl)
       }
    }
+   
 
    return (
       <>
@@ -101,8 +105,17 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
             <div className={styles.form__wrapper}>
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>
-                     <label htmlFor="title" className={styles.form__label}>Заполните название:<span style={{ color: 'red' }}>*</span></label>
-                     <input type="text" required name='title' className={styles.form__input} />
+                     {updateId ?
+                     <>
+                        <label htmlFor="title" className={styles.form__label}>Название:</label>
+                        <input type="text" name='title' className={styles.form__input} />
+                     </>
+                        :
+                        <>
+                           <label htmlFor="title" className={styles.form__label}>Название:<span style={{ color: 'red' }}>*</span></label>
+                           <input type="text" required name='title' className={styles.form__input} />
+                        </>
+                     }
                   </div>
                </div>
                <div className={styles.form__inner}>
@@ -113,15 +126,27 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
                </div>
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>
-                     <label htmlFor="gip" className={styles.form__label}>ГИП:</label>
-                     <input type="text" name='gip' className={styles.form__input} />
+                     <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{ position: 'absolute', top: '430px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottomLeft' title="Второе описание находится под первыми изображениями галереи">
+                        {/* <span className={styles.form__subtext}>Пример названия файла: «brandbook.pdf»</span> */}
+                        <label htmlFor="secondContent" className={styles.form__label}>Второе описание:</label>
+                     </Tooltip>
+                     <textarea rows={6} name='secondContent' className={styles.form__textarea} />
                   </div>
                </div>
+               <div className={styles.form__divider}></div>
                <div className={styles.form__inner}>
-                  <div className={styles.form__item}>
-                     <label htmlFor="gap" className={styles.form__label}>ГАП:</label>
-                     <input type="text" name='gap' className={styles.form__input} />
+                  <label className={styles.form__label}>ТЭПы</label>
+                  <div className={`${styles.form__item} ${styles.form__teps}`}>
+                     <input type="text" placeholder='Площадь участка' name='landArea' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Площадь застройки' name='buildArea' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Этажность надземная' name='floorsAbove' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Этажность подземная' name='floorsBelow' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Жилая площадь квартир' name='liveArea' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Площадь коммерческих помещений' name='commerceArea' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Количество квартир' name='apartmentsCount' className={`${styles.form__input} ${styles.form__tep}`}/>
+                     <input type="text" placeholder='Площадь МОП' name='mopCount' className={`${styles.form__input} ${styles.form__tep}`}/>
                   </div>
+               <div className={styles.form__divider}></div>
                </div>
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>

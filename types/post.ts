@@ -11,8 +11,8 @@ export type Post = {
    updatedAt: Date
    title: string
    content?: string
-   gip?: string
-   gap?: string
+   tep?: object[]
+   secondContent?: string
    thumbnail?: File | string[]
    gallery: File[] | string[]
    type: Types

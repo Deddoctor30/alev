@@ -90,25 +90,35 @@ import Image from 'next/image';
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="name" className={styles.form__label}>Заполните имя сотрудника:<span style={{color: 'red'}}>*</span></label>
-                  <input type="text" required name='name' className={styles.form__input}/>
+                  {updateId ?
+                  <>
+                     <label htmlFor="name" className={styles.form__label}>Имя сотрудника:</label>
+                     <input type="text" name='name' className={styles.form__input}/>
+                  </>
+                     :
+                  <>
+                     <label htmlFor="name" className={styles.form__label}>Имя сотрудника:<span style={{color: 'red'}}>*</span></label>
+                     <input type="text" required name='name' className={styles.form__input}/>
+                  </>
+                  }
+
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="email" className={styles.form__label}>Заполните E-mail сотрудника:</label>
+                  <label htmlFor="email" className={styles.form__label}>E-mail сотрудника:</label>
                   <input type="text" name='email' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="tel" className={styles.form__label}>Заполните телефон сотрудника:</label>
+                  <label htmlFor="tel" className={styles.form__label}>Телефон сотрудника:</label>
                   <input type="number" name='tel' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="position" className={styles.form__label}>Заполните имя сотрудника:<span style={{color: 'red'}}>*</span></label>
+                  <label htmlFor="position" className={styles.form__label}>Должность:</label>
                   <select className={styles.form__select} name="position" id="position">
                      <option value="director">Директор</option>
                      <option value="preDirector">Заместитель директора</option>

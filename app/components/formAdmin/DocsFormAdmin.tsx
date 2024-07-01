@@ -91,8 +91,17 @@ const DocsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
             <div className={styles.form__wrapper}>
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>
-                     <label htmlFor="title" className={styles.form__label}>Заголовок:<span style={{ color: 'red' }}>*</span></label>
-                     <input type="text" name='title' className={styles.form__input} />
+                     {updateId ?
+                     <>
+                        <label htmlFor="title" className={styles.form__label}>Заголовок:</label>
+                        <input type="text" name='title' className={styles.form__input} />
+                     </>
+                     :
+                     <>
+                        <label htmlFor="title" className={styles.form__label}>Заголовок:<span style={{ color: 'red' }}>*</span></label>
+                        <input type="text" required name='title' className={styles.form__input} />
+                     </>
+                  }
                   </div>
                </div>
                <div className={styles.form__inner}>

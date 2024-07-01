@@ -91,14 +91,32 @@ import styles from './form.module.scss'
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="title" className={styles.form__label}>Название:<span style={{color: 'red'}}>*</span></label>
-                  <input type="text" name='title' className={styles.form__input}/>
+                  {updateId ?
+                  <>
+                     <label htmlFor="title" className={styles.form__label}>Название:</label>
+                     <input type="text" name='title' className={styles.form__input}/>
+                  </>
+                  :
+                  <>
+                     <label htmlFor="title" className={styles.form__label}>Название:<span style={{color: 'red'}}>*</span></label>
+                     <input type="text" name='title' required className={styles.form__input}/>
+                  </>
+               }
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
-                  <textarea rows={6} name='content' className={styles.form__textarea}/>
+                  {updateId ?
+                  <>
+                     <label htmlFor="content" className={styles.form__label}>Описание:</label>
+                     <textarea rows={6} name='content' className={styles.form__textarea}/>
+                  </>
+                  :
+                  <>
+                     <label htmlFor="content" className={styles.form__label}>Описание:<span style={{color: 'red'}}>*</span></label>
+                     <textarea rows={6} name='content' required className={styles.form__textarea}/>
+                  </>
+                  }
                </div>
             </div>
             <h2 className={styles.form__title}>Изображения</h2>

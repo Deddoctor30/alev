@@ -4,3 +4,8 @@
 Погуглить о useReducer или Context
 
 пример https://xn--80aapldji9amhc5a.xn--p1ai/jlolimp
+
+
+# Post
+1. Адрес
+2. Сделать более симпатичный футер

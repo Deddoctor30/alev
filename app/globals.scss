@@ -2,46 +2,45 @@
   --max-width: 1100px;
   --max-width-second: 1540px;
   --max-width-admin: 1600px;
-  // --border-radius: 12px;
+
+  // Шрифты
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  // --background-start-rgb: 214, 219, 220;
-  --background-start-rgb: 255, 255, 255;
-  // --background-end-rgb: 255, 255, 255;
-  --background-end-rgb: 240, 197, 11, 0.1;
-
-  --main-text-decoration-color: #fcdd42;
-  --main-background-decoration-color: #fcdd4232;
-  --second-text-decoration-color: #6b7280;
-  --second-text-color: #5d5d5d;
-  --second-background-color: #00000011;
-  --border-color: #00000011;
-
+  "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+  "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  
+  // Размеры Шрифтов
+  --font-title-size: 2rem;
   --font-small-size: 0.8125rem;
+  --font-line-height: 150%;
+  
+  // Цвета шрифта
+  --main-text-decoration-color: #fcdd42;
+  --second-text-color: #5d5d5d;               // +++++++++
+  --second-text-decoration-color: #6b7280;      // в Footer
+
+  // Цвета остальные
+  --foreground-rgb: 0, 0, 0;            // ++++++
+
+  // Цвет в Footer
+  --second-background-color: #00000011;
+  
+
+
 
   // Сброс стилей
   ul, ul li {
     list-style: none;
   }
 
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --foreground-rgb: 255, 255, 255;
+//     --card-rgb: 100, 100, 100;
+//     --card-border-rgb: 200, 200, 200;
+//   }
+// }
 
 * {
   transition: all ease .3s;

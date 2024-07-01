@@ -5,7 +5,7 @@ import { Contacts } from '@/types/contacts';
 import { createContacts, updateContacts } from '@/app/actions/contactsActions';
 import styles from './form.module.scss';
 
- const ContactsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>>  }) => {
+ const ContactsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
     const [form] = Form.useForm()
     const onFinish: FormProps<Contacts>['onFinish'] = (values) => {
        console.log('Успешно:', values);
@@ -17,6 +17,9 @@ import styles from './form.module.scss';
     const onFinishFailed: FormProps<Contacts>['onFinishFailed'] = (errorInfo) => {
        console.log('Ошибка:', errorInfo);
     };
+
+    console.log(updateId);
+    
   
     return (
       <Form 
@@ -31,12 +34,25 @@ import styles from './form.module.scss';
          autoComplete="off">
       <Divider />
       <h2 className={styles.form__title}>Связаться с нами</h2>
-      <Form.Item<Contacts> label="По вопросу" name="point" rules={[{ required: true, message: 'Заполните название' }]}>
-         <Input size='large'/>
-      </Form.Item>
-      <Form.Item<Contacts> label="Почта" name="email" rules={[{ required: true, type: 'email', message: 'Заполните содержание' }]}>
-         <Input size='large'/>
-      </Form.Item>
+      {updateId ? 
+         <>
+            <Form.Item<Contacts> label="По вопросу" name="point">
+               <Input size='large'/>
+            </Form.Item>
+            <Form.Item<Contacts> label="Почта" name="email" rules={[{ type: 'email', message: 'Некорректный E-mail' }]}>
+               <Input size='large'/>
+            </Form.Item>
+         </>
+         :
+         <>
+            <Form.Item<Contacts> label="По вопросу" name="point" rules={[{ required: true, message: 'Заполните название' }]}>
+               <Input size='large'/>
+            </Form.Item>
+            <Form.Item<Contacts> label="Почта" name="email" rules={[{ required: true, type: 'email', message: 'Некорректный E-mail' }]}>
+               <Input size='large'/>
+            </Form.Item>
+         </>
+      }
       <Form.Item<Contacts> label="Телефон" name="phone">
          <Input size='large'/>
       </Form.Item>

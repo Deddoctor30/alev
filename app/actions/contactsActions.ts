@@ -1,5 +1,6 @@
 "use server"
 import { contactsSchema } from "@/lib/contactsTypes";
+import { contactsUpdateSchema } from "@/lib/contactsUpdateTypes";
 import prisma from "@/lib/db"
 import { Contacts } from "@/types/contacts";
  
@@ -78,12 +79,17 @@ export  const deleteContacts  = async (id: number) => {
 }
 
 export  const updateContacts  = async ( updateId: number, values: Contacts)  => {
+   console.log(values);
+   
    // Парсим через схему Zoda в result
-   const result = contactsSchema.safeParse({
-      point: values.point,
-      email: values.email,
+   const result = contactsUpdateSchema.safeParse({
+      point: values.point ? values.point : '',
+      email: values.email ? values.email : '',
       phone: values.phone ? values.phone : ''
    })
+
+   console.log(result);
+   
 
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';
