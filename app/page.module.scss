@@ -16,28 +16,33 @@
   width: var(--max-width);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  // overflow: hidden;
-  &__img {
-    width: 100%;
-    height: 100%;
-    filter: blur(1px) opacity(10%);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -5000;
+  // margin-bottom: calc(50%);
+  transform: translate(0%, -80px);
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    // margin-bottom: 200px;
+    font-size: 3.5rem;
+
   }
   &__left {
   }
   &__title {
-    margin-top: 200px;
-    margin-bottom: 30px;
-    font-weight: 700;
-    line-height: 100%;
-    font-size: var(--font-main-title-size);
-    font-family: var(--font-main-title-font);
-    color: #002372;
+    // text-align: center;
+    // margin-top: 200px;
+    // margin-bottom: 30px;
+    // font-weight: 700;
+    // line-height: 100%;
+    font-size: inherit;
+    font-family: var(--font-main-second-title-font);
+    // color: #002372;
     position: relative;
+    
     // &::before {
     //   content: "";
     //   position: absolute;
@@ -60,35 +65,46 @@
     // }
   }
   &__subtitle {
-    line-height: 130%;
+    // line-height: 130%;
     width: 30%;
     font-size: var(--font-big-size);
     color: var(--second-text-decoration-color);
   }
   &__mark {
-    line-height: 100%;
-    font-family: inherit;
-    font-weight: inherit;
+    font-family: var(--font-main-title-font);
     font-size: inherit;
+    // line-height: 100%;
+    // font-family: inherit;
+    // font-weight: inherit;
+    // font-size: inherit;
     &::first-letter {
       color: var(--main-text-decoration-color);
     }
   }
 
-  &__right {
-    align-self: flex-end;
-    p {
-      line-height: var(--font-line-height);
-      font-size: var(--font-medium-size);
-      color: black;
-      margin-bottom: 10px;
-      text-align: justify;
-    }
-  }
+  // &__right {
+  //   align-self: flex-end;
+  //   p {
+  //     line-height: var(--font-line-height);
+  //     font-size: var(--font-medium-size);
+  //     color: black;
+  //     margin-bottom: 10px;
+  //     text-align: justify;
+  //   }
+  // }
   &__link {
-    line-height: var(--font-line-height);
+    // line-height: var(--font-line-height);
     font-size: var(--font-medium-size);
     color: var(--second-text-color);
     text-decoration: underline;
   }
+}
+.image {
+  width: 100%;
+  height: 100%;
+  filter: blur(1px) opacity(10%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -5000;
 }

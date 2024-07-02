@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Dancing+Script:wght@400..700&display=swap');
 // font-family: "Dancing Script", cursive;
 
+
+// Мейн пейдж
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+// font-family: "Great Vibes", cursive;
+
+
 // Заголовки
 @import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 // font-family: "Arsenal SC", sans-serif;
@@ -20,7 +26,9 @@
 
 
   // Шрифт заголовка на главной
-  --font-main-title-font: "Arsenal SC", sans-serif;
+  --font-main-title-font: "Dancing Script", cursive;
+  --font-main-second-title-font: "Great Vibes", cursive;
+  // --font-main-title-font: "Arsenal SC", sans-serif;
   // Шрифт заголовка футер
   --font-footer-title-font: "Dancing Script", cursive;
   // Шрифт для заголовков
