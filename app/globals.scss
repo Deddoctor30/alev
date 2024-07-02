@@ -1,45 +1,65 @@
+// Футер
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Dancing+Script:wght@400..700&display=swap');
+// font-family: "Dancing Script", cursive;
+
+// Заголовки
+@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+// font-family: "Arsenal SC", sans-serif;
+
+// Мейн фонт
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+// Робото
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --max-width: 1100px;
   --max-width-second: 1540px;
   --max-width-admin: 1600px;
-  // --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-  --foreground-rgb: 0, 0, 0;
-  // --background-start-rgb: 214, 219, 220;
-  --background-start-rgb: 255, 255, 255;
-  // --background-end-rgb: 255, 255, 255;
-  --background-end-rgb: 240, 197, 11, 0.1;
 
+  // Шрифт заголовка на главной
+  --font-main-title-font: "Arsenal SC", sans-serif;
+  // Шрифт заголовка футер
+  --font-footer-title-font: "Dancing Script", cursive;
+  // Шрифт для заголовков
+  --title-font: "Roboto Condensed", sans-serif;
+  // --title-font: "Arsenal SC", sans-serif;
+  // Основной шрифт
+  --font-main: "Roboto Condensed", sans-serif;
+  // --font-main: "Montserrat", sans-serif;
+
+  // Размеры Шрифтов
+  --font-main-title-size: 3.75rem;
+  --font-title-size: 2.25rem;
+  --font-big-size: 1.5rem;
+  --font-medium-size: 1.125rem;
+  --font-small-size: 0.875rem;
+  --font-line-height: 180%;
+  
+  // Цвета шрифта
   --main-text-decoration-color: #fcdd42;
-  --main-background-decoration-color: #fcdd4232;
-  --second-text-decoration-color: #6b7280;
+  --main-text-color: black;
   --second-text-color: #5d5d5d;
-  --second-background-color: #00000011;
-  --border-color: #00000011;
 
-  // Сброс стилей
-  ul, ul li {
-    list-style: none;
-  }
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
+  // Цвета остальные
+  --foreground-rgb: 0, 0, 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+// Сброс стилей
+ul, ul li {
+  list-style: none;
 }
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --foreground-rgb: 255, 255, 255;
+//     --card-rgb: 100, 100, 100;
+//     --card-border-rgb: 200, 200, 200;
+//   }
+// }
+
 
 * {
   transition: all ease .3s;
@@ -47,6 +67,9 @@
   padding: 0;
   margin: 0;
   font-size: 16px;
+  font-family: var(--font-main);
+  line-height: var(--font-line-height);
+  font-weight: normal;
 }
 
 html,
@@ -73,19 +96,15 @@ a {
 // Header decoration
 #active_link {
   position: relative;
-  // padding: 10px;
   &::after {
     content: "";
     position: absolute;
     bottom: 5px;
-    // left: 0px;
     width: 80%;
     height: 2px;
     background-color: black;
-
     left: 50%;
     transform: translateX(-50%);
-
     animation: underLine .2s ease-out;
   }
 }

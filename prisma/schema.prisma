@@ -29,19 +29,35 @@ model User {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  gip       String?
-  gap       String?
-  thumbnail String[]
-  gallery   String[]
-  author    User?    @relation(fields: [authorId], references: [id])
-  type      Type
-  authorId  Int?
-  isOnMain  Boolean @default(false)
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  title         String   @db.VarChar(255)
+  content       String?
+  tep           Tep[]
+  secondContent String?
+  thumbnail     String[]
+  gallery       String[]
+  author        User?    @relation(fields: [authorId], references: [id])
+  type          Type
+  authorId      Int?
+  isOnMain      Boolean  @default(false)
+}
+
+model Tep {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  landArea        String   @default("null")
+  buildArea       String   @default("null")
+  floorsAbove     String   @default("null")
+  floorsBelow     String   @default("null")
+  liveArea        String   @default("null")
+  commerceArea    String   @default("null")
+  apartmentsCount String   @default("null")
+  mopCount        String   @default("null")
+  Post            Post?    @relation(fields: [postId], references: [id])
+  postId          Int?     @unique
 }
 
 model News {
@@ -77,9 +93,9 @@ model About {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  address   String?   @db.VarChar(255)
-  phone     String?   @db.VarChar(255)
-  email     String?   @db.VarChar(255)
+  address   String?  @db.VarChar(255)
+  phone     String?  @db.VarChar(255)
+  email     String?  @db.VarChar(255)
   yandex    String?
 }
 

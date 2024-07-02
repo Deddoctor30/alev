@@ -44,5 +44,7 @@ export const adminFormatter = (item: string) => {
          return 'По вопросам:'
       case 'path':
          return 'Путь к файлу:'
+      case 'secondContent':
+         return 'Содержание 2:'
    }
 }

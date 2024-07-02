@@ -4,6 +4,7 @@ import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
 import { downloadSchema } from "@/lib/downloadTypes";
+import { downloadUpdateSchema } from "@/lib/downloadUpdateTypes";
 import fs from 'fs';
  
 export  const getDownload  = async () => {
@@ -227,7 +228,7 @@ export  const deleteDownload  = async (id: number) => {
 
 export  const updateDownload  = async ( updateId: number, prevState: any, values: FormData)  => {
    // Парсим через схему Zoda в result
-   const result = downloadSchema.safeParse({
+   const result = downloadUpdateSchema.safeParse({
       title: values.get('title'),
       content: values.get('content')
    })

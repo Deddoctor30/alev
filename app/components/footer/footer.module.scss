@@ -1,12 +1,30 @@
 .footer {
    margin-top: 100px;
-   padding: 40px;
+   padding: 60px;
    width: 100%;
    display: flex;
    justify-content: center;
-   // background-color: var(--main-background-decoration-color);
-   background-color: var(--second-background-color);
-   color: var(--second-text-decoration-color);
+   border-top: 2px solid var(--main-text-decoration-color);
+   color: var(--second-text-color);
+   position: relative;
+   top: 0;
+   left: 0;
+   &__mark {
+      color: var(--main-text-color);
+      font-family: var(--font-footer-title-font);
+      font-size: var(--font-title-size);
+      position: absolute;
+      top: -55px;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      z-index: 5000;
+      background-color: white;
+      padding: 20px;
+      &::first-letter {
+         font-weight: 700;
+         color: var(--main-text-decoration-color);
+      }
+   }
 }
 .wrapper {
    width: var(--max-width);
@@ -24,7 +42,6 @@
    }
 }
 .items {
-   // padding: 10px 0px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -36,7 +53,7 @@
    justify-content: center;
    align-items: center;
    padding: 4px 12px;
-   font-size: 0.875rem;
+   font-size: var(--font-small-size);
    a {
       font-size: inherit;
    }

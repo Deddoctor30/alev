@@ -7,6 +7,7 @@ const Footer = async () => {
 
   return (
     <footer className={styles.footer}>
+      <h2 className={styles.footer__mark}>Alev Group</h2>
       <div className={styles.wrapper}>
         <div className={styles.inner}>
           <ul className={styles.items}>

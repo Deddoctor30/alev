@@ -1,12 +1,14 @@
 'use client'
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import React, { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import { createUser, updateUser } from '@/app/actions/userActions';
 import { message } from 'antd';
 
 import styles from './form.module.scss'
+import Image from 'next/image';
 
  const UserFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh: Dispatch<SetStateAction<boolean>> }) => {
+   let previewUrl = ''
    const initialState = {
       message: {
          status: '',
@@ -19,6 +21,7 @@ import styles from './form.module.scss'
    const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
    const [messageApi, contextHolder] = message.useMessage();  
    const formRef = useRef<HTMLFormElement>(null);
+   const [urlImg, setUrlImg] = useState('')
  
    useEffect(() => {
       switch (state.message.status) {
@@ -55,7 +58,10 @@ import styles from './form.module.scss'
    const refreshHandler = () => {
       setRefresh(value => !value)     
       document.forms[0].requestSubmit()
+      URL.revokeObjectURL(previewUrl)
+      setUrlImg('')
    }
+   
 
    function success() {
       formRef.current?.reset()
@@ -70,9 +76,13 @@ import styles from './form.module.scss'
          type: 'error',
          content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
       });
-   };   
-
-
+   };
+   
+   const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      previewUrl = URL.createObjectURL(e.target.files[0])
+      setUrlImg(previewUrl)
+   }
+   
   return (
    <>
       {contextHolder}
@@ -80,25 +90,35 @@ import styles from './form.module.scss'
          <div className={styles.form__wrapper}>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="name" className={styles.form__label}>Заполните имя сотрудника:<span style={{color: 'red'}}>*</span></label>
-                  <input type="text" required name='name' className={styles.form__input}/>
+                  {updateId ?
+                  <>
+                     <label htmlFor="name" className={styles.form__label}>Имя сотрудника:</label>
+                     <input type="text" name='name' className={styles.form__input}/>
+                  </>
+                     :
+                  <>
+                     <label htmlFor="name" className={styles.form__label}>Имя сотрудника:<span style={{color: 'red'}}>*</span></label>
+                     <input type="text" required name='name' className={styles.form__input}/>
+                  </>
+                  }
+
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="email" className={styles.form__label}>Заполните E-mail сотрудника:</label>
+                  <label htmlFor="email" className={styles.form__label}>E-mail сотрудника:</label>
                   <input type="text" name='email' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="tel" className={styles.form__label}>Заполните телефон сотрудника:</label>
+                  <label htmlFor="tel" className={styles.form__label}>Телефон сотрудника:</label>
                   <input type="number" name='tel' className={styles.form__input}/>
                </div>
             </div>
             <div className={styles.form__inner}>
                <div className={styles.form__item}>
-                  <label htmlFor="position" className={styles.form__label}>Заполните имя сотрудника:<span style={{color: 'red'}}>*</span></label>
+                  <label htmlFor="position" className={styles.form__label}>Должность:</label>
                   <select className={styles.form__select} name="position" id="position">
                      <option value="director">Директор</option>
                      <option value="preDirector">Заместитель директора</option>
@@ -110,8 +130,13 @@ import styles from './form.module.scss'
             <h2 className={styles.form__title}>Аватар пользователя</h2>
             <div className={styles.form__divider}></div>
             <div className={styles.form__item}>
-               <input type="file" id='upload' name='avatar' hidden className={styles.form__upload}/>
-               <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+               <input type="file" id='upload' name='avatar' onChange={(e) => imgChangeHandler(e)} hidden className={styles.form__upload}/>
+               <div className={styles.form__temp}>
+                  <label htmlFor="upload" className={styles.form__btn}>Загрузить</label>
+                  {urlImg.length > 0 &&
+                     <Image className={styles.form__img} width={200} height={150} src={urlImg} alt="123" />
+                  }
+               </div>
             </div>
             <div className={styles.form__divider}></div>
          </div>

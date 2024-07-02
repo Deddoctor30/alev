@@ -8,13 +8,19 @@ $imgDelay: all ease-in-out .5s;
   align-items: center;
   padding: 2rem;
   min-height: 100vh;
+  &__title {
+    font-family: var(--title-font);
+    font-size: var(--font-title-size);
+    text-align: left;
+    margin-bottom: 20px;
+  }
 }
 .wrapper {
   width: var(--max-width);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .items {
   display: flex;
@@ -65,7 +71,7 @@ $imgDelay: all ease-in-out .5s;
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-size: 1.5rem;
+      font-size: var(--font-big-size);
       transition: $projectsDelay;
       text-align: center;
       width: 100%;

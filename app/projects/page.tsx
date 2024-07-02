@@ -13,8 +13,8 @@ const page = async () => {
     <Suspense fallback={<Loading />}>
       <div className={styles.projects}>
         <div className={styles.wrapper}>
+          <h1 className={styles.projects__title}>Проекты</h1>
           <PageNavigation />
-
           <div className={styles.items}>
             {projects.map((item) => (
               <div key={item.id} className={`${styles.items__item} ${styles.item}`}>

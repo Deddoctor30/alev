@@ -1,7 +1,7 @@
 import { z } from "zod";
 export const mainSchema = z.object({
    title: z.string(),
-   content: z.string().min(1, 'Заполните поле "Описание"')
+   content: z.string()
 })
 
 export type MainType = z.infer<typeof mainSchema>

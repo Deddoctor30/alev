@@ -1,19 +1,13 @@
 .navigation {
-   margin-bottom: 30px;
+   margin-bottom: 60px;
    &__list {
      display: flex;
-     margin-top: 20px;
      align-items: center;
-     // font-style: italic;
      width: var(--max-width);
+     color: var(--second-text-color);
      &>*:not(:last-child) {
        margin-right: 30px;
      }
-    //  &>*:first-child {
-    //   a {
-    //     font-size: 1.5rem;
-    //   }
-    //  }
    }
    &__item {
      p {

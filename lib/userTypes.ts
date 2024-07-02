@@ -4,7 +4,6 @@ export const userSchema = z.object({
    email: z.string(),
    tel: z.string(),
    position: z.string(),
-   // avatar: z.array(z.string())
 })
 
 export type MainType = z.infer<typeof userSchema>

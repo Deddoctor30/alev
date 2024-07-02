@@ -4,8 +4,8 @@ import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
 import { userSchema } from "@/lib/userTypes";
+import { userUpdateSchema } from "@/lib/userUpdateTypes";
 import fs from 'fs';
-import { revalidatePath } from "next/cache";
  
 export  const getUsers  = async () => {
   try {
@@ -105,7 +105,6 @@ export async function createUser(prevState: any, values: FormData) {
            arrNames.push(fileName)
         }
      }
-     
      // Загружаем данные в БД
      await prisma.user.create({
         data: {
@@ -116,7 +115,6 @@ export async function createUser(prevState: any, values: FormData) {
           avatar: arrNames
         }
      })
-     revalidatePath('/admin')
      return {message: {
         status: 'success',
         text: 'Данные успешно загружены'
@@ -157,7 +155,6 @@ export  const deleteUser  = async (id: number) => {
      await prisma.user.delete({
         where: { id }
      });
-     revalidatePath('/admin')
   } catch (e) {
      console.error('Не удалось удалить запись')
   }
@@ -165,7 +162,7 @@ export  const deleteUser  = async (id: number) => {
 
 export  const updateUser  = async ( updateId: number, prevState: any, values: FormData)  => {
   // Парсим через схему Zoda в result
-  const result = userSchema.safeParse({
+  const result = userUpdateSchema.safeParse({
     name: values.get('name'),
     email: values.get('email'),
     tel: values.get('tel'),

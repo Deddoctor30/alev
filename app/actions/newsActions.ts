@@ -4,6 +4,7 @@ import { join } from "path";
 import { stat, mkdir, writeFile } from "fs/promises";
 import { v4 as uuidv4 } from 'uuid';
 import { newsSchema } from "@/lib/newsTypes";
+import { newsUpdateSchema } from "@/lib/newsUpdateTypes";
 import fs from 'fs';
  
 export  const getNews  = async () => {
@@ -152,7 +153,7 @@ export  const deleteNews  = async (id: number) => {
 
 export  const updateNews  = async ( updateId: number, prevState: any, values: FormData)  => {
    // Парсим через схему Zoda в result
-   const result = newsSchema.safeParse({
+   const result = newsUpdateSchema.safeParse({
       title: values.get('title'),
       content: values.get('content')
    })
