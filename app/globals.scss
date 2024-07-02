@@ -6,34 +6,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 // font-family: "Arsenal SC", sans-serif;
 
+// Мейн фонт
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+// Робото
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --max-width: 1100px;
   --max-width-second: 1540px;
   --max-width-admin: 1600px;
 
-  // Шрифты
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-  "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-  "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-  --title-font: "Arsenal SC", sans-serif;
-  
+
+  // Шрифт заголовка на главной
+  --font-main-title-font: "Arsenal SC", sans-serif;
+  // Шрифт заголовка футер
+  --font-footer-title-font: "Dancing Script", cursive;
+  // Шрифт для заголовков
+  --title-font: "Roboto Condensed", sans-serif;
+  // --title-font: "Arsenal SC", sans-serif;
+  // Основной шрифт
+  --font-main: "Roboto Condensed", sans-serif;
+  // --font-main: "Montserrat", sans-serif;
+
   // Размеры Шрифтов
+  --font-main-title-size: 3.75rem;
   --font-title-size: 2.25rem;
-  --font-small-size: 0.8125rem;
-  --font-line-height: 150%;
+  --font-big-size: 1.5rem;
+  --font-medium-size: 1.125rem;
+  --font-small-size: 0.875rem;
+  --font-line-height: 180%;
   
   // Цвета шрифта
   --main-text-decoration-color: #fcdd42;
   --main-text-color: black;
   --second-text-color: #5d5d5d;
-  --second-text-decoration-color: #6b7280;
 
   // Цвета остальные
   --foreground-rgb: 0, 0, 0;
-
-  // Цвет в Footer
-  --second-background-color: #00000011;
 }
 
 // Сброс стилей
@@ -49,13 +60,16 @@ ul, ul li {
 //   }
 // }
 
+
 * {
   transition: all ease .3s;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-size: 16px;
-  font-style: --font-mono;
+  font-family: var(--font-main);
+  line-height: var(--font-line-height);
+  font-weight: normal;
 }
 
 html,

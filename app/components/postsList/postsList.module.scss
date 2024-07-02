@@ -12,7 +12,6 @@ $imgDelay: all ease-in-out .5s;
     font-family: var(--title-font);
     font-size: var(--font-title-size);
     text-align: left;
-    font-weight: normal;
     margin-bottom: 20px;
   }
 }
@@ -72,7 +71,7 @@ $imgDelay: all ease-in-out .5s;
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-size: 1.5rem;
+      font-size: var(--font-big-size);
       transition: $projectsDelay;
       text-align: center;
       width: 100%;

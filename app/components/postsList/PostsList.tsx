@@ -15,25 +15,6 @@ const page = async ({ type }: { type: Type }) => {
     },
   });
 
-  // const titleFnc = () => {
-  //  switch (type) {
-  //     case 'HOUSE':
-  //      return 'Проекты жилых домов'
-  //  }
-  //  switch (type) {
-  //     case 'MARKET':
-  //      return 'Проекты торговых зданий'
-  //  }
-  //  switch (type) {
-  //     case 'OFFICE':
-  //      return 'Проекты офисных зданий'
-  //  }
-  //  switch (type) {
-  //     case 'PUBLIC':
-  //      return 'Проекты общественных зданий'
-  //  }
-  // }
-
   return (
     <>
       <Suspense fallback={<Loading />}>
