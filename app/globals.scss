@@ -6,8 +6,7 @@
 // Мейн пейдж
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 // font-family: "Great Vibes", cursive;
-
-
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap');
 // Заголовки
 @import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 // font-family: "Arsenal SC", sans-serif;
@@ -27,13 +26,17 @@
 
   // Шрифт заголовка на главной
   --font-main-title-font: "Dancing Script", cursive;
+  // --font-main-title-font: "Dancing Script", cursive;
   --font-main-second-title-font: "Great Vibes", cursive;
-  // --font-main-title-font: "Arsenal SC", sans-serif;
+  // --font-main-second-title-font: "Rubik Doodle Shadow", system-ui;
+  
   // Шрифт заголовка футер
   --font-footer-title-font: "Dancing Script", cursive;
+
   // Шрифт для заголовков
   --title-font: "Roboto Condensed", sans-serif;
   // --title-font: "Arsenal SC", sans-serif;
+
   // Основной шрифт
   --font-main: "Roboto Condensed", sans-serif;
   // --font-main: "Montserrat", sans-serif;

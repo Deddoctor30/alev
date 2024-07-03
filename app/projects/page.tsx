@@ -5,9 +5,11 @@ import { Suspense } from "react";
 import prisma from "@/lib/db";
 import Loading from "../components/loading/Loading";
 import PageNavigation from "../components/pageNavigation/PageNavigation";
+import { getOnProjectsPosts } from "../actions/postActions";
+import ProjectList from "../components/projectList/ProjectList";
 
 const page = async () => {
-  const projects = await prisma.post.findMany();
+  const projects = await getOnProjectsPosts(0, 3);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -15,7 +17,8 @@ const page = async () => {
         <div className={styles.wrapper}>
           <h1 className={styles.projects__title}>Проекты</h1>
           <PageNavigation />
-          <div className={styles.items}>
+          <ProjectList/>
+          {/* <div className={styles.items}>
             {projects.map((item) => (
               <div key={item.id} className={`${styles.items__item} ${styles.item}`}>
                 <Link className={styles.item__link} href={`/projects/${item.type.toLowerCase()}/${item.id}`}>
@@ -32,7 +35,7 @@ const page = async () => {
                 </Link>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </Suspense>

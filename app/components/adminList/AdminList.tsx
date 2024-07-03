@@ -16,7 +16,6 @@ type Union = User & Post & News & Main & Post & Contacts & About
 
 const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId, isRefresh, setRefresh }: { method: Function, isModalOpen: boolean, methodDelete: (id: number) => Promise<void>, openModal: Dispatch<SetStateAction<boolean>>, setUpdateId: Dispatch<SetStateAction<number | null>>, isRefresh: boolean, setRefresh: Dispatch<SetStateAction<boolean>>}) => {
    const [data, setData] = useState<Union[] | Union | null>(null)
-   // const [refresh, setRefresh] = useState(false)
    useEffect(() => {
       const fetchData = async () => {
          const fetchedData = await method()

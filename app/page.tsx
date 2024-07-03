@@ -9,7 +9,6 @@ import MainImgLoader from './components/mainImgLoader/MainImgLoader';
 import MainImgThumbs from './components/mainImgThumbs/MainImgThumbs';
 import Image from 'next/image'
 
-import one from '@/public/images/background.jpg';
 import two from '@/public/images/background2.jpg';
 
 export default async function Home() {
@@ -18,27 +17,20 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<Loading />}>
+      <Image className={styles.image} src={two} width={1900} height={900} alt="123"/>
       <main className={styles.main}>
         <div className={styles.wrapper}>
-          <Image className={styles.image} src={two} width={1900} height={900} alt="123"/>
           <div className={styles.center}>
-            {/* <div className={styles.center__left}> */}
               <div className={styles.center__wrapper}>
                 <p className={styles.center__title}>Проектное бюро</p>
                 <p className={styles.center__mark}>Alev Group</p>
               </div>
-              {/* <p className={styles.center__subtitle}>{main?.title}</p> */}
-            {/* </div> */}
-            {/* <div className={styles.center__right}> */}
-              {/* <p>{main?.content}</p> */}
-              {/* <p>С момента основания в 2019 году наша команда реализовала 49 крупных проектов на территории Москвы, Московской области и в других городах России. Наша работа начинается с детальной проработки концепции, разработки АГО, АХО и других разрешаюших документов. После чего начинается стадия проектирования, которая включает в себя разработку проектной и рабочей документации. Кроме того мы предоставляем услуги технадзора и сопровождаем объект вплоть до его ввода в эксплуатацию.</p> */}
-              {/* <Link className={styles.center__link} href='/about#connection'>Связаться с нами</Link> */}
-            {/* </div> */}
           </div>
           {posts &&
             <MainImgThumbs data={posts}/>
           }
         </div>
+        <Link className={styles.center__link} href='/about#connection'>Связаться с нами →</Link>
         {main &&
           <MainImgLoader data={main?.gallery} />
         }

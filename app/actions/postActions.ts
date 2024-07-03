@@ -22,6 +22,19 @@ export const getPosts = async () => {
    }
 }
 
+export const getOnProjectsPosts = async (take: number) => {
+   try {
+      return await prisma.post.findMany({
+         take: take,
+         orderBy: {
+            createdAt: "desc"
+         }
+      });
+   } catch (e) {
+      console.error('Ошибка чтения БД', e);
+   }
+}
+
 export const getOnMainPosts = async () => {
    try {
       return await prisma.post.findMany({
