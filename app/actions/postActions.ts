@@ -7,6 +7,8 @@ import { postsSchema } from "@/lib/postsTypes";
 import { postsUpdateSchema } from "@/lib/postUpdateTypes";
 import fs from 'fs';
 
+type Type = "HOUSE" | "MARKET" | "OFFICE" | "PUBLIC";
+
 export const getPosts = async () => {
    try {
       return await prisma.post.findMany({
@@ -41,6 +43,22 @@ export const getOnMainPosts = async () => {
          where: {
             isOnMain: true
          },
+         orderBy: {
+            createdAt: "desc"
+         }
+      });
+   } catch (e) {
+      console.error('Ошибка чтения БД', e);
+   }
+}
+
+export const getPostsCurrent = async (type: Type, take: number) => {
+   try {
+      return await prisma.post.findMany({
+         take: take,
+         where: {
+            type: type,
+          },
          orderBy: {
             createdAt: "desc"
          }
