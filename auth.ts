@@ -16,12 +16,18 @@ export const { auth, signIn, signOut } = NextAuth({
 
           if (parsedCredentials.success) {
             const { email, password } = parsedCredentials.data;
+            
             const user = await getAdminByEmail(email);
+            console.log('123', user);
             if (!user) return null;
-            const passwordsMatch = await bcrypt.compare(password, user.password);
+
+            
+            // const passwordsMatch = await bcrypt.compare(password, user.password);
+            const passwordsMatch = password === user.password;
+            
             if (passwordsMatch) return user;
           }
-          console.log('Неверные реквизиты входы');
+          console.log('Неверные реквизиты входа');
           return null
 
       },

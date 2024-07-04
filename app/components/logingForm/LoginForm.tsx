@@ -4,15 +4,18 @@ import { Form, Input, Button, Divider } from 'antd';
 import type { FormProps } from 'antd';
 import styles from '../formAdmin/form.module.scss';
 import { Admin } from '@/types/admin';
-import { createAdmin } from '@/app/actions/adminActions';
+import { authenticate } from '@/app/actions/adminActions';
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
+   const router = useRouter()
    const [form] = Form.useForm()
    const onFinish: FormProps<Admin>['onFinish'] = (values) => {
       console.log('Успешно:', values);
       // Загрузка в БД
-      createAdmin(values)
+      authenticate(undefined, values)
       form.resetFields()
+      router.push('/admin')
    };
    const onFinishFailed: FormProps<Admin>['onFinishFailed'] = (errorInfo) => {
       console.log('Ошибка:', errorInfo);
