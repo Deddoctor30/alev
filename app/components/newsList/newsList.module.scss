@@ -1,0 +1,36 @@
+.news {
+   &__list {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     gap: 50px;
+   }
+   &__item {
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     margin-bottom: 20px;
+   }
+   &__createdAt {
+     font-size: var(--font-small-size);
+     color: var(--second-text-color);
+   }
+   &__inner {
+     display: flex;
+     gap: 50px;
+   }
+   &__title {
+     flex: 0 1 60%;
+     font-size: var(--font-big-size);
+     margin-bottom: 20px;
+     &:hover {
+       color: gray;
+     }
+   }
+   &__content {
+     flex: 0 1 40%;
+     line-height: var(--font-line-height);
+     font-size: var(--font-small-size);
+     color: var(--second-text-color);
+   }
+ }

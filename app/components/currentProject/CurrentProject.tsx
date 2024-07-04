@@ -91,15 +91,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
                <div className={styles.content__inner}>
                   <h1 className={styles.title}>{posts?.title}</h1>
                   <p className={styles.content__description}>{posts?.content}</p>
-                  {/* <p className={styles.content__autors}>Авторский состав:</p>
-                  <ul className={styles.content__list}>
-                     <li className={styles.content__item}>
-                        ГИП проекта: {posts?.gip}
-                     </li>
-                     <li className={styles.content__item}>
-                        ГИП проекта: {posts?.gap}
-                     </li>
-                  </ul> */}
                </div>
             </div>
             <div className={styles.project__table}>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMain } from "./actions/mainActions";
-import { getOnMainPosts, getPosts } from './actions/postActions';
+import { getOnMainPosts } from './actions/postActions';
 import { Suspense } from 'react';
 import Loading from './components/loading/Loading';
 
@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Image className={styles.image} src={two} width={1900} height={900} alt="123"/>
+      <Image className={styles.image} src={two} width={1900} height={900} alt="Main background"/>
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div className={styles.center}>

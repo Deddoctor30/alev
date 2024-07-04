@@ -4,7 +4,7 @@ import React, { useState, Suspense } from 'react';
 import { adminSlider } from '@/data/adminSlider';
 import ModalAdmin from '../components/modalAdmin/ModalAdmin';
 import { Layout, Menu, theme } from 'antd';
-import { UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined } from '@ant-design/icons';
+import { UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined, KeyOutlined } from '@ant-design/icons';
 import styles from './page.module.scss'
 import Loading from '../components/loading/Loading';
 import AdminContent from '../components/adminContent/AdminContent';
@@ -13,7 +13,7 @@ import AdminContent from '../components/adminContent/AdminContent';
 
 const { Content, Footer, Sider, Header } = Layout;
 
-const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined ].map(
+const items = [UserOutlined, UnorderedListOutlined, HomeOutlined, ReadOutlined, InfoCircleOutlined, UsergroupAddOutlined, CopyOutlined, KeyOutlined].map(
   (icon, index) => ({
     key: String(adminSlider.at(index)),
     icon: React.createElement(icon),

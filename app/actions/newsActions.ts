@@ -37,6 +37,19 @@ export  const getNewsAll  = async () => {
       console.error('Ошибка чтения БД', e);
    } 
 }
+ 
+export  const getOnNewsPage  = async (take: number) => {
+   try {
+     return await prisma.news.findMany({
+      take: take,
+      orderBy: {
+         createdAt: "desc"
+      }
+     });
+   } catch (e) {
+      console.error('Ошибка чтения БД', e);
+   } 
+}
 
 export async function createNews(prevState: any, values: FormData) {
    // Валидация формы

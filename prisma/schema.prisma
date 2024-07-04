@@ -99,6 +99,14 @@ model About {
   yandex    String?
 }
 
+model Admin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @db.VarChar(255) @unique
+  password  String   @db.VarChar(255)
+}
+
 enum Role {
   USER
   ADMIN

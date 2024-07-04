@@ -25,8 +25,15 @@ const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId
    }, [isModalOpen, method, isRefresh])
 
    const createDataArr = (obj: Union): string[] => {
-      return Object.values(obj).filter(item => item !== null).map(item => String(item))
+      return Object.values(obj).map(item => String(item))
+      // return Object.values(obj).filter(item => item !== null).map(item => String(item))
    }
+
+
+   data?.forEach(item => {
+      console.log((item));
+      
+   })
 
   return (
    <ul>

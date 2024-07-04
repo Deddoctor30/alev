@@ -8,6 +8,7 @@ import AboutFormAdmin from '../formAdmin/AboutFormAdmin';
 import ContactsFormAdmin from '../formAdmin/ContactsFormAdmin';
 import { Dispatch, SetStateAction } from 'react';
 import DocsFormAdmin from '../formAdmin/DocsFormAdmin';
+import AdminForm from '../formAdmin/AdminForm';
 
 const ModalAdmin = ({activeSlide, isModalOpen, setIsModalOpen, updateId, setUpdateId, setRefresh}: {activeSlide: string, isModalOpen: any, setIsModalOpen: any, updateId: any, setUpdateId: any, setRefresh: Dispatch<SetStateAction<boolean>>}) => {
    const showModal = () => {
@@ -48,6 +49,9 @@ const ModalAdmin = ({activeSlide, isModalOpen, setIsModalOpen, updateId, setUpda
           }
           {activeSlide === 'Документы' && 
             <DocsFormAdmin updateId={updateId} setRefresh={setRefresh}/>
+          }
+          {activeSlide === 'Пароль' && 
+            <AdminForm updateId={updateId} setRefresh={setRefresh}/>
           }
       </Modal>
    </>

@@ -7,7 +7,7 @@ import { getOnProjectsPosts } from '@/app/actions/postActions';
 import { Post } from '@/types/post';
 import { useInView } from 'react-intersection-observer'
 
-const increace = 2;
+const increace = 10;
 
 const ProjectList = () => {
    const { ref, inView } = useInView()
@@ -33,9 +33,6 @@ const ProjectList = () => {
       }
    }, [inView])
 
- 
-
-   // const projects = await getOnProjectsPosts(0, 3);
    return (
       <div className={styles.items}>
          {projects && projects.map((item) => (

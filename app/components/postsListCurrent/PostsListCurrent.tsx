@@ -8,7 +8,7 @@ import { useInView } from 'react-intersection-observer'
 import { Post } from "@prisma/client";
 type Type = "HOUSE" | "MARKET" | "OFFICE" | "PUBLIC";
 
-const increace = 2;
+const increace = 10;
 
 const PostsListCurrent = ({ type }: { type: Type }) => {
   const { ref, inView } = useInView()

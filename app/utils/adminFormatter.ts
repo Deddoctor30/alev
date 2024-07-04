@@ -22,10 +22,10 @@ export const adminFormatter = (item: string) => {
          return 'Заголовок:'
       case 'content':
          return 'Содержание:'
-      case 'gip':
-         return 'ГИП проекта:'
-      case 'gap':
-         return 'ГАП проекта:'
+      case 'secondContent':
+         return 'Второе содержание:'
+      case 'author':
+         return 'Автор:'
       case 'thumbnail':
          return 'Превью:'
       case 'gallery':
@@ -46,5 +46,7 @@ export const adminFormatter = (item: string) => {
          return 'Путь к файлу:'
       case 'secondContent':
          return 'Содержание 2:'
+      case 'isOnMain':
+         return 'Отображать на главной странице:'
    }
 }

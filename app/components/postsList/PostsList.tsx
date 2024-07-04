@@ -1,5 +1,4 @@
 
-import prisma from "@/lib/db";
 import { Suspense } from "react";
 import Loading from "../loading/Loading";
 import PageNavigation from "../pageNavigation/PageNavigation";
@@ -9,12 +8,6 @@ import PostsListCurrent from "../postsListCurrent/PostsListCurrent";
 type Type = "HOUSE" | "MARKET" | "OFFICE" | "PUBLIC";
 
 const page = async ({ type }: { type: Type }) => {
-  // const houses = await prisma.post.findMany({
-  //   where: {
-  //     type: type,
-  //   },
-  // });
-
   return (
     <>
       <Suspense fallback={<Loading />}>
