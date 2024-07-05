@@ -3,27 +3,49 @@ import { adminSchema } from "@/lib/adminTypes";
 import { adminUpdateSchema } from "@/lib/adminUpdateTypes";
 import prisma from "@/lib/db"
 import { Admin } from "@/types/admin";
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
+import bcrypt from "bcrypt";
 
 export async function authenticate(
-   prevState: string | undefined,
+   prevState: any,
    formData: Admin,
  ) {
    try {
      await signIn('credentials', formData);
    } catch (error) {
+      console.log(error);
+      
      if (error instanceof AuthError) {
        switch (error.type) {
          case 'CredentialsSignin':
-           return 'Неверные данные для входа';
+            return {message: {
+               status: 'error',
+               text: 'Неверные данные для входа'
+            }}
+         case 'CallbackRouteError':
+            return {message: {
+               status: 'error',
+               text: 'Неверные данные для входа'
+            }}
          default:
-           return 'Что-то пошло не так';
+            return {message: {
+               status: 'error',
+               text: 'Что-то пошло не так'
+            }}
        }
      }
      throw error;
    }
  }
+ 
+export  const signOutAction  = async () => {
+   try {
+      await signOut()
+   } catch (e) {
+      console.error('Ошибка выхода', e);
+   } 
+}
  
 export  const getAdmin  = async () => {
    try {
@@ -50,10 +72,8 @@ export  const getAdminByEmail  = async (email: string) => {
 }
 
 export async function createAdmin(values: Admin) {
+   const saltRounds = 10;
    // Валидация формы  
-
-   console.log(values);
-   
    const result = adminSchema.safeParse({
       email: values.email,
       password: values.password
@@ -70,16 +90,18 @@ export async function createAdmin(values: Admin) {
          text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
+
+   // Криптизируем
+   const salt = bcrypt.genSaltSync(saltRounds);
+   const hashPassword = bcrypt.hashSync(result.data.password, salt);
    
    try {
-
       await prisma.admin.create({
          data: {
             email: result.data.email,
-            password: result.data.password,
+            password: hashPassword,
          }
       })
-
       return {message: {
          status: 'success',
          text: 'Данные успешно загружены'
@@ -109,16 +131,11 @@ export  const deleteAdmin  = async (id: number) => {
 }
 
 export  const updateAdmin  = async ( updateId: number, values: Admin)  => {
-   console.log(values);
-   
    // Парсим через схему Zoda в result
    const result = adminUpdateSchema.safeParse({
       email: values.email,
       password: values.email,
    })
-
-   console.log(result);
-   
 
    // Выкидваем ошибку после валидации Zodа
    let errorMessage = '';

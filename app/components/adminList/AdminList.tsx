@@ -12,6 +12,7 @@ import { About } from '@prisma/client';
 import ListControlls from '../listControlls/ListControlls';
 import { adminFormatter } from '@/app/utils/adminFormatter';
 
+
 type Union = User & Post & News & Main & Post & Contacts & About
 
 const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId, isRefresh, setRefresh }: { method: Function, isModalOpen: boolean, methodDelete: (id: number) => Promise<void>, openModal: Dispatch<SetStateAction<boolean>>, setUpdateId: Dispatch<SetStateAction<number | null>>, isRefresh: boolean, setRefresh: Dispatch<SetStateAction<boolean>>}) => {

@@ -1,52 +1,83 @@
 'use client'
-import React, { Dispatch, SetStateAction } from 'react';
-import { Form, Input, Button, Divider } from 'antd';
-import type { FormProps } from 'antd';
+import React, { useEffect, useRef } from 'react';
 import styles from '../formAdmin/form.module.scss';
-import { Admin } from '@/types/admin';
 import { authenticate } from '@/app/actions/adminActions';
 import { useRouter } from 'next/navigation'
+import { message } from 'antd';
+import { useFormState, useFormStatus } from 'react-dom';
 
 const LoginForm = () => {
+   const token = cookieStore.get('theme')
+   const status = useFormStatus()
    const router = useRouter()
-   const [form] = Form.useForm()
-   const onFinish: FormProps<Admin>['onFinish'] = (values) => {
-      console.log('Успешно:', values);
-      // Загрузка в БД
-      authenticate(undefined, values)
-      form.resetFields()
-      router.push('/admin')
-   };
-   const onFinishFailed: FormProps<Admin>['onFinishFailed'] = (errorInfo) => {
-      console.log('Ошибка:', errorInfo);
-   };
+   const initialState = {
+      message: {
+         status: '',
+         text: '',
+      }
+   }
+   const [state, formAction] = useFormState(
+      authenticate,
+      initialState,
+   );
 
+   // const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
+   const [messageApi, contextHolder] = message.useMessage();
+   const formRef = useRef<HTMLFormElement>(null);
+
+   console.log(state);
+
+   useEffect(() => {
+      if (state && state.message.status === 'error') {
+         error()
+      }
+   }, [state])
+
+   function SubmitButton() {
+      const status = useFormStatus()
+
+      return (
+         <button type="submit" onClick={refreshHandler} disabled={status.pending} className={styles.form__submit}>
+            Загрузить
+         </button>
+      )
+   }
+   const refreshHandler = () => {
+      document.forms[0].requestSubmit()
+      if (status.pending === false) {
+         router.push('/admin')
+      }
+   }
+   function error() {
+      messageApi.open({
+         type: 'error',
+         content: state && state.message.text
+      });
+   };
 
    return (
-      <Form
-         form={form}
-         name="basic"
-         labelCol={{ span: 8 }}
-         wrapperCol={{ span: 16 }}
-         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-         initialValues={{ remember: true }}
-         onFinish={onFinish}
-         onFinishFailed={onFinishFailed}
-         autoComplete="off">
+      <>
+         {contextHolder}
          <h2 style={{ textAlign: 'center', width: '100%' }} className={styles.form__title}>Почта и пароль от Панели Администратора</h2>
-         <Form.Item<Admin> label="Почта" name="email" rules={[{ required: true, type: 'email', message: 'Некорректный E-mail' }]}>
-            <Input style={{ width: '300px' }} size='large' />
-         </Form.Item>
-         <Form.Item<Admin> label="Пароль" name="password" rules={[{ required: true, message: 'Заполните пароль' }]}>
-            <Input style={{ width: '300px' }} size='large' />
-         </Form.Item>
-         <Divider />
-         <Form.Item style={{ display: 'flex', justifyContent: 'center' }} >
-            <Button size='large' type="primary" htmlType="submit">
-               Отправить
-            </Button>
-         </Form.Item>
-      </Form>
+         <form action={formAction} ref={formRef} id='form' className={styles.form}>
+            <div className={styles.form__wrapper}>
+               <div className={styles.form__inner}>
+                  <div className={styles.form__item}>
+                     <label htmlFor="email" className={styles.form__label}>E-mail:</label>
+                     <input type="text" name='email' className={styles.form__input} />
+                  </div>
+               </div>
+               <div className={styles.form__inner}>
+                  <div className={styles.form__item}>
+                     <label htmlFor="password" className={styles.form__label}>Пароль:</label>
+                     <input type="number" name='password' className={styles.form__input} />
+                  </div>
+               </div>
+               <div className={styles.form__divider}></div>
+            </div>
+            <SubmitButton />
+         </form>
+      </>
    )
 }
 

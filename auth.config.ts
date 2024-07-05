@@ -11,7 +11,8 @@ export const authConfig = {
       if (isOnAdmin) {
         if (isLoggedIn) return true;
         return false; // Перенаправление на страницу Логина
-      } else 
+      } 
+      // else 
       // if (isLoggedIn) {
       //   return Response.redirect(new URL('/admin', nextUrl));
       // }
