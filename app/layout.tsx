@@ -5,7 +5,7 @@ import { metaData } from "@/data/metaData";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 
-const inter = Inter({ subsets: ["cyrillic"] });
+// const inter = Inter({ subsets: ["cyrillic"] });
 
 import { WebVitals } from './_components/web-vitals'
 
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       // Фикс гидрации
       // suppressHydrationWarning
     >
-      <body className={inter.className}>
+      <body>
         <Header/>
         <WebVitals/>
         {children}
