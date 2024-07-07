@@ -48,6 +48,42 @@
   --font-medium-size: 1.125rem;
   --font-small-size: 0.875rem;
   --font-line-height: 180%;
+
+  @media (max-width: '1440px') {
+    --font-main-title-size: 3.75rem;
+    --font-title-size: 1.725rem;
+    --font-big-size: 1.5rem;
+    --font-medium-size: 1.125rem;
+    --font-small-size: 0.875rem;
+    --font-line-height: 180%;
+  }
+
+  @media (max-width: '1024px') {
+    --font-main-title-size: 3.75rem;
+    --font-title-size: 1.35rem;
+    --font-big-size: 1.5rem;
+    --font-medium-size: 1.125rem;
+    --font-small-size: 0.875rem;
+    --font-line-height: 180%;
+  }
+
+  @media (max-width: '767px') {
+    --font-main-title-size: 3.75rem;
+    --font-title-size: 1.125rem;
+    --font-big-size: 1.5rem;
+    --font-medium-size: 1rem;
+    --font-small-size: 0.875rem;
+    --font-line-height: 180%;
+  }
+
+  @media (max-width: '560px') {
+    --font-main-title-size: 3.75rem;
+    --font-title-size: 1rem;
+    --font-big-size: 1.5rem;
+    // --font-medium-size: 0.825rem;
+    --font-small-size: 0.875rem;
+    --font-line-height: 180%;
+  }
   
   // Цвета шрифта
   --main-text-decoration-color: #fcdd42;
@@ -81,6 +117,8 @@ ul, ul li {
   font-family: var(--font-main);
   line-height: var(--font-line-height);
   font-weight: normal;
+
+  // outline: 2px solid black;
 }
 
 html,

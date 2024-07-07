@@ -9,7 +9,7 @@ const MainImgLoader = ({data}: {data: string[]}) => {
    <ul className={styles.clients__items}>
      {data?.map(item => 
        <li key={item} className={styles.clients__item}>
-         <Image src={`/images/main/${item}`} width={500} height={600} alt={`${item}`}/>
+         <Image className={styles.clients__images} src={`/images/main/${item}`} width={500} height={600} alt={`${item}`}/>
        </li>
      )}
    </ul>

@@ -5,8 +5,9 @@ $delay: all .3s;
    display: flex;
    justify-content: space-between;
    align-items: center;
+   padding: 10px;
 
-   @media (max-width: 800px) {
+   @media (max-width: 822px) {
       justify-content: flex-end;
       padding: 20px;
    }
@@ -16,7 +17,7 @@ $delay: all .3s;
    width: 100%;
    display: flex;
    position: relative;
-   z-index: 6000;
+   z-index: 1;
    top: 0;
    left: 0;
    justify-content: center;
@@ -31,10 +32,10 @@ $delay: all .3s;
       top: 5px;
       width: 188px;
       height: 50px;
-      @media (max-width: '1180px') {
-         display: none;
-      }
-      @media (max-width: '800px') {
+      // @media (max-width: '822px') {
+      //    display: none;
+      // }
+      @media (max-width: '822px') {
          display: block;
       }
    }
@@ -42,7 +43,7 @@ $delay: all .3s;
       display: flex;
       align-items: center;
       gap: 7px;
-      @media (max-width: '800px') {
+      @media (max-width: '822px') {
          position: fixed;
          top: -400px;
          left: 0;
@@ -72,7 +73,7 @@ $delay: all .3s;
       &:hover {
          background-color: rgba(128, 128, 128, 0.110);
       }
-      @media (max-width: '800px') {
+      @media (max-width: '822px') {
          padding: 20px 20px;
          justify-content: center;
          font-size: 1.125em;
@@ -80,7 +81,7 @@ $delay: all .3s;
    }
    &__rightBar {
       display: none;
-      @media (max-width: 800px) {
+      @media (max-width: 822px) {
          flex: 0 1 33.33%;
          display: flex;
          justify-content: flex-end;
@@ -90,7 +91,7 @@ $delay: all .3s;
    &__inner {
       width: 212px;
       height: 50px;
-      @media (max-width: 800px) {
+      @media (max-width: 822px) {
          display: none;
       }
    }
@@ -99,6 +100,8 @@ $delay: all .3s;
       width: 30px;
       height: 20px;
       position: fixed;
+      top: 55px;
+      right: 30px;
       &::before {
          content: "";
          transition: $delay;
@@ -128,7 +131,7 @@ $delay: all .3s;
          background-color: black;
          visibility: 1;
       }
-      @media (min-width: 800px) {
+      @media (min-width: 822px) {
          display: none;
       }
    }
@@ -163,7 +166,7 @@ $delay: all .3s;
       span {
          visibility: 0;
       }
-      @media (min-width: 800px) {
+      @media (min-width: 822px) {
          display: none;
       }
    }

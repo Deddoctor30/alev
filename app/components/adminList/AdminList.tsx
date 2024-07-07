@@ -30,6 +30,8 @@ const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId
       // return Object.values(obj).filter(item => item !== null).map(item => String(item))
    }
 
+   
+
   return (
    <ul>
       {Array.isArray(data)

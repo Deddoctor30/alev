@@ -6,8 +6,7 @@ import { useRouter } from 'next/navigation'
 import { message } from 'antd';
 import { useFormState, useFormStatus } from 'react-dom';
 
-const LoginForm = () => {
-   const token = cookieStore.get('theme')
+const LoginForm = ({ session }: { session: any }) => {
    const status = useFormStatus()
    const router = useRouter()
    const initialState = {
@@ -16,16 +15,16 @@ const LoginForm = () => {
          text: '',
       }
    }
-   const [state, formAction] = useFormState(
-      authenticate,
-      initialState,
-   );
 
-   // const [stateUpdate, formActionUpdate] = useFormState(updatedDataFetching, initialState)
+   const [state, formAction] = useFormState(authenticate, initialState,);
    const [messageApi, contextHolder] = message.useMessage();
    const formRef = useRef<HTMLFormElement>(null);
 
-   console.log(state);
+   useEffect(() => {
+      if (session) {
+         router.push('/admin')
+      }
+   }, [session])
 
    useEffect(() => {
       if (state && state.message.status === 'error') {
@@ -35,7 +34,6 @@ const LoginForm = () => {
 
    function SubmitButton() {
       const status = useFormStatus()
-
       return (
          <button type="submit" onClick={refreshHandler} disabled={status.pending} className={styles.form__submit}>
             Загрузить
@@ -44,9 +42,6 @@ const LoginForm = () => {
    }
    const refreshHandler = () => {
       document.forms[0].requestSubmit()
-      if (status.pending === false) {
-         router.push('/admin')
-      }
    }
    function error() {
       messageApi.open({
@@ -70,7 +65,7 @@ const LoginForm = () => {
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>
                      <label htmlFor="password" className={styles.form__label}>Пароль:</label>
-                     <input type="number" name='password' className={styles.form__input} />
+                     <input type="string" name='password' className={styles.form__input} />
                   </div>
                </div>
                <div className={styles.form__divider}></div>

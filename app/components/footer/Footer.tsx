@@ -14,7 +14,7 @@ const Footer = async () => {
             <li className={styles.item}>
               <a href="/police">Политика конфиденциальности</a>
             </li>
-            <li> • </li>
+            <li className={styles.point}> • </li>
             <li className={styles.item}>
               <a href="/personal">Положение об обработке личных данных</a>
             </li>
@@ -26,13 +26,13 @@ const Footer = async () => {
                   {about.address}
                 </a>
               </li>
-              <li> • </li>
+              <li className={styles.point}> • </li>
               <li className={styles.item}>
                 <a href={`tel:${about.phone}`}>
                   {phoneNumberReplacer(about.phone)}
                 </a>
               </li>
-              <li> • </li>
+              <li className={styles.point}> • </li>
               <li className={styles.item}>
                 <a href={`mailto:${about.email}`}>
                   {about.email}

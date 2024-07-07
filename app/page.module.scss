@@ -9,24 +9,24 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .image {
   width: 100%;
-  height: calc(100% - 80px);
+  // height: calc(100% - 80px);
+  height: 100%;
   filter: blur(0px) opacity(60%) grayscale(10%);
   transition: filter ease 10s;
-  object-fit: fill;
-  object-position: 0px 60px;
-  transform: scale(1.2);
+  object-fit: cover;
+  // object-position: 0px 60px;
   position: absolute;
   top: 0;
   left: 0;
 }
 .center {
-  height: calc(100vh - 80px);
-  width: var(--max-width);
+  height: calc(100vh - 110px);
+  // height: 100vh;
+  // width: var(--max-width);
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,20 +35,32 @@
   position: relative;
   top: 0;
   left: 0;
+
   &__wrapper {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    // align-items: flex-end;
+    // justify-content: center;
     flex-direction: column;
     gap: 0px;
     font-size: var(--font-main-title-size);
     position: absolute;
-    top: 200px;
-    left: 0px;
+    top: 180px;
+    left: 20%;
     // Анимация текста
     animation: clip-path-reveal-1 3s ease;
+
+    @media (max-width: "1024px") {
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% - 80px));
+    }
+    //  @media (max-width: '650px') {
+    //   width: 100%;
+    // }
   }
   &__title {
+    text-align: center;
     line-height: 150%;
     font-size: inherit;
     font-size: 4rem;
@@ -66,10 +78,21 @@
       transform-origin: center center;
       transform: scaleX(0);
       animation: line-animation 3s ease;
+
+      @media (max-width: "1024px") {
+        // width: 100%;
+        // top: 100px;
+        left: 0%;
+        // transform: translate(-50%, 0%);
+      }
+    }
+    @media (max-width: "700px") {
+      font-size: 3.2rem;
     }
   }
 
   &__mark {
+    text-align: center;
     line-height: 150%;
     font-size: 4.5rem;
     font-family: var(--font-main-title-font);
@@ -77,6 +100,9 @@
     padding: 0px 5px;
     &::first-letter {
       color: var(--main-text-decoration-color);
+    }
+    @media (max-width: "700px") {
+      font-size: 3.5rem;
     }
   }
   &__link {

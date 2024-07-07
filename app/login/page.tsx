@@ -1,12 +1,15 @@
+// 'use client'
 import LoginForm from '../components/logingForm/LoginForm';
 import styles from './page.module.scss'
 
-const page = () => {
+import { auth } from "@/auth"
 
+const page = async () => {
+   const session = await auth()
   return (
    <div className={styles.wrapper}>
       <div className={styles.inner}>
-         <LoginForm/>
+         <LoginForm session={session}/>
       </div>
    </div>
   )

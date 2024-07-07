@@ -29,7 +29,7 @@ const ModalAdmin = ({activeSlide, isModalOpen, setIsModalOpen, updateId, setUpda
     };
 
     const handleOut = async () => {
-      signOutAction()
+      await signOutAction()
       router.push('/admin')
     }
 
