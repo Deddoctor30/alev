@@ -22,7 +22,7 @@ export const { auth, signIn, signOut } = NextAuth({
             if (!user) return null;
             
             if (user.email === 'Admin@mail.ru') {
-              passwordsMatch = password === '123456';
+              passwordsMatch = password === user.password;
             } else {
               passwordsMatch = await bcrypt.compare(password, user.password);
             }
