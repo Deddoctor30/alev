@@ -1,5 +1,3 @@
-$projectsDelay: all ease-in-out .3s;
-$imgDelay: all ease-in-out .5s;
 .projects {
   margin-top: 100px;
   display: flex;
@@ -7,13 +5,18 @@ $imgDelay: all ease-in-out .5s;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
-  min-height: 100vh;
+  min-height: 60vh;
   &__title {
-    font-family: var(--title-font);
     font-size: var(--font-title-size);
-    text-align: left;
+    font-family: var(--title-font);
     margin-bottom: 20px;
+    @media (max-width: '767px') {
+      display: none;
+     }
   }
+  @media (max-width: '1150px') {
+    margin-top: 20px;
+   }
 }
 .wrapper {
   width: var(--max-width);
@@ -21,4 +24,7 @@ $imgDelay: all ease-in-out .5s;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  @media (max-width: '1150px') {
+    width: 100%;
+   }
 }

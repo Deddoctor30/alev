@@ -1,12 +1,22 @@
 .navigation {
    margin-bottom: 60px;
+   @media (max-width: '600px') {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
    &__list {
      display: flex;
      align-items: center;
+     flex-wrap: wrap;
     //  width: var(--max-width);
      color: var(--second-text-color);
-     &>*:not(:last-child) {
-       margin-right: 30px;
+    row-gap: 10px;
+    column-gap: 30px;
+    @media (max-width: '600px') {
+      display: flex;
+      justify-content: center;
+      align-items: center;
      }
    }
    &__item {

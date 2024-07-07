@@ -9,6 +9,7 @@ const page = async ({ params }: { params: { id: string } }) => {
          id: Number(params.id),
       }
    })
+   
    return (
       <>
       {news &&

@@ -5,6 +5,9 @@
   align-items: flex-start;
   width: var(--max-width);
   text-align: justify;
+  @media (max-width: '1170px') {
+    width: 100%;
+  }
 }
 .news {
   display: flex;

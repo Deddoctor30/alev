@@ -17,6 +17,8 @@ const CurrentProject = async ({ id }: { id: string }) => {
    });
    const tep = posts?.tep.at(0)
 
+
+   
    const dataSource = [
       {
          key: tep?.id,
@@ -74,6 +76,8 @@ const CurrentProject = async ({ id }: { id: string }) => {
       },
    ];
 
+   
+
    return (
       <div className={styles.project}>
          <div className={styles.wrapper}>
@@ -83,8 +87,8 @@ const CurrentProject = async ({ id }: { id: string }) => {
                <div className={styles.content__img}>
                   <Image
                      src={`/images/posts/${posts?.thumbnail}`}
-                     width={1900}
-                     height={800}
+                     width={900}
+                     height={600}
                      alt={`${posts?.thumbnail[0]}`}
                   />
                </div>
@@ -95,12 +99,13 @@ const CurrentProject = async ({ id }: { id: string }) => {
             </div>
             <div className={styles.project__table}>
                {tep &&
-                  <Table pagination={false} dataSource={dataSource} columns={columns} />
+                  <Table size="large" pagination={false} dataSource={dataSource} columns={columns} />
                }
             </div>
             <div className={styles.galery}>
                {posts?.gallery && posts?.gallery.length > 0 &&
-                  <ImgCarouser data={posts} width={760} height={600} count={2} />
+                  // <ImgCarouser data={posts} width={760} height={600} count={2} />
+                  <ImgCarouser data={posts} count={2} />
                }
             </div>
             <div className={styles.secondContent}>
@@ -108,9 +113,10 @@ const CurrentProject = async ({ id }: { id: string }) => {
                   <p>{posts.secondContent}</p>
                }
             </div>
-            <div className={styles.galery}>
+            <div className={styles.bottomGalery}>
                {posts?.gallery && posts?.gallery.length > 0 &&
-                  <ImgCarouser data={posts} width={500} height={300} starts={2} />
+                  // <ImgCarouser data={posts} width={500} height={300} starts={2} />
+                  <ImgCarouser data={posts} starts={2} />
                }
             </div>
          </div>

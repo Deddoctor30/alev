@@ -12,12 +12,10 @@
 }
 .image {
   width: 100%;
-  // height: calc(100% - 80px);
   height: 100%;
   filter: blur(0px) opacity(60%) grayscale(10%);
   transition: filter ease 10s;
   object-fit: cover;
-  // object-position: 0px 60px;
   position: absolute;
   top: 0;
   left: 0;

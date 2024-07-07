@@ -10,7 +10,13 @@
     font-size: var(--font-title-size);
     font-family: var(--title-font);
     margin-bottom: 20px;
+    @media (max-width: '767px') {
+      display: none;
+     }
   }
+  @media (max-width: '1150px') {
+    margin-top: 20px;
+   }
 }
 .wrapper {
   width: var(--max-width);

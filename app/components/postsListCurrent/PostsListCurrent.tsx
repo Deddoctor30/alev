@@ -48,7 +48,7 @@ const PostsListCurrent = ({ type }: { type: Type }) => {
           href={`/projects/${type.toLowerCase()}/${item.id}`}
         >
           <div className={styles.item__inner}>
-            <p className={styles.item__subtitle}>{item.title}</p>
+            <p className={styles.item__subtitle}>{item.title.length > 100 ? `${item.title.slice(0, 100)}...` : item.title}</p>
           </div>
           <Image
             className={styles.item__img}

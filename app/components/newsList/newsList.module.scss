@@ -4,12 +4,14 @@
      display: flex;
      flex-direction: column;
      gap: 50px;
+
    }
    &__item {
      display: flex;
      flex-direction: column;
      gap: 15px;
      margin-bottom: 20px;
+
    }
    &__createdAt {
      font-size: var(--font-small-size);
@@ -18,6 +20,10 @@
    &__inner {
      display: flex;
      gap: 50px;
+     @media (max-width: '1170px') {
+      flex-direction: column;
+      gap: 10px;
+     }
    }
    &__title {
      flex: 0 1 60%;
