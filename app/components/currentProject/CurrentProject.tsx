@@ -16,9 +16,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
       }
    });
    const tep = posts?.tep.at(0)
-
-
-   
    const dataSource = [
       {
          key: tep?.id,
@@ -82,7 +79,9 @@ const CurrentProject = async ({ id }: { id: string }) => {
       <div className={styles.project}>
          <div className={styles.wrapper}>
             <h1 className={styles.project__rank}>Проекты</h1>
-            <PageNavigation />
+            <div className={styles.project__nav}>
+               <PageNavigation />
+            </div>
             <div className={styles.content}>
                <div className={styles.content__img}>
                   <Image

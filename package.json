@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource-variable/dancing-script": "^5.0.18",
+    "@fontsource-variable/oswald": "^5.0.20",
     "@fontsource-variable/roboto-condensed": "^5.0.3",
     "@fontsource/great-vibes": "^5.0.21",
     "@prisma/client": "^5.15.0",

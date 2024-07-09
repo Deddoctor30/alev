@@ -232,7 +232,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\v.novikov\\Desktop\\PWA\\prisma\\generated\\client",
+      "value": "D:\\Code\\alev\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -249,7 +249,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",

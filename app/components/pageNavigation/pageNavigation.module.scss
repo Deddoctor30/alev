@@ -6,11 +6,11 @@
     align-items: center;
    }
    &__list {
-     display: flex;
-     align-items: center;
-     flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     //  width: var(--max-width);
-     color: var(--second-text-color);
+    color: var(--second-text-color);
     row-gap: 10px;
     column-gap: 30px;
     @media (max-width: '600px') {
@@ -20,9 +20,9 @@
      }
    }
    &__item {
-     p {
-       font-size: 0.875rem;
-     }
+    a {
+      font-size: var(--font-medium-size);
+    }
      cursor: pointer;
      &_active {
        text-decoration: underline;

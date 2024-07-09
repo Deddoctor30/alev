@@ -70,6 +70,7 @@ $delay: all .3s;
       padding: 20px 30px;
       display: flex;
       align-items: center;
+      font-size: var(--font-medium-size);
       &:hover {
          background-color: rgba(128, 128, 128, 0.110);
       }

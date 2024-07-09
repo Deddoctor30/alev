@@ -11,6 +11,7 @@
     margin-top: 20px;
   }
   &__rank {
+    margin-left: 220px;
     // width: var(--max-width);
     font-family: var(--title-font);
     font-size: var(--font-title-size);
@@ -19,6 +20,9 @@
     @media (max-width: "767px") {
       display: none;
     }
+  }
+  &__nav {
+    margin-left: 220px;
   }
   &__table {
     margin-bottom: 60px;
@@ -34,7 +38,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: var(--max-width-second);
   & > *:not(:last-child, :first-child) {
     margin-bottom: 60px;
@@ -53,7 +57,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  //  align-items: flex-start;
+   align-items: flex-start;
   width: 100%;
   height: 100%;
   gap: 40px;
