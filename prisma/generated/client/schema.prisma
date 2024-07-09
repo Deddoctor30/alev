@@ -1,0 +1,133 @@
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+// Локальная БД
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Для Vercel
+// datasource db {
+//   provider = "postgresql"
+//   url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+//   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+// }
+
+model Main {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String?  @db.VarChar(255)
+  content   String?
+  gallery   String[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
+  email     String?  @unique
+  tel       String?  @unique
+  position  String?
+  role      Role     @default(USER)
+  posts     Post[]
+  avatar    String[]
+}
+
+model Post {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  title         String   @db.VarChar(255)
+  content       String?
+  tep           Tep[]
+  secondContent String?
+  thumbnail     String[]
+  gallery       String[]
+  author        User?    @relation(fields: [authorId], references: [id])
+  type          Type
+  authorId      Int?
+  isOnMain      Boolean  @default(false)
+}
+
+model Tep {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  landArea        String   @default("null")
+  buildArea       String   @default("null")
+  floorsAbove     String   @default("null")
+  floorsBelow     String   @default("null")
+  liveArea        String   @default("null")
+  commerceArea    String   @default("null")
+  apartmentsCount String   @default("null")
+  mopCount        String   @default("null")
+  Post            Post?    @relation(fields: [postId], references: [id])
+  postId          Int?     @unique
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String
+  gallery   String[]
+}
+
+model Download {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  name      String
+  path      String
+  thumbnail String[]
+}
+
+model Contacts {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  point     String
+  email     String   @db.VarChar(255)
+  phone     String?  @db.VarChar(255)
+}
+
+model About {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  address   String?  @db.VarChar(255)
+  phone     String?  @db.VarChar(255)
+  email     String?  @db.VarChar(255)
+  yandex    String?
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Type {
+  HOUSE
+  OFFICE
+  MARKET
+  PUBLIC
+}

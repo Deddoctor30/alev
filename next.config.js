@@ -1,8 +1,8 @@
 module.exports = {
     // optimizeFonts: false,
-    // typescript: {
-    //     ignoreBuildErrors: true,
-    //   },
+    typescript: {
+        ignoreBuildErrors: true,
+      },
     // compiler: {
     //     removeConsole: true,
     //   },
