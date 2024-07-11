@@ -32,9 +32,6 @@ $delay: all .3s;
       top: 5px;
       width: 188px;
       height: 50px;
-      // @media (max-width: '822px') {
-      //    display: none;
-      // }
       @media (max-width: '822px') {
          display: block;
       }
@@ -58,12 +55,12 @@ $delay: all .3s;
       width: 100%;
       position: fixed;
       top: 0px;
-      left: 0;
+      left: 0px;
       display: block;
+      z-index: 10000;
       background-color: white;
       transition: $delay;
-      z-index: 5000;
-      padding: 0px 0px 20px 0;
+      padding: 0px 0px 20px 0px;
    }
    &__item {
       max-height: 100px;
@@ -103,6 +100,7 @@ $delay: all .3s;
       position: fixed;
       top: 55px;
       right: 30px;
+      z-index: 6000;
       &::before {
          content: "";
          transition: $delay;
@@ -132,7 +130,7 @@ $delay: all .3s;
          background-color: black;
          visibility: 1;
       }
-      @media (min-width: 822px) {
+      @media (min-width: 823px) {
          display: none;
       }
    }
@@ -141,6 +139,8 @@ $delay: all .3s;
       width: 30px;
       height: 20px;
       position: fixed;
+      top: 54px;
+      right: 30px;
 
       &::before {
          content: "";
@@ -167,7 +167,7 @@ $delay: all .3s;
       span {
          visibility: 0;
       }
-      @media (min-width: 822px) {
+      @media (min-width: 821px) {
          display: none;
       }
    }

@@ -17,12 +17,19 @@
     font-size: var(--font-title-size);
     text-align: center;
     margin-bottom: 20px;
+    @media (max-width: '1024px') {
+      margin-left: 0;
+    }
     @media (max-width: "767px") {
       display: none;
     }
   }
   &__nav {
     margin-left: 220px;
+    @media (max-width: '1024px') {
+      margin-left: 0;
+      margin-bottom: 0 !important;
+    }
   }
   &__table {
     margin-bottom: 60px;

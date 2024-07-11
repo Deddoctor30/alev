@@ -51,10 +51,11 @@ $imgDelay: all ease-in-out 0.5s;
     height: 100%;
     opacity: 0;
     transition: $projectsDelay;
-    z-index: 5000;
+    // z-index: 5;
 
     @media (max-width: "768px") {
         opacity: 1;
+        background-color: initial;
     }
   }
   &__subtitle {
@@ -70,7 +71,7 @@ $imgDelay: all ease-in-out 0.5s;
     width: 100%;
     padding: 20px 5px 20px 5px;
     background-color: hsla(0, 0%, 0%, 0.5);
-
+    z-index: 1;
     @media (max-width: "768px") {
       transition: $projectsDelay;
       top: 85%;

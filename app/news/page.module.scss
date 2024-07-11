@@ -17,6 +17,9 @@
   padding: 2rem;
   min-height: 60vh;
   margin-top: 100px;
+  @media (max-width: '767px') {
+    margin-top: 20px;
+  }
   &__rank {
     font-family: var(--title-font);
     font-size: var(--font-title-size);
@@ -29,32 +32,4 @@
     flex-direction: column;
     gap: 50px;
   }
-  // &__item {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 15px;
-  //   margin-bottom: 20px;
-  // }
-  // &__createdAt {
-  //   font-size: var(--font-small-size);
-  //   color: var(--second-text-color);
-  // }
-  // &__inner {
-  //   display: flex;
-  //   gap: 50px;
-  // }
-  // &__title {
-  //   flex: 0 1 60%;
-  //   font-size: var(--font-big-size);
-  //   margin-bottom: 20px;
-  //   &:hover {
-  //     color: gray;
-  //   }
-  // }
-  // &__content {
-  //   flex: 0 1 40%;
-  //   line-height: var(--font-line-height);
-  //   font-size: var(--font-small-size);
-  //   color: var(--second-text-color);
-  // }
 }

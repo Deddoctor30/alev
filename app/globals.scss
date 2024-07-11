@@ -124,7 +124,7 @@
 
   @media (max-width: '560px') {
     --font-main-title-size: 3.75rem;
-    --font-title-size: 1rem;
+    --font-title-size: 1.125rem;
     --font-big-size: 1rem;
     --font-small-size: 0.875rem;
     --font-line-height: 180%;
@@ -200,6 +200,9 @@ a {
     left: 50%;
     transform: translateX(-50%);
     animation: underLine .2s ease-out;
+    @media (max-width: '822px') {
+      width: 12%;
+    }
   }
 }
 
