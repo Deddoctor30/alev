@@ -6,7 +6,6 @@ $delay: all .3s;
    justify-content: space-between;
    align-items: center;
    padding: 10px;
-
    @media (max-width: 822px) {
       justify-content: flex-end;
       padding: 20px;
@@ -57,7 +56,6 @@ $delay: all .3s;
       top: 0px;
       left: 0px;
       display: block;
-      z-index: 10000;
       background-color: white;
       transition: $delay;
       padding: 0px 0px 20px 0px;
@@ -93,20 +91,20 @@ $delay: all .3s;
          display: none;
       }
    }
-
    &__navBtn {
       width: 30px;
       height: 20px;
       position: fixed;
-      top: 55px;
+      top: 50px;
       right: 30px;
       z-index: 6000;
+      padding: 20px;
       &::before {
          content: "";
          transition: $delay;
          position: absolute;
-         top: 0;
-         left: 0;
+         top: 8px;
+         left: 5px;
          width: 30px;
          height: 2px;
          background-color: black;
@@ -115,16 +113,16 @@ $delay: all .3s;
          content: "";
          transition: $delay;
          position: absolute;
-         top: 20px;
-         left: 0;
+         top: 28px;
+         left: 5px;
          width: 30px;
          height: 2px;
          background-color: black;
       }
       span {
          position: absolute;
-         top: 10px;
-         left: 0;
+         top: 18px;
+         left: 5px;
          width: 30px;
          height: 2px;
          background-color: black;
@@ -134,21 +132,21 @@ $delay: all .3s;
          display: none;
       }
    }
-
    &__navBtnOpened {
       width: 30px;
       height: 20px;
       position: fixed;
-      top: 54px;
+      top: 49px;
       right: 30px;
+      padding: 20px;
 
       &::before {
          content: "";
          transition: $delay;
          transform: rotate(40deg);
          position: absolute;
-         top: 10px;
-         left: 0;
+         top: 18px;
+         left: 5px;
          width: 30px;
          height: 2px;
          background-color: black;
@@ -158,8 +156,8 @@ $delay: all .3s;
          transition: $delay;
          transform: rotate(-40deg);
          position: absolute;
-         top: 10px;
-         left: 0;
+         top: 18px;
+         left: 5px;
          width: 30px;
          height: 2px;
          background-color: black;

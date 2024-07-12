@@ -22,8 +22,6 @@
 }
 .center {
   height: calc(100vh - 110px);
-  // height: 100vh;
-  // width: var(--max-width);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -36,8 +34,6 @@
 
   &__wrapper {
     display: flex;
-    // align-items: flex-end;
-    // justify-content: center;
     flex-direction: column;
     gap: 0px;
     font-size: var(--font-main-title-size);
@@ -46,26 +42,31 @@
     left: 20%;
     // Анимация текста
     animation: clip-path-reveal-1 3s ease;
-
+    @media (max-height: '500px') {
+      top: 200px !important;
+    }
     @media (max-width: "1024px") {
       width: 100%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, calc(-50% - 80px));
     }
-    //  @media (max-width: '650px') {
-    //   width: 100%;
-    // }
+    @media (max-width: "500px") {
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% - 30px));
+    }
   }
   &__title {
     text-align: center;
     line-height: 150%;
-    font-size: inherit;
     font-size: 4rem;
     font-family: var(--font-main-second-title-font);
     letter-spacing: 3px;
     padding: 0px 5px;
     // Анимация линии
+
     &:before {
       content: "";
       position: absolute;
@@ -78,14 +79,14 @@
       animation: line-animation 3s ease;
 
       @media (max-width: "1024px") {
-        // width: 100%;
-        // top: 100px;
         left: 0%;
-        // transform: translate(-50%, 0%);
       }
     }
     @media (max-width: "700px") {
       font-size: 3.2rem;
+    }
+    @media (max-width: '500px') {
+      font-size: 2.5rem;
     }
   }
 
@@ -99,8 +100,12 @@
     &::first-letter {
       color: var(--main-text-decoration-color);
     }
+    // Анимация линии
     @media (max-width: "700px") {
       font-size: 3.5rem;
+    }
+    @media (max-width: '500px') {
+      font-size: 2.5rem;
     }
   }
   &__link {
