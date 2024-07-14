@@ -44,21 +44,22 @@ const MainFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
             break;
       }
 
-      function success() {
-         formRef.current?.reset()
-         messageApi.open({
-            type: 'success',
-            content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
-         });
-      };
-
-      function error() {
-         messageApi.open({
-            type: 'error',
-            content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
-         });
-      };
    }, [stateUpdate])
+   
+   function success() {
+      formRef.current?.reset()
+      messageApi.open({
+         type: 'success',
+         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+      });
+   };
+
+   function error() {
+      messageApi.open({
+         type: 'error',
+         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+      });
+   };
 
    function SubmitButton() {
       const { pending } = useFormStatus()
