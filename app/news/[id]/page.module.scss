@@ -56,6 +56,17 @@
       align-items: center;
       width: 100%;
       gap: 50px;
+      img {
+        object-position: center;
+        object-fit: cover;
+        width: 760px !important;
+        height: 600px !important;
+        // width: 100%;
+        @media (max-width: '1440px') {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
     }
    }
   
