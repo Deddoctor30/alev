@@ -72,12 +72,7 @@ const CurrentProject = async ({ id }: { id: string }) => {
          key: 'mopCount',
       },
    ];
-
-   const imageLoader = ({ src }) => {
-      return `https://localhost:3000/${src}`
-    }
-
-   
+  
 
    return (
       <div className={styles.project}>
@@ -93,8 +88,7 @@ const CurrentProject = async ({ id }: { id: string }) => {
                      width={900}
                      height={600}
                      alt={`${posts?.thumbnail[0]}`}
-                     // overrideSrc={`/${posts?.thumbnail}`}
-                     loader={imageLoader}
+                     overrideSrc={`/${posts?.thumbnail}`}
                   />
                </div>
                <div className={styles.content__inner}>
