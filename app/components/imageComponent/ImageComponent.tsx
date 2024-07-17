@@ -5,6 +5,12 @@ import { useState } from "react";
 const ImageComponent = ({ src, width, height, alt, className, priority }: { src: string, width: number, height: number, alt: string, className?: string, priority?: boolean }) => {
       const [err, setErr] = useState(false)
       console.log(err);
+
+
+      const gnawd = '/images/awdawdawdaw.jpg'
+
+      console.log(gnawd.slice(7));
+      
       
    return (
       <>
@@ -20,7 +26,7 @@ const ImageComponent = ({ src, width, height, alt, className, priority }: { src:
                   onError={() => setErr(flag => !flag)}
                />
             :
-               <img className={className} src={src} alt={alt}/>
+               <img className={className} src={src.slice(7)} alt={alt}/>
       }
       </>
 
