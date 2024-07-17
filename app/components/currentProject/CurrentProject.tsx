@@ -73,6 +73,10 @@ const CurrentProject = async ({ id }: { id: string }) => {
       },
    ];
 
+   const imageLoader = ({ src }) => {
+      return `https://localhost:3000/${src}`
+    }
+
    
 
    return (
@@ -89,7 +93,8 @@ const CurrentProject = async ({ id }: { id: string }) => {
                      width={900}
                      height={600}
                      alt={`${posts?.thumbnail[0]}`}
-                     overrideSrc={`/${posts?.thumbnail}`}
+                     // overrideSrc={`/${posts?.thumbnail}`}
+                     loader={imageLoader}
                   />
                </div>
                <div className={styles.content__inner}>
