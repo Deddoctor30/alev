@@ -5,6 +5,8 @@ import { Table } from "antd";
 import ImgCarouser from "@/app/components/imgCarouser/ImgCarouser";
 import PageNavigation from "@/app/components/pageNavigation/PageNavigation";
 import styles from "./currentProject.module.scss";
+import { useState } from "react";
+import ImageComponent from "../imageComponent/ImageComponent";
 
 const CurrentProject = async ({ id }: { id: string }) => {
    const posts = await prisma.post.findUnique({
@@ -73,6 +75,7 @@ const CurrentProject = async ({ id }: { id: string }) => {
       },
    ];
   
+   // const [src, setSrc] = useState(`/images/${posts?.thumbnail}`)
 
    return (
       <div className={styles.project}>
@@ -83,13 +86,16 @@ const CurrentProject = async ({ id }: { id: string }) => {
             </div>
             <div className={styles.content}>
                <div className={styles.content__img}>
-                  <Image
+                  <ImageComponent src={`/${posts?.thumbnail}`} w={900} h={600} alt={`${posts?.thumbnail[0]}`}/>
+                  {/* <Image
+                     // src={src}
                      src={`/images/${posts?.thumbnail}`}
                      width={900}
                      height={600}
                      alt={`${posts?.thumbnail[0]}`}
-                     overrideSrc={`/${posts?.thumbnail}`}
-                  />
+                     // overrideSrc={`/${posts?.thumbnail}`}
+                     // onError={() => setSrc(`/${posts?.thumbnail}`)}
+                  /> */}
                </div>
                <div className={styles.content__inner}>
                   <h1 className={styles.title}>{posts?.title}</h1>
