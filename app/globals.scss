@@ -134,9 +134,10 @@
   --main-text-decoration-color: #fcdd42;
   --main-text-color: black;
   --second-text-color: #5d5d5d;
+  
 
   // Цвета остальные
-  --foreground-rgb: 0, 0, 0;
+  --foreground-rgb: #000000;
 }
 
 // Сброс стилей
@@ -144,13 +145,12 @@ ul, ul li {
   list-style: none;
 }
 
-// @media (prefers-color-scheme: dark) {
-//   :root {
-//     --foreground-rgb: 255, 255, 255;
-//     --card-rgb: 100, 100, 100;
-//     --card-border-rgb: 200, 200, 200;
-//   }
-// }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: #ffffff;
+    --second-text-color: #c5c5c5;
+  }
+}
 
 
 * {
@@ -162,8 +162,6 @@ ul, ul li {
   font-family: var(--font-main);
   line-height: var(--font-line-height);
   font-weight: normal;
-
-  // outline: 2px solid black;
 }
 
 html,
@@ -183,11 +181,11 @@ a {
 
 
 // --------------------Темная тема
-// @media (prefers-color-scheme: dark) {
-//   html {
-//     color-scheme: dark;
-//   }
-// }
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
 
 // Header decoration
 #active_link {
@@ -204,6 +202,9 @@ a {
     animation: underLine .2s ease-out;
     @media (max-width: '822px') {
       width: 12%;
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--main-text-decoration-color);
     }
   }
 }
