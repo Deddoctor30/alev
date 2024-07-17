@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import styles from './page.module.scss'
 import { dateFormatter } from "@/app/utils/dateFormatter";
 import Image from "next/image";
+import ImageComponent from "@/app/components/imageComponent/ImageComponent";
 
 const page = async ({ params }: { params: { id: string } }) => {
    const news = await prisma.news.findUnique({
@@ -23,7 +24,8 @@ const page = async ({ params }: { params: { id: string } }) => {
                   </div>
                   <div className={styles.news__gallery}>
                      {news.gallery.map(item =>
-                        <Image key={item} src={`/images/${item}`} width={600} height={500} alt={item}/>
+                        <ImageComponent key={item} src={`/images/${item}`} width={600} height={500} alt={item}/>
+                        // <Image key={item} src={`/images/${item}`} width={600} height={500} alt={item}/>
                      )}
                   </div>
             </div>

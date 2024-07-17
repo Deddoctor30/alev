@@ -2,8 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-
-const ImageComponent = ({ src, w, h, alt }: { src: string, w: number, h: number, alt: string }) => {
+const ImageComponent = ({ src, width, height, alt, className, priority }: { src: string, width: number, height: number, alt: string, className?: string, priority?: boolean }) => {
       const [err, setErr] = useState(false)
       console.log(err);
       
@@ -12,14 +11,16 @@ const ImageComponent = ({ src, w, h, alt }: { src: string, w: number, h: number,
          {!err 
             ? 
                <Image
-                  src={`/imdages${src}`}
-                  width={w}
-                  height={h}
+                  priority={priority}
+                  className={className}
+                  src={`/images${src}`}
+                  width={width}
+                  height={height}
                   alt={alt}
                   onError={() => setErr(flag => !flag)}
                />
             :
-               <img src={src} alt={alt} />
+               <img className={className} src={src} alt={alt}/>
       }
       </>
 

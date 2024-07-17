@@ -6,6 +6,7 @@ import { positionFnc } from '../utils/position';
 import { Suspense } from 'react';
 import Loading from '../components/loading/Loading';
 import { phoneNumberReplacer } from '../utils/phoneNumberReplacer';
+import ImageComponent from '../components/imageComponent/ImageComponent';
 
 const page = async () => {
   const contacts = await getContacts()
@@ -20,7 +21,8 @@ const page = async () => {
             <ul className={style.management__items}>
               {users?.map(item =>
                 <li key={item.id} className={style.management__item}>
-                  <Image className={style.management__img} src={item.avatar.length !== 0 ? `/images/${item.avatar}` : '/images/default-avatar.jpg'} width={500} height={600} alt={item.avatar.at(0) || 'avatar'} />
+                  <ImageComponent className={style.management__img} src={item.avatar.length !== 0 ? `/images/${item.avatar}` : '/images/default-avatar.jpg'} width={500} height={600} alt={item.avatar.at(0) || 'avatar'}/>
+                  {/* <Image className={style.management__img} src={item.avatar.length !== 0 ? `/images/${item.avatar}` : '/images/default-avatar.jpg'} width={500} height={600} alt={item.avatar.at(0) || 'avatar'} /> */}
                   <div className={style.management__inner}>
                     <h3>{positionFnc(item.position)}</h3>
                     <p>{item.name}</p>

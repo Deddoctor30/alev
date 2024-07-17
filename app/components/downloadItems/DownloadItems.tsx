@@ -8,6 +8,7 @@ import styles from './downloadItems.module.scss';
 import { Dispatch, SetStateAction } from "react";
 import { downloadFiles } from "@/types/downloadFiles";
 import { dateFormatter } from "@/app/utils/dateFormatter";
+import ImageComponent from "../imageComponent/ImageComponent";
 
 export const DownloadItems = ({ data, setDownloadStatus }: { data: Docs[] | null, setDownloadStatus: Dispatch<SetStateAction<downloadFiles>> }) => {
    const downloadHandler = (id: number, path: string) => {
@@ -19,7 +20,8 @@ export const DownloadItems = ({ data, setDownloadStatus }: { data: Docs[] | null
          {data?.map(item =>
             <li key={item.id} className={styles.docs__item}>
                   {item.thumbnail.length > 0 &&
-                     <Image className={styles.docs__img} priority src={`/images/${item.thumbnail.at(0)}`} height={600} width={600} alt={item.name ? item.name : 'Картинка'} />
+                     <ImageComponent className={styles.docs__img} priority={true} src={`/images/${item.thumbnail.at(0)}`} height={600} width={600} alt={item.name ? item.name : 'Картинка'} />
+                     // <Image className={styles.docs__img} priority src={`/images/${item.thumbnail.at(0)}`} height={600} width={600} alt={item.name ? item.name : 'Картинка'} />
                   }
                <div className={styles.docs__inner}>
                   <p className={styles.docs__createdAt}>{dateFormatter(item.createdAt)}</p>

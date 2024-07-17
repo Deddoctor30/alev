@@ -6,6 +6,7 @@ import styles from "./projectList.module.scss";
 import { getOnProjectsPosts } from '@/app/actions/postActions';
 import { Post } from '@/types/post';
 import { useInView } from 'react-intersection-observer'
+import ImageComponent from '../imageComponent/ImageComponent';
 
 const increace = 10;
 
@@ -41,14 +42,20 @@ const ProjectList = () => {
                   <div className={styles.item__inner}>
                      <p className={styles.item__subtitle}>{item.title.length > 100 ? `${item.title.slice(0, 100)}...` : item.title}</p>
                   </div>
-                  <Image
+                  <ImageComponent
                      className={styles.item__img}
                      src={`/images/${item?.thumbnail[0]}`}
                      width={600}
                      height={400}
                      alt={item.title}
-                     overrideSrc={`/${item?.thumbnail[0]}`}
                   />
+                  {/* <Image
+                     className={styles.item__img}
+                     src={`/images/${item?.thumbnail[0]}`}
+                     width={600}
+                     height={400}
+                     alt={item.title}
+                  /> */}
                </Link>
             </div>
          ))}

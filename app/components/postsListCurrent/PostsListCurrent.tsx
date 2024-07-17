@@ -6,6 +6,7 @@ import { getPostsCurrent } from "@/app/actions/postActions";
 import { useEffect, useState } from "react";
 import { useInView } from 'react-intersection-observer'
 import { Post } from "@prisma/client";
+import ImageComponent from "../imageComponent/ImageComponent";
 type Type = "HOUSE" | "MARKET" | "OFFICE" | "PUBLIC";
 
 const increace = 10;
@@ -50,13 +51,20 @@ const PostsListCurrent = ({ type }: { type: Type }) => {
           <div className={styles.item__inner}>
             <p className={styles.item__subtitle}>{item.title.length > 100 ? `${item.title.slice(0, 100)}...` : item.title}</p>
           </div>
-          <Image
+          <ImageComponent
             className={styles.item__img}
             src={`/images/${item?.thumbnail[0]}`}
             width={600}
             height={400}
             alt={item.title}
           />
+          {/* <Image
+            className={styles.item__img}
+            src={`/images/${item?.thumbnail[0]}`}
+            width={600}
+            height={400}
+            alt={item.title}
+          /> */}
         </Link>
       </div>
     ))}

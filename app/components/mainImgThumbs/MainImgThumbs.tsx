@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Post } from '@/types/post';
 
 import styles from "./mainImgThumbs.module.scss";
+import ImageComponent from '../imageComponent/ImageComponent';
 
 const MainImgThumbs = ({data}: {data: Post[]}) => {
   return (
@@ -17,7 +18,8 @@ const MainImgThumbs = ({data}: {data: Post[]}) => {
          }
        </div>
        <div className={styles.promo__wrapper}>
-         <Image className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} />
+         <ImageComponent className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} />
+         {/* <Image className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} /> */}
        </div>
        </Link>
      </div>
