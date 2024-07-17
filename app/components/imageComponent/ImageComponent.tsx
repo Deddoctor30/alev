@@ -19,7 +19,7 @@ const ImageComponent = ({ src, width, height, alt, className, priority }: { src:
                <Image
                   priority={priority}
                   className={className}
-                  src={`/images${src}`}
+                  src={src}
                   width={width}
                   height={height}
                   alt={alt}
