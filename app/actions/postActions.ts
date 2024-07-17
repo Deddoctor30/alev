@@ -144,7 +144,7 @@ export async function createPosts(prevState: any, values: FormData) {
       }
 
       // Путь для папки
-      const relativeUploadDir = `/images/posts`;
+      const relativeUploadDir = `/images`;
       const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
       // Создаем папку
@@ -241,7 +241,7 @@ export async function createPosts(prevState: any, values: FormData) {
 
 export const deletePosts = async (id: number) => {
    // Пути для картинок
-   const relativeUploadDir = `/images/posts`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
    try {
       const data = await getUniquePosts(id)
@@ -320,7 +320,7 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
    }
 
    // Путь для папки
-   const relativeUploadDir = `/images/posts`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
    try {

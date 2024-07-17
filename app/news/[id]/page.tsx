@@ -23,7 +23,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                   </div>
                   <div className={styles.news__gallery}>
                      {news.gallery.map(item =>
-                        <Image key={item} src={`/images/news/${item}`} width={600} height={500} alt={item}/>
+                        <Image key={item} src={`/images/${item}`} width={600} height={500} alt={item}/>
                      )}
                   </div>
             </div>

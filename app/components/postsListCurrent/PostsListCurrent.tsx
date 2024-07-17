@@ -52,7 +52,7 @@ const PostsListCurrent = ({ type }: { type: Type }) => {
           </div>
           <Image
             className={styles.item__img}
-            src={`/images/posts/${item?.thumbnail[0]}`}
+            src={`/images/${item?.thumbnail[0]}`}
             width={600}
             height={400}
             alt={item.title}

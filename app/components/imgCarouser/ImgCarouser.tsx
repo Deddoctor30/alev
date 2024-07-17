@@ -16,8 +16,7 @@ const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width
             onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
          }}>
          {source.map(item =>
-               // <ImageAntd key={String(item)} src={`/images/posts/${item}`} />
-               <ImageAntd key={String(item)} width='auto' height='auto' src={`/images/posts/${item}`} />
+               <ImageAntd key={String(item)} width='auto' height='auto' src={`/images/${item}`} />
          )}
       </ImageAntd.PreviewGroup>
    )

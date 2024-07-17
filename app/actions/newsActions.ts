@@ -81,7 +81,7 @@ export async function createNews(prevState: any, values: FormData) {
        }
 
       // Путь для папки
-      const relativeUploadDir = `/images/news`;
+      const relativeUploadDir = `/images`;
       const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
       // Создаем папку
@@ -139,7 +139,7 @@ export async function createNews(prevState: any, values: FormData) {
 
 export  const deleteNews  = async (id: number) => {
    // Пути для картинок
-   const relativeUploadDir = `/images/news`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
    try {
       const data = await getUnique(id)
@@ -187,7 +187,7 @@ export  const updateNews  = async ( updateId: number, prevState: any, values: Fo
    }
 
    // Путь для папки
-   const relativeUploadDir = `/images/news`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
    try {

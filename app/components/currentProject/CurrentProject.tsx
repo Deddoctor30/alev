@@ -85,7 +85,7 @@ const CurrentProject = async ({ id }: { id: string }) => {
             <div className={styles.content}>
                <div className={styles.content__img}>
                   <Image
-                     src={`/images/posts/${posts?.thumbnail}`}
+                     src={`/images/${posts?.thumbnail}`}
                      width={900}
                      height={600}
                      alt={`${posts?.thumbnail[0]}`}

@@ -19,7 +19,7 @@ export const DownloadItems = ({ data, setDownloadStatus }: { data: Docs[] | null
          {data?.map(item =>
             <li key={item.id} className={styles.docs__item}>
                   {item.thumbnail.length > 0 &&
-                     <Image className={styles.docs__img} priority src={`/images/files/${item.thumbnail.at(0)}`} height={600} width={600} alt={item.name ? item.name : 'Картинка'} />
+                     <Image className={styles.docs__img} priority src={`/images/${item.thumbnail.at(0)}`} height={600} width={600} alt={item.name ? item.name : 'Картинка'} />
                   }
                <div className={styles.docs__inner}>
                   <p className={styles.docs__createdAt}>{dateFormatter(item.createdAt)}</p>

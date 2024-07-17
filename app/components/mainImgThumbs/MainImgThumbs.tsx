@@ -17,7 +17,7 @@ const MainImgThumbs = ({data}: {data: Post[]}) => {
          }
        </div>
        <div className={styles.promo__wrapper}>
-         <Image className={styles.promo__images} src={`/images/posts/${item.thumbnail}`} width={1900} height={800} alt={item.title} />
+         <Image className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} />
        </div>
        </Link>
      </div>

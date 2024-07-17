@@ -77,7 +77,7 @@ export async function createUser(prevState: any, values: FormData) {
       }
 
      // Путь для папки
-     const relativeUploadDir = `/images/user`;
+     const relativeUploadDir = `/images`;
      const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
      // Создаем папку
@@ -135,7 +135,7 @@ export async function createUser(prevState: any, values: FormData) {
 
 export  const deleteUser  = async (id: number) => {
   // Пути для картинок
-  const relativeUploadDir = `/images/user`;
+  const relativeUploadDir = `/images`;
   const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
   try {
      const data = await getUniqueUser(id)
@@ -194,7 +194,7 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
       }
       
       // Путь для папки
-      const relativeUploadDir = `/images/user`;
+      const relativeUploadDir = `/images`;
       const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
      // Удаляем старую картинку, если есть новая

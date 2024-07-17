@@ -67,7 +67,7 @@ export async function createMain(prevState: any, values: FormData) {
        }
 
       // Путь для папки
-      const relativeUploadDir = `/images/main`;
+      const relativeUploadDir = `/images`;
       const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
       // Создаем папку
@@ -125,7 +125,7 @@ export async function createMain(prevState: any, values: FormData) {
 
 export  const deleteMain  = async (id: number) => {
    // Пути для картинок
-   const relativeUploadDir = `/images/main`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
    try {
       const data = await getUniqueMain(id)
@@ -173,7 +173,7 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
    }
 
    // Путь для папки
-   const relativeUploadDir = `/images/main`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
 
    try {

@@ -70,7 +70,7 @@ export async function createDownload(prevState: any, values: FormData) {
    const relativeUploadDir = `/files`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
    // Путь для папки картинок
-   const relativeUploadDirThumb = `/images/files`;
+   const relativeUploadDirThumb = `/images`;
    const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
 
    try {
@@ -183,7 +183,7 @@ export  const deleteDownload  = async (id: number) => {
    const relativeUploadDir = `/files`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
       // Пути для картинок
-   const relativeUploadDirThumb = `/images/files`;
+   const relativeUploadDirThumb = `/images`;
    const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
 
    try {
@@ -255,10 +255,10 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
    }
 
    // Путь для папки
-   const relativeUploadDir = `/images/news`;
+   const relativeUploadDir = `/images`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
          // Пути для картинок
-   const relativeUploadDirThumb = `/images/files`;
+   const relativeUploadDirThumb = `/images`;
    const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
 
 
