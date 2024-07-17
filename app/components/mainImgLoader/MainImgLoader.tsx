@@ -1,5 +1,4 @@
 import styles from "./mainImgLoader.module.scss";
-
 import Image from 'next/image'
 
 const MainImgLoader = ({data}: {data: string[]}) => {

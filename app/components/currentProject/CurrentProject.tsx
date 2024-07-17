@@ -89,6 +89,7 @@ const CurrentProject = async ({ id }: { id: string }) => {
                      width={900}
                      height={600}
                      alt={`${posts?.thumbnail[0]}`}
+                     overrideSrc={`/${posts?.thumbnail}`}
                   />
                </div>
                <div className={styles.content__inner}>

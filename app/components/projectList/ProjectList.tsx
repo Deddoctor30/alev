@@ -47,6 +47,7 @@ const ProjectList = () => {
                      width={600}
                      height={400}
                      alt={item.title}
+                     overrideSrc={`/${item?.thumbnail[0]}`}
                   />
                </Link>
             </div>
