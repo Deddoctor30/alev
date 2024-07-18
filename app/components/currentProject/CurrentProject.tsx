@@ -5,7 +5,6 @@ import { Table } from "antd";
 import ImgCarouser from "@/app/components/imgCarouser/ImgCarouser";
 import PageNavigation from "@/app/components/pageNavigation/PageNavigation";
 import styles from "./currentProject.module.scss";
-import { useState } from "react";
 import ImageComponent from "../imageComponent/ImageComponent";
 
 const CurrentProject = async ({ id }: { id: string }) => {
@@ -75,8 +74,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
       },
    ];
   
-   // const [src, setSrc] = useState(`/images/${posts?.thumbnail}`)
-
    return (
       <div className={styles.project}>
          <div className={styles.wrapper}>

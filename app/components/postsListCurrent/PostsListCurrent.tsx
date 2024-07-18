@@ -24,9 +24,6 @@ const PostsListCurrent = ({ type }: { type: Type }) => {
      fetchData()
   }, [])
 
-  console.log(projects);
-  
-
   useEffect(() => {
      if (inView) {
         const fetchData = async () => {

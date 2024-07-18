@@ -4,14 +4,7 @@ import { useState } from "react";
 
 const ImageComponent = ({ src, width, height, alt, className, priority }: { src: string, width: number, height: number, alt: string, className?: string, priority?: boolean }) => {
       const [err, setErr] = useState(false)
-      console.log(err);
 
-
-      const gnawd = '/images/awdawdawdaw.jpg'
-
-      console.log(gnawd.slice(7));
-      
-      
    return (
       <>
          {!err 
