@@ -78,6 +78,20 @@ export const getUniquePosts = async (id: number) => {
       console.error('Ошибка чтения БД', e);
    }
 }
+export const getUniquePostsInclTep = async (id: string) => {
+   try {
+      return await prisma.post.findUnique({
+         where: { 
+            id: Number(id)
+          },
+         include: {
+            tep: true
+         }
+      });
+   } catch (e) {
+      console.error('Ошибка чтения БД', e);
+   }
+}
 export const getUniqueNamePosts = async (title: string) => {
    try {
       return await prisma.post.findFirst({

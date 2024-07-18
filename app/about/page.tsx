@@ -1,4 +1,5 @@
-import Image from 'next/image'
+export const dynamic = 'force-dynamic'
+
 import style from './page.module.scss'
 import { getContacts } from '../actions/contactsActions';
 import { getUsers } from '../actions/userActions';

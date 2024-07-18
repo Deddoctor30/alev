@@ -1,14 +1,14 @@
-import Image from 'next/image'
 import Link from "next/link";
-import { Post } from '@/types/post';
 
 import styles from "./mainImgThumbs.module.scss";
 import ImageComponent from '../imageComponent/ImageComponent';
+import { getOnMainPosts } from '@/app/actions/postActions';
 
-const MainImgThumbs = ({data}: {data: Post[]}) => {
+const MainImgThumbs = async () => {
+  const posts = await getOnMainPosts() 
   return (
    <div className={styles.promo}>
-   {data?.map(item =>
+   {posts?.map(item =>
      <div key={item.id} className={styles.promo__item}>
        <Link className={styles.promo__links} href={`/projects/${String(item.type).toLowerCase()}/${item.id}`}>
        <div className={styles.promo__inner}>
@@ -19,7 +19,6 @@ const MainImgThumbs = ({data}: {data: Post[]}) => {
        </div>
        <div className={styles.promo__wrapper}>
          <ImageComponent className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} />
-         {/* <Image className={styles.promo__images} src={`/images/${item.thumbnail}`} width={1900} height={800} alt={item.title} /> */}
        </div>
        </Link>
      </div>

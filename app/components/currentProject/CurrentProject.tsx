@@ -6,16 +6,18 @@ import ImgCarouser from "@/app/components/imgCarouser/ImgCarouser";
 import PageNavigation from "@/app/components/pageNavigation/PageNavigation";
 import styles from "./currentProject.module.scss";
 import ImageComponent from "../imageComponent/ImageComponent";
+import { getUniquePostsInclTep } from "@/app/actions/postActions";
 
 const CurrentProject = async ({ id }: { id: string }) => {
-   const posts = await prisma.post.findUnique({
-      where: {
-         id: Number(id),
-      },
-      include: {
-         tep: true
-      }
-   });
+   const posts = await getUniquePostsInclTep(id)
+   // const posts = await prisma.post.findUnique({
+   //    where: {
+   //       id: Number(id),
+   //    },
+   //    include: {
+   //       tep: true
+   //    }
+   // });
    const tep = posts?.tep.at(0)
    const dataSource = [
       {
@@ -84,15 +86,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
             <div className={styles.content}>
                <div className={styles.content__img}>
                   <ImageComponent src={`/images/${posts?.thumbnail}`} width={900} height={600} alt={`${posts?.thumbnail[0]}`}/>
-                  {/* <Image
-                     // src={src}
-                     src={`/images/${posts?.thumbnail}`}
-                     width={900}
-                     height={600}
-                     alt={`${posts?.thumbnail[0]}`}
-                     // overrideSrc={`/${posts?.thumbnail}`}
-                     // onError={() => setSrc(`/${posts?.thumbnail}`)}
-                  /> */}
                </div>
                <div className={styles.content__inner}>
                   <h1 className={styles.title}>{posts?.title}</h1>
@@ -127,3 +120,4 @@ const CurrentProject = async ({ id }: { id: string }) => {
 };
 
 export default CurrentProject;
+

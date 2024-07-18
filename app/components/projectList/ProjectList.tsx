@@ -1,12 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Image from "next/image";
 import Link from "next/link";
-import styles from "./projectList.module.scss";
 import { getOnProjectsPosts } from '@/app/actions/postActions';
 import { Post } from '@/types/post';
 import { useInView } from 'react-intersection-observer'
 import ImageComponent from '../imageComponent/ImageComponent';
+import styles from "./projectList.module.scss";
 
 const increace = 10;
 
@@ -49,13 +48,6 @@ const ProjectList = () => {
                      height={400}
                      alt={item.title}
                   />
-                  {/* <Image
-                     className={styles.item__img}
-                     src={`/images/${item?.thumbnail[0]}`}
-                     width={600}
-                     height={400}
-                     alt={item.title}
-                  /> */}
                </Link>
             </div>
          ))}

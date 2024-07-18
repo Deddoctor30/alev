@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width?: number, height?: number, count?: number, starts?: number }) => {
    // Т.к. на сервере идет статика через /... проверяю на режим разработки чтобы работало и в dev режиме и в prod
    const env = process.env.NODE_ENV
+   const [err, setErr] = useState(false)
    let source = null
    if (count) {
       source = data.gallery.slice(0, count)
@@ -28,14 +29,16 @@ const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width
                )}
             </ImageAntd.PreviewGroup>
             :
-            <ImageAntd.PreviewGroup
-               preview={{
-                  onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
-               }}>
-               {source.map(item =>
-                  <ImageAntd key={String(item)} width={'auto'} height='auto' src={`/${item}`} />
-               )}
-            </ImageAntd.PreviewGroup>
+            <>
+               <ImageAntd.PreviewGroup
+                  preview={{
+                     onChange: (current, prev) => console.log(`current index: ${current}, prev index: ${prev}`),
+                  }}>
+                  {source.map(item =>
+                     <ImageAntd key={String(item)} width={'auto'} height='auto' src={`/${item}`} onError={() => setErr(flag => !flag)} />
+                  )}
+               </ImageAntd.PreviewGroup>
+            </>
          }
       </>
 
@@ -44,4 +47,4 @@ const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width
    )
 }
 
-         export default ImgCarouser
+export default ImgCarouser

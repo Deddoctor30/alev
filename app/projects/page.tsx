@@ -1,9 +1,8 @@
-import styles from "./page.module.scss";
 import { Suspense } from "react";
 import Loading from "../components/loading/Loading";
 import PageNavigation from "../components/pageNavigation/PageNavigation";
-import { getOnProjectsPosts } from "../actions/postActions";
 import ProjectList from "../components/projectList/ProjectList";
+import styles from "./page.module.scss";
 
 const page = async () => {
   return (
