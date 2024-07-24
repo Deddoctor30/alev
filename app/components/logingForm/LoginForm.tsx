@@ -7,7 +7,6 @@ import { message } from 'antd';
 import { useFormState, useFormStatus } from 'react-dom';
 
 const LoginForm = ({ session }: { session: any }) => {
-   const status = useFormStatus()
    const router = useRouter()
    const initialState = {
       message: {
@@ -48,6 +47,7 @@ const LoginForm = ({ session }: { session: any }) => {
          type: 'error',
          content: state && state.message.text
       });
+      formRef.current?.reset()
    };
 
    return (

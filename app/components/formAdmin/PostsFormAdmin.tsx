@@ -56,7 +56,6 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
       )
    }
 
-
    const refreshHandler = () => {
       setRefresh(value => !value)
       document.forms[0].requestSubmit()

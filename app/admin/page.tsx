@@ -57,7 +57,7 @@ const page = () => {
 
           {/* Часть контента */}
           <AdminContent activeSlide={activeSlide} isRefresh={refresh} setRefresh={setRefresh} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setUpdateId={setUpdateId}/>
-          {/* <Footer style={{ textAlign: 'center' }}>{new Date().getFullYear()} Created by Novikov Vadim</Footer> */}
+          <Footer style={{ textAlign: 'center' }}>{new Date().getFullYear()}Created by Novikov Vadim</Footer>
         </Layout>
         </Layout>
         </div>

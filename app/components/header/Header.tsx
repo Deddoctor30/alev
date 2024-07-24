@@ -16,7 +16,6 @@ const Header = () => {
             <Image className={styles.header__image} src={metaData.siteLogo.path} alt={metaData.siteLogo.alt} width={188} height={50} priority/>
           </a>
         </div>
-         {/* <nav className={styles.header__items}> */}
          <nav className={burgerActive ? styles.header__coscader : styles.header__items}>
            {navLinks
             .map(link =>
