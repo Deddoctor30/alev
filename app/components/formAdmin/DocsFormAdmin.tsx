@@ -61,27 +61,30 @@ const DocsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
       setUrlImg('')
    }
 
+   console.log(state.message.text);
+   console.log(typeof state.message.text);
+   
+
    function success() {
       formRef.current?.reset()
       messageApi.open({
          type: 'success',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
 
    function error() {
       messageApi.open({
          type: 'error',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
 
-   let shortFileName = 'adawfawf'
-   shortFileName.split('.').slice(0, -1).join('.')
-
    const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      previewUrl = URL.createObjectURL(e.target.files[0])
-      setUrlImg(previewUrl)
+      if (e.target.files) {
+         previewUrl = URL.createObjectURL(e.target.files[0])
+         setUrlImg(previewUrl)
+      }
    }
 
    return (
@@ -111,7 +114,7 @@ const DocsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh:
                   </div>
                </div>
                <h2 className={styles.form__title}>Файл</h2>
-               <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{ position: 'absolute', top: '414px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottom' title="Текст на английском языке, без пробелов, в нижнем регистре">
+               <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{ position: 'absolute', top: '414px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottom' title="Текст на английском языке, без пробелов, в нижнем регистре">
                   <span className={styles.form__subtext}>Пример названия файла: «brandbook.pdf»</span>
                </Tooltip>
                <div className={styles.form__divider}></div>

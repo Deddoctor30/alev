@@ -67,18 +67,19 @@ import Image from 'next/image';
       formRef.current?.reset()
       messageApi.open({
          type: 'success',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
          
    function error() {
       messageApi.open({
          type: 'error',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
    
    const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) return
       previewUrl = URL.createObjectURL(e.target.files[0])
       setUrlImg(previewUrl)
    }

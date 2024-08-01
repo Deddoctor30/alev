@@ -49,6 +49,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body>
         <Header/>
+        {/* @ts-expect-error Server Component */}
         <WebVitals/>
         {children}
         <Footer/>

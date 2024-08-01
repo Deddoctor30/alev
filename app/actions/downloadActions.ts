@@ -44,6 +44,8 @@ export async function createDownload(prevState: any, values: FormData) {
       title: values.get('title'),
       content: values.get('content'),
    })
+   const fileItem = values.get('file') as File
+   const thumbNailItem = values.get('thumbnail') as File
    let rawName = ''
    let fileName = ''
    let shortFileName = ''
@@ -65,7 +67,7 @@ export async function createDownload(prevState: any, values: FormData) {
          text: errorMessage.length !== 0 ? errorMessage : 'Ошибка валидации'
       }}
    }
-
+   
    // Путь для папки файлов
    const relativeUploadDir = `/files`;
    const uploadDir = join(process.cwd(), "public/", relativeUploadDir);
@@ -74,26 +76,20 @@ export async function createDownload(prevState: any, values: FormData) {
    const uploadDirThumb = join(process.cwd(), "public/", relativeUploadDirThumb);
 
    try {
-      // Получаем файл в массив
-      for (const pair of values.entries()) {
-         if (pair[0] === 'file' && pair[1].size) {
-            fileArr.push(pair[1])
-            // Исходное наименование файла
-            rawName = pair[1].name
-            // Расширение файла
-            extension = rawName.slice(pair[1].name.indexOf('.')).toLowerCase()
-            // Короткое наименование файла без расширения
-            shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
-            // Итоговое сгенерированное название файла
-            fileName = `${shortFileName}_${uuidv4()}${extension}`
-         }
-       }
-      // Получаем картинку в массив
-      for (const pair of values.entries()) {      
-         if (pair[0] === 'thumbnail' && pair[1].size) {
-            fileArrThumb.push(pair[1])
-         }
-       }
+      if (fileItem.size) {
+         fileArr.push(fileItem)
+         // Исходное наименование файла
+         rawName = fileItem.name
+         // Расширение файла
+         extension = rawName.slice(fileItem.name.indexOf('.')).toLowerCase()
+         // Короткое наименование файла без расширения
+         shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
+         // Итоговое сгенерированное название файла
+         fileName = `${shortFileName}_${uuidv4()}${extension}`
+      }   
+      if (thumbNailItem.size) {
+         fileArrThumb.push(thumbNailItem)
+      }
 
       // Создаем папку для файлов
       try {
@@ -164,15 +160,9 @@ export async function createDownload(prevState: any, values: FormData) {
          text: 'Данные успешно загружены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: `${e}` || 'Что-то пошло не так'
       }}
    }
 }
@@ -232,7 +222,9 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
       title: values.get('title'),
       content: values.get('content')
    })
-   
+
+   const fileItem = values.get('file') as File
+   const thumbNailItem = values.get('thumbnail') as File
    let rawName = ''
    let fileName = ''
    let shortFileName = ''
@@ -264,24 +256,20 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
 
    try {
       // Получаем массив файлов
-      for (const pair of values.entries()) {
-         if (pair[0] === 'file' && pair[1].size) {
-            fileArr.push(pair[1])
-         // Исходное наименование файла
-         rawName = pair[1].name
-         // Расширение файла
-         extension = rawName.slice(pair[1].name.indexOf('.')).toLowerCase()
-         // Короткое наименование файла без расширения
-         shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
-         // Итоговое сгенерированное название файла
-         fileName = `${shortFileName}_${uuidv4()}${extension}`
-         }
-       }
-       for (const pair of values.entries()) {        
-         if (pair[0] === 'thumbnail' && pair[1].size) {
-            fileArrThumb.push(pair[1])
-         }
-       }
+      if (fileItem.size) {
+         fileArr.push(fileItem)
+      // Исходное наименование файла
+      rawName = fileItem.name
+      // Расширение файла
+      extension = rawName.slice(fileItem.name.indexOf('.')).toLowerCase()
+      // Короткое наименование файла без расширения
+      shortFileName = rawName.split('.').slice(0, -1).join('.').toLowerCase()
+      // Итоговое сгенерированное название файла
+      fileName = `${shortFileName}_${uuidv4()}${extension}`
+      }
+      if (thumbNailItem.size) {
+         fileArrThumb.push(thumbNailItem)
+      }
 
       // Удаляем старый файл, если есть новый
       if (fileArr.length !== 0) {
@@ -344,7 +332,7 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
      // Оставляем только не пустые данные в объекте
       let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
       if (arrNamesThumb.length > 0) {
-         finallyData.thumbnail = arrNamesThumb
+         finallyData.thumbnail = arrNamesThumb[0]
         }
       if (fileArr.length > 0) {
          finallyData.name = fileName,
@@ -356,11 +344,6 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
          where: { id: updateId },
          data: {
             ... finallyData,
-            // title: result.data.title as string,
-            // content: result.data.content as string,
-            // name: fileName as string,
-            // path: `/api/download/${shortFileName}`,
-            // thumbnail: arrNamesThumb,
          }
       })
 
@@ -369,15 +352,9 @@ export  const updateDownload  = async ( updateId: number, prevState: any, values
          text: 'Данные успешно обновлены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-         }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: e || 'Что-то пошло не так'
       }}
    }
 }

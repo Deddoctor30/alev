@@ -12,7 +12,7 @@ const increace = 10;
 const NewsList = () => {
    const { ref, inView } = useInView()
    const [take, setTake] = useState(increace)
-   const [news, setNews] = useState<News[] | null>(null)
+   const [news, setNews] = useState<News[] | null | undefined>(null)
 
    useEffect(() => {
       const fetchData = async () => {

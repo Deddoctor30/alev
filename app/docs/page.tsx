@@ -11,7 +11,7 @@ import styles from './page.module.scss'
 const Page = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [downloadStatus, setDownloadStatus] = useState<downloadFiles>({ message: 'Ожидание загрузки', status: '' });
-  const [data, setData] = useState<Docs[] | null>(null)
+  const [data, setData] = useState<Docs[] | null | undefined>(null)
   // const docs = await prisma.docs.findMany()
   useEffect(() => {
     const fetchData = async () => {

@@ -66,21 +66,23 @@ import styles from './form.module.scss'
       formRef.current?.reset()
       messageApi.open({
          type: 'success',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
          
    function error() {
       messageApi.open({
          type: 'error',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };   
    
    const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      for (let i = 0; i < e.target.files?.length; i++) {
-         previewUrl.push(URL.createObjectURL(e.target.files[i]))
-         setUrlImg(previewUrl)
+      if (e.target.files) {
+         for (let i = 0; i < e.target.files?.length; i++) {
+            previewUrl.push(URL.createObjectURL(e.target.files[i]))
+            setUrlImg(previewUrl)
+         }
       }
    }
 

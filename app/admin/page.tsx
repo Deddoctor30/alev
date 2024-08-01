@@ -28,23 +28,16 @@ const page = () => {
       token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     const [updateId, setUpdateId] = useState<number | null>(null)
-    
+      
 
   return (
     <Suspense fallback={<Loading/>}>
       <div className={styles.admin}>
         <div className={styles.wrapper}>
-        
+       
         {/* Левый бар */}
         <Layout>
-          <Sider style={{ borderRadius: 10 }} breakpoint="xxl" collapsedWidth="0" 
-          //    onBreakpoint={(broken) => {
-          //     console.log(broken);
-          //   }}
-          //   onCollapse={(collapsed, type) => {
-          //     console.log(collapsed, type);
-          //   }}
-          >
+          <Sider style={{ borderRadius: 10 }} breakpoint="xxl" collapsedWidth="0">
           <div className={styles.logo}>Панель Администратора</div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['Пользователи']} items={items} onClick={(info) => setActiveSlide(info?.key)}/>
           </Sider>

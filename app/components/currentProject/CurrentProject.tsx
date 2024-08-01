@@ -1,5 +1,3 @@
-import Image from "next/image";
-import prisma from "@/lib/db";
 import { Table } from "antd";
 
 import ImgCarouser from "@/app/components/imgCarouser/ImgCarouser";
@@ -10,14 +8,6 @@ import { getUniquePostsInclTep } from "@/app/actions/postActions";
 
 const CurrentProject = async ({ id }: { id: string }) => {
    const posts = await getUniquePostsInclTep(id)
-   // const posts = await prisma.post.findUnique({
-   //    where: {
-   //       id: Number(id),
-   //    },
-   //    include: {
-   //       tep: true
-   //    }
-   // });
    const tep = posts?.tep.at(0)
    const dataSource = [
       {
@@ -99,7 +89,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
             </div>
             <div className={styles.galery}>
                {posts?.gallery && posts?.gallery.length > 0 &&
-                  // <ImgCarouser data={posts} width={760} height={600} count={2} />
                   <ImgCarouser data={posts} count={2} />
                }
             </div>
@@ -110,7 +99,6 @@ const CurrentProject = async ({ id }: { id: string }) => {
             </div>
             <div className={styles.bottomGalery}>
                {posts?.gallery && posts?.gallery.length > 0 &&
-                  // <ImgCarouser data={posts} width={500} height={300} starts={2} />
                   <ImgCarouser data={posts} starts={2} />
                }
             </div>

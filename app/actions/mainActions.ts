@@ -43,6 +43,7 @@ export async function createMain(prevState: any, values: FormData) {
       title: values.get('title'),
       content: values.get('content')
    })
+   const galleryItem = values.get('gallery') as File
    let fileArr: any[] = []
    let arrNames: string[] = []
 
@@ -60,11 +61,9 @@ export async function createMain(prevState: any, values: FormData) {
 
    try {
       // Получаем картинки в массив
-      for (const pair of values.entries()) {        
-         if (pair[0] === 'gallery' && pair[1].size) {
-            fileArr.push(pair[1])
-         }
-       }
+      if (galleryItem.size) {
+         fileArr.push(galleryItem)
+      }
 
       // Путь для папки
       const relativeUploadDir = `/images`;
@@ -110,15 +109,9 @@ export async function createMain(prevState: any, values: FormData) {
          text: 'Данные успешно загружены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: `${e}` || 'Что-то пошло не так'
       }}
    }
 }
@@ -156,7 +149,7 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
       title: values.get('title'),
       content: values.get('content')
    })
-   
+   const galleryItem = values.get('gallery') as File
    let fileArr: any[] = []
    let arrNames: string[] = []
 
@@ -178,12 +171,9 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
 
    try {
       // Получаем массив картинок
-      for (const pair of values.entries()) {
-         if (pair[0] === 'gallery' && pair[1].size) {
-            fileArr.push(pair[1])
-         }
-       }
-
+      if (galleryItem.size) {
+         fileArr.push(galleryItem)
+      }
       // Удаляем старую картинку, если есть новая
       if (fileArr.length !== 0) {
          const data = await getUniqueMain(updateId)
@@ -214,7 +204,7 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
 
       let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
       if (arrNames.length > 0) {
-         finallyData.gallery = arrNames
+         finallyData.gallery = arrNames[0]
       }
       // Загружаем данные в БД
       await prisma.main.update({
@@ -229,15 +219,9 @@ export  const updateMain  = async ( updateId: number, prevState: any, values: Fo
          text: 'Данные успешно обновлены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: e || 'Что-то пошло не так'
       }}
    }
 }

@@ -1,9 +1,8 @@
 'use client'
-import { useWindowDimensions } from '@/app/utils/useWindowsDimensions';
 import { Post } from '@/types/post';
 import { Image as ImageAntd } from 'antd';
-import { useEffect, useState } from 'react';
-const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width?: number, height?: number, count?: number, starts?: number }) => {
+import { useState } from 'react';
+const ImgCarouser = ({ data, count, starts }: { data: Post, count?: number, starts?: number}) => {
    // Т.к. на сервере идет статика через /... проверяю на режим разработки чтобы работало и в dev режиме и в prod
    const env = process.env.NODE_ENV
    const [err, setErr] = useState(false)
@@ -16,7 +15,6 @@ const ImgCarouser = ({ data, width, height, count, starts }: { data: Post, width
       source = data.gallery
    }
   
-
    return (
       <>
          {env === 'development' ?

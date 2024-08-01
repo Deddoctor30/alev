@@ -3,7 +3,7 @@ export type Docs = {
    createdAt: Date;
    updatedAt: Date;
    title: string;
-   content: string;
+   content?: string | null;
    name: string;
    path: string;
    thumbnail: string[]

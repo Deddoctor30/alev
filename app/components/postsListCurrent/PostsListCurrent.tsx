@@ -1,11 +1,10 @@
 'use client'
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./postListCurrent.module.scss";
 import { getPostsCurrent } from "@/app/actions/postActions";
 import { useEffect, useState } from "react";
 import { useInView } from 'react-intersection-observer'
-import { Post } from "@prisma/client";
+import { Post } from "@/types/post";
 import ImageComponent from "../imageComponent/ImageComponent";
 type Type = "HOUSE" | "MARKET" | "OFFICE" | "PUBLIC";
 
@@ -14,7 +13,7 @@ const increace = 10;
 const PostsListCurrent = ({ type }: { type: Type }) => {
   const { ref, inView } = useInView()
   const [take, setTake] = useState(increace)
-  const [projects, setProjects] = useState<Post[] | null>(null)
+  const [projects, setProjects] = useState<Post[] | null | undefined>(null)
 
   useEffect(() => {
      const fetchData = async () => {

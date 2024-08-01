@@ -50,7 +50,7 @@ const AdminList   = ({ method, isModalOpen, methodDelete, openModal, setUpdateId
                         // <List.Item>{item}</List.Item>
                         <List.Item>
                         <List.Item.Meta
-                          title={adminFormatter(Object.keys(item).at(index))}
+                          title={adminFormatter(Object.keys(item)[index])}
                         />
                         {element}
                       </List.Item>

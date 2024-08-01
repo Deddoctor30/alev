@@ -13,10 +13,6 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; // Перенаправление на страницу Логина
       } 
-      // if (isOnLogin) {
-      //   if (isLoggedIn) return Response.redirect(new URL('/admin', nextUrl));
-      //   return false; // Перенаправление на страницу Логина
-      // }
       return true;
     },
   },

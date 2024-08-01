@@ -9,7 +9,7 @@ import bcrypt from "bcrypt";
 
 export async function authenticate(
    prevState: any,
-   formData: Admin,
+   formData: FormData,
  ) {
    try {
      await signIn('credentials', formData);
@@ -105,15 +105,9 @@ export async function createAdmin(values: Admin) {
          text: 'Данные успешно загружены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: e || 'Что-то пошло не так'
       }}
    }
 }
@@ -162,15 +156,9 @@ export  const updateAdmin  = async ( updateId: number, values: Admin)  => {
          text: 'Данные успешно обновлены'
       }}
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-         }
       return {message: {
          status: 'error',
-         text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
+         text: e || 'Что-то пошло не так'
       }}
    }
 }

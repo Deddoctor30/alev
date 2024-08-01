@@ -12,7 +12,7 @@ const increace = 10;
 const ProjectList = () => {
    const { ref, inView } = useInView()
    const [take, setTake] = useState(increace)
-   const [projects, setProjects] = useState<Post[] | null>(null)
+   const [projects, setProjects] = useState<Post[] | null | undefined>(null)
 
    useEffect(() => {
       const fetchData = async () => {

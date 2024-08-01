@@ -53,6 +53,7 @@ export async function createUser(prevState: any, values: FormData) {
     tel: values.get('tel'),
     position: values.get('position')
   })
+  const avatarItem = values.get('avatar') as File
   let fileArr: any[] = []
   let arrNames: string[] = []
 
@@ -70,10 +71,8 @@ export async function createUser(prevState: any, values: FormData) {
 
   try {
      // Получаем картинки в массив
-     for (const pair of values.entries()) {    
-        if (pair[0] === 'avatar' && pair[1].size) {
-           fileArr.push(pair[1])
-        }
+      if (avatarItem.size) {
+         fileArr.push(avatarItem)
       }
 
      // Путь для папки
@@ -120,16 +119,10 @@ export async function createUser(prevState: any, values: FormData) {
         text: 'Данные успешно загружены'
      }}
   } catch (e) {
-     let errorMessage = '';
-     if (!result.success) {
-        result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-           errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-        });
-     }
-     return {message: {
-        status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
-     }}
+   return {message: {
+      status: 'error',
+      text: `${e}` || 'Что-то пошло не так'
+   }}
   }
 }
 
@@ -168,7 +161,7 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
     tel: values.get('tel'),
     position: values.get('position')
   })
-  
+  const avatarItem = values.get('avatar') as File
   let fileArr: any[] = []
   let arrNames: string[] = []
 
@@ -187,10 +180,8 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
   
   try {
      // Получаем массив картинок
-     for (const pair of values.entries()) {
-        if (pair[0] === 'avatar' && pair[1].size) {
-           fileArr.push(pair[1])
-        }
+      if (avatarItem.size) {
+         fileArr.push(avatarItem)
       }
       
       // Путь для папки
@@ -227,7 +218,7 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
      // Оставляем только не пустые данные в объекте
      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
      if (arrNames.length > 0) {
-      finallyData.avatar = arrNames
+      finallyData.avatar = arrNames[0]
      }
 
      // Загружаем данные в БД
@@ -243,15 +234,9 @@ export  const updateUser  = async ( updateId: number, prevState: any, values: Fo
         text: 'Данные успешно обновлены'
      }}
   } catch (e) {
-     let errorMessage = '';
-     if (!result.success) {
-        result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-           errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-        });
-        }
-     return {message: {
-        status: 'error',
-        text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
-     }}
+   return {message: {
+      status: 'error',
+      text: e || 'Что-то пошло не так'
+   }}
   }
 }

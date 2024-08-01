@@ -71,23 +71,25 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
       formRef.current?.reset()
       messageApi.open({
          type: 'success',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
 
    function error() {
       messageApi.open({
          type: 'error',
-         content: state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text
+         content: `${state.message.text.length !== 0 ? state.message.text : stateUpdate.message.text}`
       });
    };
 
    const imgChangeHandlerThumb = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) return
       previewUrlThumb = URL.createObjectURL(e.target.files[0])
       setUrlImgThumb(previewUrlThumb)
    }
 
    const imgChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!e.target.files) return
       for (let i = 0; i < e.target.files?.length; i++) {
          previewUrl.push(URL.createObjectURL(e.target.files[i]))
          setUrlImg(previewUrl)
@@ -123,8 +125,7 @@ const PostsFormAdmin = ({ updateId, setRefresh }: { updateId: number, setRefresh
                </div>
                <div className={styles.form__inner}>
                   <div className={styles.form__item}>
-                     <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{ position: 'absolute', top: '430px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottomLeft' title="Второе описание находится под первыми изображениями галереи">
-                        {/* <span className={styles.form__subtext}>Пример названия файла: «brandbook.pdf»</span> */}
+                     <Tooltip getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement} overlayInnerStyle={{ fontSize: '0.8rem' }} overlayStyle={{ position: 'absolute', top: '430px', left: '34px', paddingBottom: '100px', marginBottom: '-100px' }} zIndex={5000} placement='bottomLeft' title="Второе описание находится под первыми изображениями галереи">
                         <label htmlFor="secondContent" className={styles.form__label}>Второе описание:</label>
                      </Tooltip>
                      <textarea rows={6} name='secondContent' className={styles.form__textarea} />

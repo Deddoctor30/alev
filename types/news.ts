@@ -4,5 +4,5 @@ export type News = {
    updatedAt: Date
    title: string
    content: string
-   thumbnail: string
+   gallery: string[]
 }

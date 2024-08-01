@@ -10,7 +10,10 @@ type Params = {
 export async function GET(request: NextRequest, content: { params: Params }) {
    const id = content.params.id
    const data  = await getUnique(Number(id))
-   const fileName = data?.name ? data.name : ''
+
+   if (!data) throw new Error ('Нет данных')
+
+   const fileName = data.name ? data.name : ''
    const filePath = join(process.cwd(), 'public/files', fileName)
    const buffer = fs.readFileSync(filePath)
 
@@ -27,7 +30,7 @@ export async function GET(request: NextRequest, content: { params: Params }) {
    };
 
    // Определяем content type
-   const contentType = contentTypeMap[fileExtension] || "application/octet-stream";
+   const contentType: string = contentTypeMap[fileExtension as keyof typeof contentTypeMap] || "application/octet-stream";
 
    return new Response(buffer, { status: 200, headers: new Headers({
     'content-disposition': `attachment; filename=${fileName}`,

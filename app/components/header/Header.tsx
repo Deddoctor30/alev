@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from "../Link"
 import { metaData } from "@/data/metaData";
 import styles from "./header.module.scss"
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const Header = () => {
   const [burgerActive, setBurgerActive] = useState(false)

@@ -61,6 +61,9 @@ export const getPostsCurrent = async (type: Type, take: number) => {
           },
          orderBy: {
             createdAt: "desc"
+         },
+         include: {
+            tep: true
          }
       });
    } catch (e) {
@@ -69,10 +72,12 @@ export const getPostsCurrent = async (type: Type, take: number) => {
 }
 
 // Для update
-export const getUniquePosts = async (id: number) => {
+export const getUniquePosts = async (id: number | string) => {
    try {
       return await prisma.post.findUnique({
-         where: { id }
+         where: { 
+            id: Number(id)
+         }
       });
    } catch (e) {
       console.error('Ошибка чтения БД', e);
@@ -124,6 +129,8 @@ export async function createPosts(prevState: any, values: FormData) {
       type: values.get('type'),
       isOnMain: values.get('isOnMain')
    })
+   const galleryItem = values.get('gallery') as File
+   const thumbNailItem = values.get('thumbnail') as File
    let fileArrThumb: any[] = []
    let fileArrGallery: any[] = []
    let arrNamesThumb: string[] = []
@@ -145,16 +152,11 @@ export async function createPosts(prevState: any, values: FormData) {
 
    try {
       // Получаем картинки в массив
-      for (const pair of values.entries()) {
-         if (pair[0] === 'thumbnail' && pair[1].size) {
-            fileArrThumb.push(pair[1])
-         }
+      if (thumbNailItem.size) {
+         fileArrThumb.push(thumbNailItem)
       }
-
-      for (const pair of values.entries()) {
-         if (pair[0] === 'gallery' && pair[1].size) {
-            fileArrGallery.push(pair[1])
-         }
+      if (galleryItem.size) {
+         fileArrGallery.push(galleryItem)
       }
 
       // Путь для папки
@@ -207,7 +209,7 @@ export async function createPosts(prevState: any, values: FormData) {
             title: result.data?.title,
             content: result.data?.content,
             secondContent: result.data?.secondContent,
-            type: result.data?.type,
+            type: result.data?.type as Type,
             thumbnail: arrNamesThumb,
             gallery: arrNamesGallery,
             isOnMain: result.data.isOnMain
@@ -238,18 +240,10 @@ export async function createPosts(prevState: any, values: FormData) {
          }
       }
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach((issue: { path: string[]; message: string; }) => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
-      return {
-         message: {
-            status: 'error',
-            text: errorMessage.length !== 0 ? errorMessage : console.log('Что-то пошло не так', e)
-         }
-      }
+      return {message: {
+         status: 'error',
+         text: `${e}` || 'Что-то пошло не так'
+      }}
    }
 }
 
@@ -313,7 +307,8 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
       apartmentsCount: values.get('apartmentsCount'),
       mopCount: values.get('mopCount'),
    }
-
+   const galleryItem = values.get('gallery') as File
+   const thumbNailItem = values.get('thumbnail') as File
    let fileArrThumb: any[] = []
    let fileArrGallery: any[] = []
    let arrNamesThumb: string[] = []
@@ -339,17 +334,12 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
 
    try {
       // Получаем массив картинок
-      for (const pair of values.entries()) {
-         if (pair[0] === 'thumbnail' && pair[1].size) {
-            fileArrThumb.push(pair[1])
-         }
+      if (thumbNailItem.size) {
+         fileArrThumb.push(thumbNailItem)
       }
-      for (const pair of values.entries()) {
-         if (pair[0] === 'gallery' && pair[1].size) {
-            fileArrGallery.push(pair[1])
-         }
+      if (galleryItem.size) {
+         fileArrGallery.push(galleryItem)
       }
-
       // Удаляем старую картинку, если есть новая
       if (fileArrThumb.length !== 0) {
          const data = await getUniquePosts(updateId)
@@ -401,9 +391,9 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
       }
 
       // Оставляем только не пустые данные в объекте
-      let finallyData = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => value.length > 0))
+      let finallyData : {[k: string]: string | string[] | boolean;} = Object.fromEntries(Object.entries(result.data).filter(([key, value]) => !!value))
       if (arrNamesThumb.length > 0) {
-         finallyData.thumbnail = arrNamesThumb
+         finallyData.thumbnail = arrNamesThumb[0]
       }
       if (arrNamesGallery.length > 0) {
          finallyData.gallery = arrNamesGallery
@@ -416,7 +406,7 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
          }
       })
 
-      let finallyTepData = Object.fromEntries(Object.entries(rawTep).filter(([key, value]) => value.length > 0))
+      let finallyTepData = Object.fromEntries(Object.entries(rawTep).filter(([key, value]) => !!value))
       // Загружаем данные в БД
       await prisma.tep.upsert({
          where: { postId: updateId },
@@ -424,14 +414,14 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
             ...finallyTepData,
          },
          create: {
-            landArea: values.get('landArea'),
-            buildArea: values.get('buildArea'),
-            floorsAbove: values.get('floorsAbove'),
-            floorsBelow: values.get('floorsBelow'),
-            liveArea: values.get('liveArea'),
-            commerceArea: values.get('commerceArea'),
-            apartmentsCount: values.get('apartmentsCount'),
-            mopCount: values.get('mopCount'),
+            landArea: values.get('landArea') as string,
+            buildArea: values.get('buildArea') as string,
+            floorsAbove: values.get('floorsAbove') as string,
+            floorsBelow: values.get('floorsBelow') as string,
+            liveArea: values.get('liveArea') as string,
+            commerceArea: values.get('commerceArea') as string,
+            apartmentsCount: values.get('apartmentsCount') as string,
+            mopCount: values.get('mopCount') as string,
             postId: updateId
          }
       })
@@ -443,17 +433,9 @@ export const updatePosts = async (updateId: number, prevState: any, values: Form
          }
       }
    } catch (e) {
-      let errorMessage = '';
-      if (!result.success) {
-         result.error.issues.forEach(issue => {
-            errorMessage = errorMessage + issue.path[0] + ': ' + issue.message + '. ';
-         });
-      }
-      return {
-         message: {
-            status: 'error',
-            text: errorMessage.length !== 0 ? errorMessage : 'Что-то пошло не так'
-         }
-      }
+      return {message: {
+         status: 'error',
+         text: e || 'Что-то пошло не так'
+      }}
    }
 }

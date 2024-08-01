@@ -5,8 +5,8 @@ type User = {
    id: number,
    createdAt: Date
    name: string
-   email?: string
-   tel?: string 
+   email?: string | null
+   tel?: string | null
    role: keyof typeof Role
    position: string
    posts: Post[]
