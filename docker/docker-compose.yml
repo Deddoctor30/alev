@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  next-app:
+    container_name: front
+    build:
+      context: ../front
+      dockerfile: ../dev/Dockerfile.front
+    env_file:
+      - ../front/.env
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres?schema=public"
+    volumes:
+      - ../front:/app/
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - my_network
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - my_network
+volumes:
+  pgdata: {}
+
+networks:
+  my_network:
+    external: true
