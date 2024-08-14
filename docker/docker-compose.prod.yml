@@ -1,14 +1,12 @@
-version: '3.9'
-
 services:
   next-app:
     container_name: front
     build:
       context: ../front
-      dockerfile: ../dev/Dockerfile.front
+      dockerfile: ../dev/Dockerfile.prod
     env_file:
       - ../front/.env
-    environment:
+    args:
       DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres?schema=public"
     volumes:
       - ../front:/app/
@@ -21,7 +19,7 @@ services:
       - db
   db:
     container_name: db
-    image: postgres:latest
+    image: postgres:16
     ports:
       - "5432:5432"
     environment:
