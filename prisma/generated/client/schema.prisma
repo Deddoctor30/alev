@@ -1,10 +1,10 @@
 generator client {
   // Ниже для компиляции под систему Ubuntu
   //====================================================
-  // binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
   //====================================================
-  provider = "prisma-client-js"
-  output   = "./generated/client"
+  provider      = "prisma-client-js"
+  output        = "./generated/client"
 }
 
 // Локальная БД

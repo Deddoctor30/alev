@@ -231,7 +231,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/workspaces/alev/prisma/generated/client",
+      "value": "D:\\Code\\alev\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -240,8 +240,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-1.1.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -258,7 +262,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -267,8 +270,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  // Ниже для компиляции под систему Ubuntu\n  //====================================================\n  // binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n  //====================================================\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\n// Локальная БД\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Main {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String?  @db.VarChar(255)\n  content   String?\n  gallery   String[]\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  name      String\n  email     String?  @unique\n  tel       String?  @unique\n  position  String?\n  role      Role     @default(USER)\n  posts     Post[]\n  avatar    String[]\n}\n\nmodel Post {\n  id            Int      @id @default(autoincrement())\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n  title         String   @db.VarChar(255)\n  content       String?\n  tep           Tep[]\n  secondContent String?\n  thumbnail     String[]\n  gallery       String[]\n  author        User?    @relation(fields: [authorId], references: [id])\n  type          Type\n  authorId      Int?\n  isOnMain      Boolean  @default(false)\n}\n\nmodel Tep {\n  id              Int      @id @default(autoincrement())\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n  landArea        String   @default(\"null\")\n  buildArea       String   @default(\"null\")\n  floorsAbove     String   @default(\"null\")\n  floorsBelow     String   @default(\"null\")\n  liveArea        String   @default(\"null\")\n  commerceArea    String   @default(\"null\")\n  apartmentsCount String   @default(\"null\")\n  mopCount        String   @default(\"null\")\n  Post            Post?    @relation(fields: [postId], references: [id])\n  postId          Int?     @unique\n}\n\nmodel News {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String\n  gallery   String[]\n}\n\nmodel Download {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String?\n  name      String\n  path      String\n  thumbnail String[]\n}\n\nmodel Contacts {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  point     String\n  email     String   @db.VarChar(255)\n  phone     String?  @db.VarChar(255)\n}\n\nmodel About {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  address   String?  @db.VarChar(255)\n  phone     String?  @db.VarChar(255)\n  email     String?  @db.VarChar(255)\n  yandex    String?\n}\n\nmodel Admin {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  email     String   @unique @db.VarChar(255)\n  password  String   @db.VarChar(255)\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum Type {\n  HOUSE\n  OFFICE\n  MARKET\n  PUBLIC\n}\n",
-  "inlineSchemaHash": "6f5bd1e99c085647aebc652ec0b73889d4b136bb7b07e6a0fe6125cf9193f8b1",
+  "inlineSchema": "generator client {\n  // Ниже для компиляции под систему Ubuntu\n  //====================================================\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n  //====================================================\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/client\"\n}\n\n// Локальная БД\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Main {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String?  @db.VarChar(255)\n  content   String?\n  gallery   String[]\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  name      String\n  email     String?  @unique\n  tel       String?  @unique\n  position  String?\n  role      Role     @default(USER)\n  posts     Post[]\n  avatar    String[]\n}\n\nmodel Post {\n  id            Int      @id @default(autoincrement())\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n  title         String   @db.VarChar(255)\n  content       String?\n  tep           Tep[]\n  secondContent String?\n  thumbnail     String[]\n  gallery       String[]\n  author        User?    @relation(fields: [authorId], references: [id])\n  type          Type\n  authorId      Int?\n  isOnMain      Boolean  @default(false)\n}\n\nmodel Tep {\n  id              Int      @id @default(autoincrement())\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n  landArea        String   @default(\"null\")\n  buildArea       String   @default(\"null\")\n  floorsAbove     String   @default(\"null\")\n  floorsBelow     String   @default(\"null\")\n  liveArea        String   @default(\"null\")\n  commerceArea    String   @default(\"null\")\n  apartmentsCount String   @default(\"null\")\n  mopCount        String   @default(\"null\")\n  Post            Post?    @relation(fields: [postId], references: [id])\n  postId          Int?     @unique\n}\n\nmodel News {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String\n  gallery   String[]\n}\n\nmodel Download {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  title     String   @db.VarChar(255)\n  content   String?\n  name      String\n  path      String\n  thumbnail String[]\n}\n\nmodel Contacts {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  point     String\n  email     String   @db.VarChar(255)\n  phone     String?  @db.VarChar(255)\n}\n\nmodel About {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  address   String?  @db.VarChar(255)\n  phone     String?  @db.VarChar(255)\n  email     String?  @db.VarChar(255)\n  yandex    String?\n}\n\nmodel Admin {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  email     String   @unique @db.VarChar(255)\n  password  String   @db.VarChar(255)\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum Type {\n  HOUSE\n  OFFICE\n  MARKET\n  PUBLIC\n}\n",
+  "inlineSchemaHash": "a56bdbe7d196f4ad3c7acc5461ed5c3bd777f4e181f13403e3a44b995c9712c8",
   "copyEngine": true
 }
 config.dirname = '/'

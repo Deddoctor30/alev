@@ -17,13 +17,8 @@
 /build
 
 # public
-/public/images/main
-/public/images/news
-/public/images/posts
-/public/images/user
-/public/images/files
-/public/images
-/public/files
+/public/images/
+/public/files/
 
 # misc
 .DS_Store
